@@ -440,6 +440,7 @@
       "single_global_label": "ignore",
       "unannotated": "error",
       "unconnected_wire_endpoint": "warning",
+      "undefined_netclass": "error",
       "unit_value_mismatch": "error",
       "unresolved_variable": "error",
       "wire_dangling": "error"
@@ -612,6 +613,10 @@
     [
       "2dd686ed-aa28-474a-bf3c-628eebb4b373",
       "Root"
+    ],
+    [
+      "184dca2b-42ac-4e46-adfc-bed153c16dd9",
+      "3v3_Regulator"
     ]
   ],
   "text_variables": {}
