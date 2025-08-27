@@ -2,149 +2,9 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid "cf1012ed-8e7d-46f4-8a68-ceb837b91e38")
+	(uuid "caa25aca-b236-4e4a-9658-62b0fa7cd7b7")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Device:C_Small"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "C"
-				(at 0.254 1.778 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "C_Small"
-				(at 0.254 -2.032 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Unpolarized capacitor, small symbol"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "capacitor cap"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "C_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "C_Small_0_1"
-				(polyline
-					(pts
-						(xy -1.524 0.508) (xy 1.524 0.508)
-					)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.524 -0.508) (xy 1.524 -0.508)
-					)
-					(stroke
-						(width 0.3302)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "C_Small_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 2.032)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 2.032)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Device:R_Small_US"
 			(pin_numbers
 				(hide yes)
@@ -878,18 +738,6 @@
 		(uuid "3baab2b7-94e1-4f76-857b-fa2639b718d0")
 	)
 	(junction
-		(at 180.34 115.57)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7aa52a61-b1e5-4a20-b430-7c0792d4f0c9")
-	)
-	(junction
-		(at 189.23 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7ab83f0e-076c-4c89-bde4-c1b0e534316f")
-	)
-	(junction
 		(at 162.56 111.76)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -906,12 +754,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bd466184-8d93-4cec-a957-573b7bf604a6")
-	)
-	(junction
-		(at 180.34 99.06)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e71ad1ab-6088-4577-9d76-203afdf2e133")
 	)
 	(junction
 		(at 168.91 115.57)
@@ -933,7 +775,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 101.6) (xy 189.23 101.6)
+			(xy 171.45 101.6) (xy 191.77 101.6)
 		)
 		(stroke
 			(width 0)
@@ -960,16 +802,6 @@
 			(type default)
 		)
 		(uuid "0818e4dd-f987-4bbb-9b20-72ec5312ca98")
-	)
-	(wire
-		(pts
-			(xy 180.34 115.57) (xy 189.23 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0da077a3-6174-4f0c-80aa-07c12a87246d")
 	)
 	(wire
 		(pts
@@ -1000,16 +832,6 @@
 			(type default)
 		)
 		(uuid "3249e44f-ae48-4b1e-939a-6242cf0d2c0b")
-	)
-	(wire
-		(pts
-			(xy 180.34 99.06) (xy 191.77 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "46375f1d-5198-42ee-ab4f-7c3ae352d4d5")
 	)
 	(wire
 		(pts
@@ -1083,7 +905,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 99.06) (xy 180.34 99.06)
+			(xy 168.91 99.06) (xy 191.77 99.06)
 		)
 		(stroke
 			(width 0)
@@ -1133,16 +955,6 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 115.57) (xy 189.23 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ad610ac6-0500-4043-be74-cc718cab9995")
-	)
-	(wire
-		(pts
 			(xy 158.75 99.06) (xy 168.91 99.06)
 		)
 		(stroke
@@ -1153,7 +965,7 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 115.57) (xy 180.34 115.57)
+			(xy 173.99 115.57) (xy 189.23 115.57)
 		)
 		(stroke
 			(width 0)
@@ -1173,16 +985,6 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 101.6) (xy 189.23 105.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c93ad994-0bbf-48b1-a20c-35c4ee58b43c")
-	)
-	(wire
-		(pts
 			(xy 116.84 104.14) (xy 123.19 104.14)
 		)
 		(stroke
@@ -1190,16 +992,6 @@
 			(type default)
 		)
 		(uuid "c9948b64-2134-492b-bc0e-b0ad48e83b64")
-	)
-	(wire
-		(pts
-			(xy 189.23 101.6) (xy 191.77 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cf18c167-7125-482d-8bcd-d28b60aa1649")
 	)
 	(wire
 		(pts
@@ -1263,26 +1055,6 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 110.49) (xy 180.34 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fa9c77fb-c321-402c-8cd5-24bc5684f8fc")
-	)
-	(wire
-		(pts
-			(xy 180.34 99.06) (xy 180.34 105.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fae50f06-fa28-4d9c-8500-70efb910dc5a")
-	)
-	(wire
-		(pts
 			(xy 162.56 111.76) (xy 162.56 115.57)
 		)
 		(stroke
@@ -1312,76 +1084,6 @@
 			(justify left)
 		)
 		(uuid "9d535e61-e50a-41f2-b489-be9a6dbe4cf0")
-	)
-	(symbol
-		(lib_id "Device:C_Small")
-		(at 180.34 107.95 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "038a1a8b-5d90-40d4-b173-4c48dceb0194")
-		(property "Reference" "C5"
-			(at 182.88 106.6862 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22p"
-			(at 182.88 109.2262 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 180.34 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 180.34 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 180.34 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "786b0abe-7ef4-43dd-bd2a-654c6df82eda")
-		)
-		(pin "1"
-			(uuid "3c907eca-9f81-4ad2-be66-a49b20b60fb9")
-		)
-		(instances
-			(project ""
-				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/4c56a540-4f9c-4723-9763-cba6b0ba4e1b"
-					(reference "C5")
-					(unit 1)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_id "Device:R_Small_US")
@@ -1891,76 +1593,6 @@
 			(project ""
 				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/4c56a540-4f9c-4723-9763-cba6b0ba4e1b"
 					(reference "J1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Small")
-		(at 189.23 107.95 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f1bbb9c3-757b-4e1c-ac0f-264120fc6ee3")
-		(property "Reference" "C6"
-			(at 191.77 106.6862 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22p"
-			(at 191.77 109.2262 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 189.23 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 189.23 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 189.23 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "de88afb0-6d14-40e1-9d5e-7d03abcc89bb")
-		)
-		(pin "2"
-			(uuid "1633b510-f1f7-45ef-86f9-3201bd5db2cf")
-		)
-		(instances
-			(project ""
-				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/4c56a540-4f9c-4723-9763-cba6b0ba4e1b"
-					(reference "C6")
 					(unit 1)
 				)
 			)
