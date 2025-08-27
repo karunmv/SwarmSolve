@@ -844,6 +844,48 @@
 		)
 	)
 	(sheet
+		(at 187.96 71.12)
+		(size 22.86 11.43)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "4c56a540-4f9c-4723-9763-cba6b0ba4e1b")
+		(property "Sheetname" "USB-C"
+			(at 187.96 70.4084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "USB-C.kicad_sch"
+			(at 187.96 83.1346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Full-Board_rev1"
+				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 29.21 24.13)
 		(size 24.13 11.43)
 		(exclude_from_sim no)
