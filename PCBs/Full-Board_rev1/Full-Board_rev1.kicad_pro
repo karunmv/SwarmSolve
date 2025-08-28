@@ -625,6 +625,10 @@
     [
       "4c56a540-4f9c-4723-9763-cba6b0ba4e1b",
       "USB-C"
+    ],
+    [
+      "aaa2f8fc-778c-45ba-a467-bd9b333b5317",
+      "Status_LED"
     ]
   ],
   "text_variables": {}
