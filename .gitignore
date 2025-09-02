@@ -15,6 +15,7 @@
 !PCBs/Parts/
 !PCBs/Parts/TPS630250RNCT
 !PCBs/Parts/TYPE-C-31-M-12
+!PCBs/Parts/espressif-kicad-addon
 
 !*.txt
 !*.kicad_sym
