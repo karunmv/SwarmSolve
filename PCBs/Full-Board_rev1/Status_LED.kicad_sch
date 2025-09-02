@@ -601,7 +601,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 96.52) (xy 149.86 97.79)
+			(xy 149.86 95.25) (xy 149.86 97.79)
 		)
 		(stroke
 			(width 0)
@@ -609,15 +609,16 @@
 		)
 		(uuid "d4865fab-e35b-4893-92bd-c8e2a9a36a9b")
 	)
-	(label "3V3"
-		(at 149.86 96.52 0)
+	(hierarchical_label "3V3"
+		(shape input)
+		(at 149.86 95.25 90)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify left)
 		)
-		(uuid "c52be6c7-eed8-4942-ae75-31452eed25ce")
+		(uuid "4c601b61-80f8-435c-93e2-f28a5e903d4d")
 	)
 	(hierarchical_label "LED_GPIO"
 		(shape input)

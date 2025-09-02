@@ -14,6 +14,8 @@
 
 !PCBs/Parts/
 !PCBs/Parts/TPS630250RNCT
+!PCBs/Parts/TYPE-C-31-M-12
+
 !*.txt
 !*.kicad_sym
 !*.step
