@@ -17,6 +17,9 @@
 !PCBs/Parts/TPS630250RNCT
 !PCBs/Parts/TYPE-C-31-M-12
 !PCBs/Parts/espressif-kicad-addon
+!PCBs/Parts/10uCap
+!PCBs/Parts/RedLED
+!PCBs/Parts/TactSwitch
 
 !*.txt
 !*.kicad_sym
