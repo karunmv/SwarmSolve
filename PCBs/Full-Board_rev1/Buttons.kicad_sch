@@ -5,44 +5,42 @@
 	(uuid "6fc8f774-93dd-4a22-8b9f-c3dde0ff9023")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Device:C"
-			(pin_numbers
-				(hide yes)
-			)
+		(symbol "FG26X7R1E106KRT06:FG26X7R1E106KRT06"
 			(pin_names
-				(offset 0.254)
+				(offset 1.016)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "C"
-				(at 0.635 2.54 0)
+				(at 0 3.8109 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
+					(justify left bottom)
 				)
 			)
-			(property "Value" "C"
-				(at 0.635 -2.54 0)
+			(property "Value" "FG26X7R1E106KRT06"
+				(at 0 -5.0885 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
+					(justify left bottom)
 				)
 			)
-			(property "Footprint" ""
-				(at 0.9652 -3.81 0)
+			(property "Footprint" "FG26X7R1E106KRT06:CAPRB500W50L550T350H600"
+				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify bottom)
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "~"
+			(property "Datasheet" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -51,7 +49,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Unpolarized capacitor"
+			(property "Description" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -60,281 +58,163 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "cap capacitor"
+			(property "MF" "TDK"
 				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify bottom)
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "C_*"
+			(property "MAXIMUM_PACKAGE_HEIGHT" "0.0 mm"
 				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify bottom)
 					(hide yes)
 				)
 			)
-			(symbol "C_0_1"
-				(polyline
-					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
+			(property "Package" "Radial TDK"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
 					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Price" "None"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Check_prices" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=eda"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "STANDARD" "IPC-7351B"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "PARTREV" "20200310"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "SnapEDA_Link" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=snap"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "MP" "FG26X7R1E106KRT06"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Description_1" "10 µF ±10% 25V Ceramic Capacitor X7R Radial"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Availability" "In Stock"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "MANUFACTURER" "TDK"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(symbol "FG26X7R1E106KRT06_0_0"
+				(rectangle
+					(start 0 -1.9069)
+					(end 0.635 1.905)
 					(stroke
-						(width 0.508)
+						(width 0.1)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type outline)
 					)
 				)
-				(polyline
-					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
-					)
+				(rectangle
+					(start 1.9069 -1.9069)
+					(end 2.54 1.905)
 					(stroke
-						(width 0.508)
+						(width 0.1)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type outline)
 					)
 				)
-			)
-			(symbol "C_1_1"
 				(pin passive line
-					(at 0 3.81 270)
-					(length 2.794)
+					(at -2.54 0 0)
+					(length 2.54)
 					(name "~"
 						(effects
 							(font
-								(size 1.27 1.27)
+								(size 1.016 1.016)
 							)
 						)
 					)
 					(number "1"
 						(effects
 							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 2.794)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Switch:SW_MEC_5E"
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "SW"
-				(at 0.635 5.715 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "SW_MEC_5E"
-				(at 0 -3.175 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "http://www.apem.com/int/index.php?controller=attachment&id_attachment=1371"
-				(at 0 7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "MEC 5E single pole normally-open tactile switch"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "switch normally-open pushbutton push-button"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "SW*MEC*5G*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "SW_MEC_5E_0_1"
-				(polyline
-					(pts
-						(xy -2.54 0) (xy -2.54 2.54) (xy -2.286 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.286 3.81) (xy 2.286 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -1.778 2.54)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 3.81) (xy 0 5.588)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 1.778 2.54)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 0) (xy 2.54 2.54) (xy 2.286 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -5.08 2.54 0)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 2.54 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
+								(size 1.016 1.016)
 							)
 						)
 					)
@@ -342,17 +222,277 @@
 				(pin passive line
 					(at 5.08 0 180)
 					(length 2.54)
-					(name "K"
+					(name "~"
 						(effects
 							(font
-								(size 1.27 1.27)
+								(size 1.016 1.016)
 							)
 						)
 					)
-					(number "3"
+					(number "2"
 						(effects
 							(font
-								(size 1.27 1.27)
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "TS-1088-AR02016:TS-1088-AR02016"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "S"
+				(at -2.54 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Value" "TS-1088-AR02016"
+				(at -2.54 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Footprint" "TS-1088-AR02016:SW_TS-1088-AR02016"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MF" "Xunpu"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "MAXIMUM_PACKAGE_HEIGHT" "2.0 mm"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Package" "Package"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Price" "None"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Check_prices" "https://www.snapeda.com/parts/TS-1088-AR02016/Xunpu/view-part/?ref=eda"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "STANDARD" "Manufacturer Recommendations"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "PARTREV" "N/A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "SnapEDA_Link" "https://www.snapeda.com/parts/TS-1088-AR02016/Xunpu/view-part/?ref=snap"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "MP" "TS-1088-AR02016"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Description_1" "50mA 4mm 100MΩ 100,000 Times 12V 160gf 3mm 2mm Round Button Vertical welding SPST SMD Tactile Switches ROHS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Availability" "Not in stock"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "MANUFACTURER" "Xunpu"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(symbol "TS-1088-AR02016_0_0"
+				(polyline
+					(pts
+						(xy -2.54 0) (xy -5.08 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 0) (xy 2.794 2.1336)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 0)
+					(radius 0.3302)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.08 0) (xy 2.921 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.016 1.016)
 							)
 						)
 					)
@@ -469,16 +609,16 @@
 		(uuid "225f0e4b-6a83-4989-9c4f-205bbc3b18ec")
 	)
 	(junction
-		(at 200.66 93.98)
+		(at 99.06 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "269afaeb-4530-439d-b27b-4e530fe05cff")
+		(uuid "66693e2d-354a-41cf-966b-86e4ee6ead6c")
 	)
 	(junction
-		(at 99.06 93.98)
+		(at 200.66 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "b0679b4c-5c81-4668-9a66-96e2f563bd37")
+		(uuid "7bec232c-2824-4846-b7b8-efd42d7cf06c")
 	)
 	(junction
 		(at 55.88 102.87)
@@ -486,21 +626,15 @@
 		(color 0 0 0 0)
 		(uuid "e5768a57-ec8c-4bb0-9b3d-519283616c57")
 	)
-	(no_connect
-		(at 74.93 93.98)
-		(uuid "23687991-d1e3-4498-91e9-cf52675b477e")
-	)
-	(no_connect
-		(at 175.26 93.98)
-		(uuid "4794b295-e275-4810-89a8-7c2edb89f559")
-	)
-	(no_connect
-		(at 93.98 91.44)
-		(uuid "8e4e421a-df81-4eca-b703-461cb7d2a86e")
-	)
-	(no_connect
-		(at 194.31 91.44)
-		(uuid "d62650c1-53b1-41cd-a6f3-9f0a4c3404a5")
+	(wire
+		(pts
+			(xy 194.31 91.44) (xy 200.66 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "259dcc26-dc5e-4eba-9917-1d200c9861ea")
 	)
 	(wire
 		(pts
@@ -524,16 +658,6 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 91.44) (xy 194.31 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2e8a4f55-180c-4a36-a613-9e9a50a98327")
-	)
-	(wire
-		(pts
 			(xy 157.48 91.44) (xy 157.48 102.87)
 		)
 		(stroke
@@ -544,17 +668,17 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 93.98) (xy 80.01 93.98)
+			(xy 74.93 102.87) (xy 99.06 102.87)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "45275921-262d-440e-b357-92402a396018")
+		(uuid "461cfdb2-40e8-43e0-a4e0-46ca25a719f4")
 	)
 	(wire
 		(pts
-			(xy 129.54 92.71) (xy 129.54 87.63)
+			(xy 129.54 91.44) (xy 129.54 87.63)
 		)
 		(stroke
 			(width 0)
@@ -564,27 +688,7 @@
 	)
 	(wire
 		(pts
-			(xy 90.17 91.44) (xy 93.98 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6ac755c5-ff2d-4359-b944-6da06a5305f0")
-	)
-	(wire
-		(pts
-			(xy 90.17 93.98) (xy 99.06 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6c3cdeb0-654a-4466-b87d-b1592ef4ae07")
-	)
-	(wire
-		(pts
-			(xy 99.06 92.71) (xy 129.54 92.71)
+			(xy 99.06 91.44) (xy 129.54 91.44)
 		)
 		(stroke
 			(width 0)
@@ -594,17 +698,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 93.98) (xy 179.07 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "78c35f73-1c68-453c-a5f8-3284f5abc8d9")
-	)
-	(wire
-		(pts
-			(xy 222.25 93.98) (xy 222.25 88.9)
+			(xy 222.25 91.44) (xy 222.25 88.9)
 		)
 		(stroke
 			(width 0)
@@ -614,7 +708,17 @@
 	)
 	(wire
 		(pts
-			(xy 200.66 102.87) (xy 200.66 93.98)
+			(xy 95.25 91.44) (xy 99.06 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8d499910-0085-46ad-8ef5-68890c4cfd66")
+	)
+	(wire
+		(pts
+			(xy 200.66 102.87) (xy 200.66 91.44)
 		)
 		(stroke
 			(width 0)
@@ -634,33 +738,13 @@
 	)
 	(wire
 		(pts
-			(xy 176.53 102.87) (xy 200.66 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b6e7b87c-5565-4b51-a3f7-7b4f9457314d")
-	)
-	(wire
-		(pts
-			(xy 99.06 102.87) (xy 99.06 93.98)
+			(xy 99.06 91.44) (xy 99.06 102.87)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "bb0faff0-3c0d-4b6d-a321-319571522772")
-	)
-	(wire
-		(pts
-			(xy 189.23 93.98) (xy 200.66 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c73a0034-5c8c-45aa-8d8f-6f4d23d028ac")
 	)
 	(wire
 		(pts
@@ -674,7 +758,7 @@
 	)
 	(wire
 		(pts
-			(xy 200.66 93.98) (xy 222.25 93.98)
+			(xy 200.66 91.44) (xy 222.25 91.44)
 		)
 		(stroke
 			(width 0)
@@ -691,6 +775,16 @@
 			(type default)
 		)
 		(uuid "e9fc2d30-3931-457c-a7e0-a2ad786a7ab2")
+	)
+	(wire
+		(pts
+			(xy 176.53 102.87) (xy 200.66 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eaf82e1b-cf49-49ad-ac61-6e2b00439c60")
 	)
 	(wire
 		(pts
@@ -711,26 +805,6 @@
 			(type default)
 		)
 		(uuid "f28f1000-1923-417a-b557-184527437179")
-	)
-	(wire
-		(pts
-			(xy 74.93 102.87) (xy 99.06 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fc6aafb3-bb0f-4040-b862-475e74f1b9d5")
-	)
-	(wire
-		(pts
-			(xy 99.06 92.71) (xy 99.06 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ffddb324-43f9-443b-974e-11c484900fbc")
 	)
 	(hierarchical_label "GPIO9"
 		(shape input)
@@ -821,17 +895,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 172.72 102.87 90)
+		(lib_id "FG26X7R1E106KRT06:FG26X7R1E106KRT06")
+		(at 171.45 102.87 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "48724630-bae0-4103-86ec-edd6e0b24d00")
+		(uuid "a62dd4de-735f-47f8-91af-f60211e4021d")
 		(property "Reference" "C4"
-			(at 172.72 95.25 90)
+			(at 172.72 95.8352 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -839,15 +913,25 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 172.72 97.79 90)
+			(at 172.72 98.3752 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 176.53 101.9048 0)
+		(property "Footprint" "FG26X7R1E106KRT06:CAPRB500W50L550T350H600"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -855,8 +939,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 172.72 102.87 0)
+		(property "Description" ""
+			(at 171.45 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -864,23 +948,134 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 172.72 102.87 0)
+		(property "MF" "TDK"
+			(at 171.45 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify bottom)
 				(hide yes)
 			)
 		)
-		(pin "1"
-			(uuid "8f0685bf-ebb4-460b-942f-7d589e510108")
+		(property "MAXIMUM_PACKAGE_HEIGHT" "0.0 mm"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Package" "Radial TDK"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Price" "None"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=eda"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" "IPC-7351B"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "PARTREV" "20200310"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=snap"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MP" "FG26X7R1E106KRT06"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Description_1" "10 µF ±10% 25V Ceramic Capacitor X7R Radial"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Availability" "In Stock"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" "TDK"
+			(at 171.45 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
 		)
 		(pin "2"
-			(uuid "4c285b23-8849-4a9d-8088-2f5c7e334875")
+			(uuid "ae1ac825-0f5c-4071-a1b2-e792a5e61a73")
+		)
+		(pin "1"
+			(uuid "dd9f0850-55f9-4ad9-8099-354b16559e94")
 		)
 		(instances
-			(project ""
+			(project "Full-Board_rev1"
 				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/f945381e-ed34-44d0-a055-f537c9f02100"
 					(reference "C4")
 					(unit 1)
@@ -889,33 +1084,43 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_MEC_5E")
-		(at 184.15 93.98 0)
+		(lib_id "TS-1088-AR02016:TS-1088-AR02016")
+		(at 87.63 91.44 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "4ea7ebc3-393c-46c4-9335-8a8a3c0b3fc3")
-		(property "Reference" "SW2"
-			(at 184.15 83.82 0)
+		(uuid "c0fda6e5-d842-4935-ade0-acaa8c3cf5cf")
+		(property "Reference" "S1"
+			(at 87.63 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "SW_MEC_5E"
-			(at 184.15 86.36 0)
+		(property "Value" "TS-1088-AR02016"
+			(at 87.63 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 184.15 86.36 0)
+		(property "Footprint" "TS-1088-AR02016:SW_TS-1088-AR02016"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 87.63 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -923,8 +1128,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.apem.com/int/index.php?controller=attachment&id_attachment=1371"
-			(at 184.15 86.36 0)
+		(property "Description" ""
+			(at 87.63 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -932,48 +1137,342 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "MEC 5E single pole normally-open tactile switch"
-			(at 184.15 93.98 0)
+		(property "MF" "Xunpu"
+			(at 87.63 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify bottom)
 				(hide yes)
 			)
 		)
-		(pin "1"
-			(uuid "7a69131f-1c20-4485-9ef6-1b4f98292976")
+		(property "MAXIMUM_PACKAGE_HEIGHT" "2.0 mm"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
 		)
-		(pin "3"
-			(uuid "2dbbc629-466d-4a3c-b379-b67525bbc86a")
+		(property "Package" "Package"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Price" "None"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" "https://www.snapeda.com/parts/TS-1088-AR02016/Xunpu/view-part/?ref=eda"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" "Manufacturer Recommendations"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "PARTREV" "N/A"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" "https://www.snapeda.com/parts/TS-1088-AR02016/Xunpu/view-part/?ref=snap"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MP" "TS-1088-AR02016"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Description_1" "50mA 4mm 100MΩ 100,000 Times 12V 160gf 3mm 2mm Round Button Vertical welding SPST SMD Tactile Switches ROHS"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Availability" "Not in stock"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" "Xunpu"
+			(at 87.63 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
 		)
 		(pin "2"
-			(uuid "c4ba04a9-78d4-44a1-9c21-9f2eab7ca666")
+			(uuid "381783bb-ccaa-4b48-9334-02bb83e686e5")
 		)
-		(pin "4"
-			(uuid "40739983-29c5-41f3-aca7-cdf2b7929fcf")
+		(pin "1"
+			(uuid "e2a89499-08db-49cc-9372-7c76ac192984")
 		)
 		(instances
 			(project ""
 				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/f945381e-ed34-44d0-a055-f537c9f02100"
-					(reference "SW2")
+					(reference "S1")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 71.12 102.87 90)
+		(lib_id "TS-1088-AR02016:TS-1088-AR02016")
+		(at 186.69 91.44 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "b0f28e61-476b-497a-95ac-0339fd02415b")
+		(uuid "de51bd6c-c038-4ea3-a603-53d19f223715")
+		(property "Reference" "S2"
+			(at 186.69 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TS-1088-AR02016"
+			(at 186.69 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TS-1088-AR02016:SW_TS-1088-AR02016"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MF" "Xunpu"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" "2.0 mm"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Package" "Package"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Price" "None"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" "https://www.snapeda.com/parts/TS-1088-AR02016/Xunpu/view-part/?ref=eda"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" "Manufacturer Recommendations"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "PARTREV" "N/A"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" "https://www.snapeda.com/parts/TS-1088-AR02016/Xunpu/view-part/?ref=snap"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MP" "TS-1088-AR02016"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Description_1" "50mA 4mm 100MΩ 100,000 Times 12V 160gf 3mm 2mm Round Button Vertical welding SPST SMD Tactile Switches ROHS"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Availability" "Not in stock"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" "Xunpu"
+			(at 186.69 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ff6f3d1f-e38c-4268-9e75-cbaeef601302")
+		)
+		(pin "2"
+			(uuid "6dfd4c07-26a2-428f-84c7-632cfcc54723")
+		)
+		(instances
+			(project "Full-Board_rev1"
+				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/f945381e-ed34-44d0-a055-f537c9f02100"
+					(reference "S2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "FG26X7R1E106KRT06:FG26X7R1E106KRT06")
+		(at 69.85 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f6bbc840-d936-41cf-8144-14e6e7b6850a")
 		(property "Reference" "C3"
-			(at 71.12 95.25 90)
+			(at 71.12 95.8352 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -981,15 +1480,25 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 71.12 97.79 90)
+			(at 71.12 98.3752 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 74.93 101.9048 0)
+		(property "Footprint" "FG26X7R1E106KRT06:CAPRB500W50L550T350H600"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -997,8 +1506,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 71.12 102.87 0)
+		(property "Description" ""
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1006,23 +1515,134 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 71.12 102.87 0)
+		(property "MF" "TDK"
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify bottom)
 				(hide yes)
 			)
 		)
-		(pin "1"
-			(uuid "d1606fd0-97c4-4e65-ab38-577831ceaf4e")
+		(property "MAXIMUM_PACKAGE_HEIGHT" "0.0 mm"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Package" "Radial TDK"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Price" "None"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=eda"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" "IPC-7351B"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "PARTREV" "20200310"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=snap"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MP" "FG26X7R1E106KRT06"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Description_1" "10 µF ±10% 25V Ceramic Capacitor X7R Radial"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Availability" "In Stock"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" "TDK"
+			(at 69.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
 		)
 		(pin "2"
-			(uuid "8c674eb0-0b7f-4bb7-9af3-9b0c3ec6589b")
+			(uuid "a7aa390b-a183-4317-a8d7-01b82d686163")
+		)
+		(pin "1"
+			(uuid "0a16fe4c-6a57-4383-8239-9c7f29ea4502")
 		)
 		(instances
-			(project ""
+			(project "Full-Board_rev1"
 				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/f945381e-ed34-44d0-a055-f537c9f02100"
 					(reference "C3")
 					(unit 1)
@@ -1091,80 +1711,6 @@
 			(project ""
 				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/f945381e-ed34-44d0-a055-f537c9f02100"
 					(reference "#PWR07")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Switch:SW_MEC_5E")
-		(at 85.09 93.98 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fcc37796-de40-4879-854e-98eee9e0660d")
-		(property "Reference" "SW1"
-			(at 85.09 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_MEC_5E"
-			(at 85.09 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 85.09 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.apem.com/int/index.php?controller=attachment&id_attachment=1371"
-			(at 85.09 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "MEC 5E single pole normally-open tactile switch"
-			(at 85.09 93.98 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b08fa7c8-3b9e-429c-b2fb-f12de28d12ba")
-		)
-		(pin "3"
-			(uuid "b9fb718f-7552-4583-bf1d-f7063b2ae802")
-		)
-		(pin "2"
-			(uuid "869c03fb-9a5b-4db3-9e59-2f45a6324119")
-		)
-		(pin "4"
-			(uuid "368cb7a1-9fab-45a0-940a-1c8abaa88844")
-		)
-		(instances
-			(project ""
-				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/f945381e-ed34-44d0-a055-f537c9f02100"
-					(reference "SW1")
 					(unit 1)
 				)
 			)
