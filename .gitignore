@@ -20,6 +20,8 @@
 !PCBs/Parts/10uCap
 !PCBs/Parts/RedLED
 !PCBs/Parts/TactSwitch
+!PCBs/Parts/1uCap
+!PCBs/Parts/100nCap
 
 !*.txt
 !*.kicad_sym

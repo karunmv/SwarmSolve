@@ -5,7 +5,7 @@
 	(uuid "6fc8f774-93dd-4a22-8b9f-c3dde0ff9023")
 	(paper "A4")
 	(lib_symbols
-		(symbol "FG26X7R1E106KRT06:FG26X7R1E106KRT06"
+		(symbol "FG28X7R1H104KNT06:FG28X7R1H104KNT06"
 			(pin_names
 				(offset 1.016)
 			)
@@ -21,7 +21,7 @@
 					(justify left bottom)
 				)
 			)
-			(property "Value" "FG26X7R1E106KRT06"
+			(property "Value" "FG28X7R1H104KNT06"
 				(at 0 -5.0885 0)
 				(effects
 					(font
@@ -30,7 +30,7 @@
 					(justify left bottom)
 				)
 			)
-			(property "Footprint" "FG26X7R1E106KRT06:CAPRB500W50L550T350H600"
+			(property "Footprint" "FG28X7R1H104KNT06:CAPRB500W50L400T250H550"
 				(at 0 0 0)
 				(effects
 					(font
@@ -78,7 +78,7 @@
 					(hide yes)
 				)
 			)
-			(property "Package" "Radial TDK"
+			(property "Package" "RADIAL-2 TDK"
 				(at 0 0 0)
 				(effects
 					(font
@@ -98,7 +98,7 @@
 					(hide yes)
 				)
 			)
-			(property "Check_prices" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=eda"
+			(property "Check_prices" "https://www.snapeda.com/parts/FG28X7R1H104KNT06/TDK/view-part/?ref=eda"
 				(at 0 0 0)
 				(effects
 					(font
@@ -128,7 +128,7 @@
 					(hide yes)
 				)
 			)
-			(property "SnapEDA_Link" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=snap"
+			(property "SnapEDA_Link" "https://www.snapeda.com/parts/FG28X7R1H104KNT06/TDK/view-part/?ref=snap"
 				(at 0 0 0)
 				(effects
 					(font
@@ -138,7 +138,7 @@
 					(hide yes)
 				)
 			)
-			(property "MP" "FG26X7R1E106KRT06"
+			(property "MP" "FG28X7R1H104KNT06"
 				(at 0 0 0)
 				(effects
 					(font
@@ -148,7 +148,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description_1" "10 µF ±10% 25V Ceramic Capacitor X7R Radial"
+			(property "Description_1" "0.1 µF ±10% 50V Ceramic Capacitor X7R Radial"
 				(at 0 0 0)
 				(effects
 					(font
@@ -178,7 +178,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "FG26X7R1E106KRT06_0_0"
+			(symbol "FG28X7R1H104KNT06_0_0"
 				(rectangle
 					(start 0 -1.9069)
 					(end 0.635 1.905)
@@ -895,17 +895,17 @@
 		)
 	)
 	(symbol
-		(lib_id "FG26X7R1E106KRT06:FG26X7R1E106KRT06")
-		(at 171.45 102.87 0)
+		(lib_id "FG28X7R1H104KNT06:FG28X7R1H104KNT06")
+		(at 69.85 102.87 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "a62dd4de-735f-47f8-91af-f60211e4021d")
-		(property "Reference" "C4"
-			(at 172.72 95.8352 0)
+		(uuid "56432e07-7833-4c19-aa3b-3d055e0b1d1d")
+		(property "Reference" "C7"
+			(at 71.12 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -913,15 +913,15 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 172.72 98.3752 0)
+			(at 71.12 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "FG26X7R1E106KRT06:CAPRB500W50L550T350H600"
-			(at 171.45 102.87 0)
+		(property "Footprint" "FG28X7R1H104KNT06:CAPRB500W50L400T250H550"
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -931,7 +931,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 171.45 102.87 0)
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -940,7 +940,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 171.45 102.87 0)
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -949,7 +949,7 @@
 			)
 		)
 		(property "MF" "TDK"
-			(at 171.45 102.87 0)
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -959,7 +959,7 @@
 			)
 		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "0.0 mm"
-			(at 171.45 102.87 0)
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -968,8 +968,8 @@
 				(hide yes)
 			)
 		)
-		(property "Package" "Radial TDK"
-			(at 171.45 102.87 0)
+		(property "Package" "RADIAL-2 TDK"
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -979,7 +979,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 171.45 102.87 0)
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -988,8 +988,8 @@
 				(hide yes)
 			)
 		)
-		(property "Check_prices" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=eda"
-			(at 171.45 102.87 0)
+		(property "Check_prices" "https://www.snapeda.com/parts/FG28X7R1H104KNT06/TDK/view-part/?ref=eda"
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -999,7 +999,7 @@
 			)
 		)
 		(property "STANDARD" "IPC-7351B"
-			(at 171.45 102.87 0)
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1009,7 +1009,7 @@
 			)
 		)
 		(property "PARTREV" "20200310"
-			(at 171.45 102.87 0)
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1018,8 +1018,8 @@
 				(hide yes)
 			)
 		)
-		(property "SnapEDA_Link" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=snap"
-			(at 171.45 102.87 0)
+		(property "SnapEDA_Link" "https://www.snapeda.com/parts/FG28X7R1H104KNT06/TDK/view-part/?ref=snap"
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1028,8 +1028,8 @@
 				(hide yes)
 			)
 		)
-		(property "MP" "FG26X7R1E106KRT06"
-			(at 171.45 102.87 0)
+		(property "MP" "FG28X7R1H104KNT06"
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1038,8 +1038,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description_1" "10 µF ±10% 25V Ceramic Capacitor X7R Radial"
-			(at 171.45 102.87 0)
+		(property "Description_1" "0.1 µF ±10% 50V Ceramic Capacitor X7R Radial"
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1049,7 +1049,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 171.45 102.87 0)
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1059,7 +1059,7 @@
 			)
 		)
 		(property "MANUFACTURER" "TDK"
-			(at 171.45 102.87 0)
+			(at 69.85 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1069,15 +1069,204 @@
 			)
 		)
 		(pin "2"
-			(uuid "ae1ac825-0f5c-4071-a1b2-e792a5e61a73")
+			(uuid "8e6556d0-5053-449d-98b2-7a34f59b2216")
 		)
 		(pin "1"
-			(uuid "dd9f0850-55f9-4ad9-8099-354b16559e94")
+			(uuid "ab595ace-9bd8-4115-9e1f-e89a566d6b07")
 		)
 		(instances
 			(project "Full-Board_rev1"
 				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/f945381e-ed34-44d0-a055-f537c9f02100"
-					(reference "C4")
+					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "FG28X7R1H104KNT06:FG28X7R1H104KNT06")
+		(at 173.99 102.87 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "60343650-628f-4b4a-be0e-f08b76c6b89d")
+		(property "Reference" "C8"
+			(at 172.72 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 172.72 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "FG28X7R1H104KNT06:CAPRB500W50L400T250H550"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MF" "TDK"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" "0.0 mm"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Package" "RADIAL-2 TDK"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Price" "None"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" "https://www.snapeda.com/parts/FG28X7R1H104KNT06/TDK/view-part/?ref=eda"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" "IPC-7351B"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "PARTREV" "20200310"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" "https://www.snapeda.com/parts/FG28X7R1H104KNT06/TDK/view-part/?ref=snap"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MP" "FG28X7R1H104KNT06"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Description_1" "0.1 µF ±10% 50V Ceramic Capacitor X7R Radial"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Availability" "In Stock"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" "TDK"
+			(at 173.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "27b7266f-a6c1-4cd8-a070-faeb1c53e329")
+		)
+		(pin "1"
+			(uuid "655e8147-5042-4f9d-8b9a-708bcf6e7ae6")
+		)
+		(instances
+			(project "Full-Board_rev1"
+				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/f945381e-ed34-44d0-a055-f537c9f02100"
+					(reference "C8")
 					(unit 1)
 				)
 			)
@@ -1456,195 +1645,6 @@
 			(project "Full-Board_rev1"
 				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/f945381e-ed34-44d0-a055-f537c9f02100"
 					(reference "S2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "FG26X7R1E106KRT06:FG26X7R1E106KRT06")
-		(at 69.85 102.87 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f6bbc840-d936-41cf-8144-14e6e7b6850a")
-		(property "Reference" "C3"
-			(at 71.12 95.8352 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 71.12 98.3752 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "FG26X7R1E106KRT06:CAPRB500W50L550T350H600"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MF" "TDK"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "MAXIMUM_PACKAGE_HEIGHT" "0.0 mm"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "Package" "Radial TDK"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "Price" "None"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "Check_prices" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=eda"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "STANDARD" "IPC-7351B"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "PARTREV" "20200310"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "SnapEDA_Link" "https://www.snapeda.com/parts/FG26X7R1E106KRT06/TDK/view-part/?ref=snap"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "MP" "FG26X7R1E106KRT06"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "Description_1" "10 µF ±10% 25V Ceramic Capacitor X7R Radial"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "Availability" "In Stock"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(property "MANUFACTURER" "TDK"
-			(at 69.85 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify bottom)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "a7aa390b-a183-4317-a8d7-01b82d686163")
-		)
-		(pin "1"
-			(uuid "0a16fe4c-6a57-4383-8239-9c7f29ea4502")
-		)
-		(instances
-			(project "Full-Board_rev1"
-				(path "/2dd686ed-aa28-474a-bf3c-628eebb4b373/f945381e-ed34-44d0-a055-f537c9f02100"
-					(reference "C3")
 					(unit 1)
 				)
 			)
