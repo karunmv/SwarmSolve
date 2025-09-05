@@ -920,7 +920,7 @@
 				)
 			)
 		)
-		(property "Footprint" "FG28X7R1H104KNT06:CAPRB500W50L400T250H550"
+		(property "Footprint" "100nCap:CAPRB500W50L400T250H550"
 			(at 69.85 102.87 0)
 			(effects
 				(font
@@ -1109,7 +1109,7 @@
 				)
 			)
 		)
-		(property "Footprint" "FG28X7R1H104KNT06:CAPRB500W50L400T250H550"
+		(property "Footprint" "100nCap:CAPRB500W50L400T250H550"
 			(at 173.99 102.87 0)
 			(effects
 				(font
@@ -1298,7 +1298,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TS-1088-AR02016:SW_TS-1088-AR02016"
+		(property "Footprint" "TactSwitch:SW_TS-1088-AR02016"
 			(at 87.63 91.44 0)
 			(effects
 				(font
@@ -1487,7 +1487,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TS-1088-AR02016:SW_TS-1088-AR02016"
+		(property "Footprint" "TactSwitch:SW_TS-1088-AR02016"
 			(at 186.69 91.44 0)
 			(effects
 				(font

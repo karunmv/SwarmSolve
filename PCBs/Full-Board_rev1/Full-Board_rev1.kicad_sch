@@ -5707,7 +5707,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 70.866 62.484 90)
 			(effects
 				(font
@@ -5843,7 +5843,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 218.44 86.36 0)
 			(effects
 				(font
@@ -5913,7 +5913,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FG24X7R1H105KRT06:CAPRB500W50L450T300H550"
+		(property "Footprint" "1uCap:CAPRB500W50L450T300H550"
 			(at 95.25 77.47 0)
 			(effects
 				(font
@@ -6483,7 +6483,7 @@
 				)
 			)
 		)
-		(property "Footprint" "KT-0603R:LED_KT-0603R"
+		(property "Footprint" "RedLED:LED_KT-0603R"
 			(at 77.47 68.58 0)
 			(effects
 				(font
@@ -6674,7 +6674,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PCM_Espressif:ESP32-C6-WROOM-1"
+		(property "Footprint" "ESP32-C6-WROOM-1:ESP32-C6-WROOM-1"
 			(at 147.32 144.145 0)
 			(effects
 				(font
@@ -7404,7 +7404,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 95.25 66.04 0)
 			(effects
 				(font
@@ -7474,7 +7474,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FG28X7R1H104KNT06:CAPRB500W50L400T250H550"
+		(property "Footprint" "100nCap:CAPRB500W50L400T250H550"
 			(at 137.16 53.34 0)
 			(effects
 				(font
@@ -7665,7 +7665,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 68.58 27.94 0)
 			(effects
 				(font
@@ -7879,7 +7879,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FG26X7R1E106KRT06:CAPRB500W50L550T350H600"
+		(property "Footprint" "10uCap:CAPRB500W50L550T350H600"
 			(at 127 53.34 0)
 			(effects
 				(font
