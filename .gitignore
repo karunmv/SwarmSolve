@@ -16,12 +16,12 @@
 !PCBs/Parts/
 !PCBs/Parts/TPS630250RNCT
 !PCBs/Parts/TYPE-C-31-M-12
-!PCBs/Parts/espressif-kicad-addon
 !PCBs/Parts/10uCap
 !PCBs/Parts/RedLED
 !PCBs/Parts/TactSwitch
 !PCBs/Parts/1uCap
 !PCBs/Parts/100nCap
+!PCBs/Parts/ESP32-C6-WROOM-1
 
 !*.txt
 !*.kicad_sym

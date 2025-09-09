@@ -7859,10 +7859,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "d93e28d7-504c-4efc-8ad2-ce756e2936f5")
 		(property "Reference" "C1"
-			(at 130.81 50.7999 90)
+			(at 129.54 50.8 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7871,7 +7870,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 130.81 53.3399 90)
+			(at 129.54 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
