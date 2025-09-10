@@ -1,4 +1,11 @@
-26244138866080083
+26242381937051559
+10uCap
+CAPRB500W50L550T350H600
+
+
+0
+2
+2
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -91965,20 +91972,6 @@ Potentiometer vertical vishay
 0
 3
 3
-Power-Board_rev1
-CAPRB500W50L550T350H600
-
-
-0
-2
-2
-Power-Board_rev1
-SON50P300X300X80-11N
-
-
-0
-11
-11
 RF
 Skyworks_SKY13575_639LF
 http://www.skyworksinc.com/uploads/documents/SKY13575_639LF_203270D.pdf
