@@ -1647,16 +1647,6 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 110.49) (xy 242.57 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "119ad138-677b-4c9f-b067-7d6ac1b90399")
-	)
-	(wire
-		(pts
 			(xy 148.59 111.76) (xy 148.59 106.68)
 		)
 		(stroke
@@ -1697,6 +1687,16 @@
 	)
 	(wire
 		(pts
+			(xy 231.14 113.03) (xy 242.57 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2abfde79-3aa1-4f49-9c0c-2f6b9ba2cf93")
+	)
+	(wire
+		(pts
 			(xy 140.97 115.57) (xy 138.43 115.57)
 		)
 		(stroke
@@ -1704,16 +1704,6 @@
 			(type default)
 		)
 		(uuid "2ca79523-2e17-4768-8126-b2f20e64e237")
-	)
-	(wire
-		(pts
-			(xy 231.14 113.03) (xy 242.57 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "30cb0e04-7f47-4277-ba85-6292c6e76bf1")
 	)
 	(wire
 		(pts
@@ -1797,6 +1787,16 @@
 	)
 	(wire
 		(pts
+			(xy 231.14 115.57) (xy 242.57 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5790ba67-c292-438d-b076-83362eec298f")
+	)
+	(wire
+		(pts
 			(xy 143.51 121.92) (xy 143.51 124.46)
 		)
 		(stroke
@@ -1804,26 +1804,6 @@
 			(type default)
 		)
 		(uuid "582b8460-7ba8-4af4-8b03-65fbaeec60ed")
-	)
-	(wire
-		(pts
-			(xy 231.14 115.57) (xy 242.57 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5e64cad4-3f0b-4633-a4d6-b30a4520e6d1")
-	)
-	(wire
-		(pts
-			(xy 231.14 107.95) (xy 242.57 107.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5f0e8ae0-2a14-4281-9e9c-b1d876a1f00c")
 	)
 	(wire
 		(pts
@@ -1987,6 +1967,26 @@
 	)
 	(wire
 		(pts
+			(xy 231.14 107.95) (xy 242.57 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7c80a6b-f312-48ec-bf41-5953bd9ee574")
+	)
+	(wire
+		(pts
+			(xy 231.14 110.49) (xy 242.57 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bdcf8cd8-48b6-483d-873c-d6e817acdc10")
+	)
+	(wire
+		(pts
 			(xy 172.72 104.14) (xy 172.72 105.41)
 		)
 		(stroke
@@ -2066,16 +2066,6 @@
 		(uuid "fef3b8a9-834c-4ec5-8b1f-27fd9a704992")
 	)
 	(label "VOUT"
-		(at 231.14 107.95 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3da1a6a3-5414-43c9-a292-e78dc74c51f5")
-	)
-	(label "VOUT"
 		(at 214.63 104.14 0)
 		(effects
 			(font
@@ -2095,15 +2085,25 @@
 		)
 		(uuid "79df7a98-0318-43b9-a325-14b76163ae88")
 	)
-	(label "GND"
-		(at 231.14 110.49 0)
+	(label "VOUT"
+		(at 231.14 107.95 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "8700a25f-31a4-4bff-adc3-44a5cc378edd")
+		(uuid "82937de0-85fd-4713-a880-b15e2d89c5c2")
+	)
+	(label "EN"
+		(at 231.14 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9582ecb1-3e63-4c23-b085-d115722fcf7d")
 	)
 	(label "VIN"
 		(at 67.31 104.14 0)
@@ -2115,16 +2115,6 @@
 		)
 		(uuid "a7d866e2-bd6c-467a-b1a8-0bf5d88310ed")
 	)
-	(label "EN"
-		(at 231.14 115.57 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "be462db5-c397-4659-8b77-2c0e4a0b3bd2")
-	)
 	(label "VIN"
 		(at 231.14 113.03 0)
 		(effects
@@ -2133,7 +2123,17 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f5f4ed51-97f2-4c4d-a3ff-3d14a3ca2d27")
+		(uuid "be041632-5df3-4932-a3f3-50be41eec5ba")
+	)
+	(label "GND"
+		(at 231.14 110.49 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e6b7119b-f89f-4fe1-9b14-414a298de203")
 	)
 	(symbol
 		(lib_id "RT6150AGQW:RT6150AGQW")
@@ -2844,7 +2844,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical"
+		(property "Footprint" "Header:PinHeader_1x04_P2.54mm_Vertical_GND2"
 			(at 247.65 110.49 0)
 			(effects
 				(font
@@ -3461,7 +3461,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Part#" "C531341"
+		(property "JLCPCB Part#" "C95841"
 			(at 184.15 107.95 0)
 			(effects
 				(font
@@ -3606,7 +3606,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Part#" ""
+		(property "JLCPCB Part#" "C5832372"
 			(at 140.97 113.03 0)
 			(effects
 				(font
@@ -3685,7 +3685,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Part#" "C531341"
+		(property "JLCPCB Part#" "C95841"
 			(at 172.72 107.95 0)
 			(effects
 				(font
@@ -3764,7 +3764,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Part#" "C531341"
+		(property "JLCPCB Part#" "C95841"
 			(at 194.31 107.95 0)
 			(effects
 				(font

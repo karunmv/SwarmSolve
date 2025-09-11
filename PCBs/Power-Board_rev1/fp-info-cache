@@ -1,4 +1,4 @@
-26242381937051559
+26244139538158527
 10uCap
 CAPRB500W50L550T350H600
 
@@ -60752,6 +60752,13 @@ GDT 3R-6
 0
 3
 3
+Header
+PinHeader_1x04_P2.54mm_Vertical_GND2
+Through hole straight pin header, 1x04, 2.54mm pitch, single row
+Through hole pin header THT 1x04 2.54mm single row
+0
+4
+4
 Heatsink
 Heatsink_35x26mm_1xFixation3mm_Fischer-SK486-35
 Heatsink, 35mm x 26mm, 1x Fixation 3mm, Fischer SK486-35
