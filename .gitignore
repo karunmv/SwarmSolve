@@ -13,6 +13,11 @@
 !*.kicad_pro
 !*.kicad_sch
 
+!PCBs/Power-Board_rev1/Fab/
+!*.gbr
+!*.gbrjob
+!*.drl
+
 !PCBs/Parts/
 !PCBs/Parts/TPS630250RNCT
 !PCBs/Parts/TYPE-C-31-M-12
