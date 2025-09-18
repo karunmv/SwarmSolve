@@ -1,6 +1,3 @@
-*
-
-!README.md
-!.gitignore
-!prototyping/
-!prototyping/*
+build/
+sdkconfig
+sdkconfig.old
