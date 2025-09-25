@@ -12,6 +12,12 @@
 
 void esp_now_recv_callback(const esp_now_recv_info_t * esp_now_info, const uint8_t *data, int data_len);
 
+void esp_now_send_callback(const esp_now_send_info_t * tx_info, esp_now_send_status_t status);
+
+void esp_now_add_to_swarm(void);
+
+void send_message(void);
+
 void wifi_sta_init(void);
 
 #endif
