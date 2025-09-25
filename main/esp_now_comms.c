@@ -16,8 +16,10 @@ void wifi_sta_init(void)
         nvs_flash_erase();
         ret = nvs_flash_init();
     }
+
     esp_netif_init();
     esp_event_loop_create_default();
+
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     esp_wifi_init(&cfg);
     esp_wifi_set_mode(WIFI_MODE_STA);
