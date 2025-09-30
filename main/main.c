@@ -15,14 +15,11 @@ void app_main(void) {
         int ir[1] = {5};
         read_ir_sensor_array(ir, 1);
 
-
-
         // send_message();
-
         // gpio_set_level(5, state);
         // state = (state + 1) % 2;
 
 
-        vTaskDelay(pdMS_TO_TICKS(1000));
+        vTaskDelay(pdMS_TO_TICKS(100));
     }
 }
