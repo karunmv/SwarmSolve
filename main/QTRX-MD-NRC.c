@@ -8,14 +8,15 @@ uint32_t start_time = 0;
 uint32_t time_elapsed;
 
 
-void read_ir_sensor_array(uint32_t *gpio_pins, uint32_t count) {
+void read_ir_sensor_array(uint32_t *gpio_pins, uint32_t *IR_sensor_readings, uint32_t count) {
 
     // Initialize IR sensor array
     gpio_config_t IR_array_config[count];
-    uint32_t IR_sensor_readings[count];
     
     // Configure IR array for output
     for (uint32_t i = 0; i < count; i++) {
+
+        IR_sensor_readings[i] = MAX_IR_READTIME;
         
         IR_array_config[i].pin_bit_mask = (1UL << gpio_pins[i]);
         IR_array_config[i].mode = GPIO_MODE_OUTPUT;
@@ -42,15 +43,20 @@ void read_ir_sensor_array(uint32_t *gpio_pins, uint32_t count) {
         gpio_config(&(IR_array_config[i]));
     } 
     
+    int values_received = 0;
     time_elapsed = esp_timer_get_time() - start_time;
 
     // Wait until pin is read as low then pruint32_t time elapsed
     while(time_elapsed < MAX_IR_READTIME) {
         time_elapsed = esp_timer_get_time() - start_time;
 
-        if (gpio_get_level(gpio_pins[0]) == 0) {
-            pruint32_tf("TIME ELAPSED: %d\n", time_elapsed);
-            break;
+        for (int i = 0; i < count; i++) {
+            if ((gpio_get_level(gpio_pins[i]) == 0) && (time_elapsed < IR_sensor_readings[i])) {
+                IR_sensor_readings[i] = time_elapsed;
+
+                values_received++;
+                if (values_received == count) break;
+            }
         }
     }
 }

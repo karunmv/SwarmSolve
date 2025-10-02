@@ -3,6 +3,8 @@
 
 #define MAX_IR_READTIME 10000
 
+
+#define IR_PIN_COUNT 8
 #define IR_PIN_1 17
 #define IR_PIN_2 16 
 #define IR_PIN_3 3
@@ -15,10 +17,10 @@
 
 /**
  * @brief Gets a reading from an IR sensor array
- * @param gpio_pins Integer array of GPIO pins used by the sensor array
+ * @param gpio_pins Pointer to tnteger array of GPIO pins used by the sensor array
+ * @param IR_sensor_readings Pointer to integer array to be used to store IR sensor readings in
  * @param count Number of sensors in array
- * @return Array of sensor values of size count
  */
-void read_ir_sensor_array(uint32_t *gpio_pins, uint32_t count);
+void read_ir_sensor_array(uint32_t *gpio_pins, uint32_t *IR_sensor_readings, uint32_t count);
 
 #endif
