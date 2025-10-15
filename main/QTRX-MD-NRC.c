@@ -46,7 +46,7 @@ void read_ir_sensor_array(uint32_t *gpio_pins, uint32_t *IR_sensor_readings, uin
     int values_received = 0;
     time_elapsed = esp_timer_get_time() - start_time;
 
-    // Wait until pin is read as low then pruint32_t time elapsed
+    // Wait until pin is read as low then print time elapsed
     while(time_elapsed < MAX_IR_READTIME) {
         time_elapsed = esp_timer_get_time() - start_time;
 
