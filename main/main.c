@@ -7,40 +7,24 @@
 void app_main(void) {
     uint32_t ir_pins[IR_PIN_COUNT] = {IR_PIN_1, IR_PIN_2, IR_PIN_3, IR_PIN_4, IR_PIN_5, IR_PIN_6, IR_PIN_7, IR_PIN_8};
     uint32_t ir_values[IR_PIN_COUNT];
-    uint32_t motor_pins[4] = {M1_PWM, M1_DIR, M2_PWM, M2_DIR}; 
+    uint32_t motor_enable_pins[2] = {M1_PWM, M2_PWM};
+    uint32_t motor_phase_pins[2] = {M1_DIR, M2_DIR};
 
     // Initialize communications
-    wifi_sta_init();
-    esp_broadcast_setup();
+    // wifi_sta_init();
+    // esp_broadcast_setup();
 
-    motor_setup(motor_pins);
-    
-    // while(1){
-    //     robot_state(motor_pins, FORWARD);
-    //     printf("going forward\n");
-    //     vTaskDelay(pdMS_TO_TICKS(1000));
-    //     robot_state(motor_pins, STOP);
-    //     vTaskDelay(pdMS_TO_TICKS(1000));
+    /* Motor Testing */
+    motor_setup(motor_enable_pins, 2, motor_phase_pins, 2);
+    while (1) {
+        
+        for (int i = 0; i < 100; i++) {
+            robot_state(motor_phase_pins, 2, i, FORWARD);
+            vTaskDelay(pdMS_TO_TICKS(10));
+        }
+    }
 
-    //     robot_state(motor_pins, REVERSE);
-    //     printf("going reverse\n");
-    //     vTaskDelay(pdMS_TO_TICKS(1000));
-    //     robot_state(motor_pins, STOP);
-    //     vTaskDelay(pdMS_TO_TICKS(1000));
-
-    //     robot_state(motor_pins, LEFT);
-    //     printf("going left");
-    //     vTaskDelay(pdMS_TO_TICKS(1000));
-    //     robot_state(motor_pins, STOP);
-    //     vTaskDelay(pdMS_TO_TICKS(1000));
-
-    //     robot_state(motor_pins, RIGHT);
-    //     printf("going right");
-    //     vTaskDelay(pdMS_TO_TICKS(1000));
-    //     robot_state(motor_pins, STOP);
-    //     vTaskDelay(pdMS_TO_TICKS(1000));
-    // }
-
+    /* IR Sensor Testing */
     int state = 1;
     while(1) {
 
