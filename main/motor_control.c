@@ -16,10 +16,10 @@ void read_encoder_values(uint32_t *gpio_pins){
     }
 }
 
-void motor_setup(uint32_t *enable_pins, uint8_t num_enable_pins, uint32_t *phase_pins, uint8_t num_phase_pins) {
+void motor_setup(uint32_t *enable_pins, uint32_t *phase_pins) {
 
     /* Enable Pins */
-    for (int i = 0; i < num_enable_pins; i++) {
+    for (int i = 0; i < NUM_MOTORS; i++) {
 
         // Prepare and then apply the LEDC PWM timer configuration
         ledc_timer_config_t ledc_timer = {
@@ -45,8 +45,8 @@ void motor_setup(uint32_t *enable_pins, uint8_t num_enable_pins, uint32_t *phase
     }
 
     /* Phase Pins */
-    gpio_config_t motor_phase_config[num_phase_pins];
-    for(int i = 0; i < num_phase_pins; i++) {
+    gpio_config_t motor_phase_config[NUM_MOTORS];
+    for(int i = 0; i < NUM_MOTORS; i++) {
         motor_phase_config[i].pin_bit_mask = (1UL << phase_pins[i]);
         motor_phase_config[i].mode = GPIO_MODE_OUTPUT;
         motor_phase_config[i].pull_up_en = GPIO_PULLUP_DISABLE;
@@ -58,56 +58,77 @@ void motor_setup(uint32_t *enable_pins, uint8_t num_enable_pins, uint32_t *phase
 
 }
 
-void robot_state(uint32_t *phase_pins, uint8_t num_motors, uint32_t speed, uint8_t direction) {
+void move_motors(uint32_t *phase_pins, int8_t *speeds) {
 
-    // [Direction 1, Speed 1, Direction 2, Speed 2]
-    directions robot_go = {
-        {0, 100, 1, 100}, // forward
-        {1, 100, 0, 100}, // reverse
-        {0, 100, 0, 100}, // right
-        {1, 100,  1, 100}, // left
-        {0, 0, 0, 0} // stop
-    };
+    uint8_t direction;
+    for (int i = 0; i < NUM_MOTORS; i++) {
 
-    if (direction == FORWARD) {
-        for (int i = 0; i < num_motors; i++) {
+        if (i == 0) speeds[i] *= -1; // Correct for mirrored motor
 
-            gpio_set_level(phase_pins[i], robot_go.forward[2*i]); // Direction
-            
-            ledc_set_duty(LEDC_MODE, i, (int)(speed * (8192 / 100) * (robot_go.forward[2*i + 1] / 100))); // Speed
-            ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
+        direction = 1;
+        if (speeds[i] < 0) {
+            direction = 0;      // Check for sign in speed
+            speeds[i] *= -1;    // Make speed positive
         }
-    } else if (direction == REVERSE) {
-        for (int i = 0; i < num_motors; i++) {
 
-            gpio_set_level(phase_pins[i], robot_go.reverse[2*i]); // Direction
-            
-            ledc_set_duty(LEDC_MODE, i, (int)(speed * (8192 / 100) * (robot_go.reverse[2*i + 1] / 100))); // Speed
-            ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
-        }
-    } else if (direction == RIGHT) {
-        for (int i = 0; i < num_motors; i++) {
+        gpio_set_level(phase_pins[i], direction); // Direction
 
-            gpio_set_level(phase_pins[i], robot_go.right[2*i]); // Direction
-            
-            ledc_set_duty(LEDC_MODE, i, (int)(speed * (8192 / 100) * (robot_go.right[2*i + 1] / 100))); // Speed
-            ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
-        }
-    } else if (direction == LEFT) {
-        for (int i = 0; i < num_motors; i++) {
-
-            gpio_set_level(phase_pins[i], robot_go.left[2*i]); // Direction
-            
-            ledc_set_duty(LEDC_MODE, i, (int)(speed * (8192 / 100) * (robot_go.left[2*i + 1] / 100))); // Speed
-            ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
-        }
-    } else if (direction == STOP) {
-        for (int i = 0; i < num_motors; i++) {
-
-            gpio_set_level(phase_pins[i], robot_go.stop[2*i]); // Direction
-            
-            ledc_set_duty(LEDC_MODE, i, (int)(speed * (8192 / 100) * (robot_go.stop[2*i + 1] / 100))); // Speed
-            ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
-        }
+        ledc_set_duty(LEDC_MODE, i, (int)(speeds[i] * (8192 / 100))); // Speed
+        ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
     }
 }
+
+
+// void robot_state(uint32_t *phase_pins, uint8_t num_motors, uint32_t speed, uint8_t direction) {
+
+//     // [Direction 1, Speed 1, Direction 2, Speed 2]
+//     directions robot_go = {
+//         {0, 100, 1, 100}, // forward
+//         {1, 100, 0, 100}, // reverse
+//         {0, 100, 0, 100}, // right
+//         {1, 100,  1, 100}, // left
+//         {0, 0, 0, 0} // stop
+//     };
+
+//     if (direction == FORWARD) {
+//         for (int i = 0; i < num_motors; i++) {
+
+//             gpio_set_level(phase_pins[i], robot_go.forward[2*i]); // Direction
+            
+//             ledc_set_duty(LEDC_MODE, i, (int)(speed * (8192 / 100) * (robot_go.forward[2*i + 1] / 100))); // Speed
+//             ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
+//         }
+//     } else if (direction == REVERSE) {
+//         for (int i = 0; i < num_motors; i++) {
+
+//             gpio_set_level(phase_pins[i], robot_go.reverse[2*i]); // Direction
+            
+//             ledc_set_duty(LEDC_MODE, i, (int)(speed * (8192 / 100) * (robot_go.reverse[2*i + 1] / 100))); // Speed
+//             ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
+//         }
+//     } else if (direction == RIGHT) {
+//         for (int i = 0; i < num_motors; i++) {
+
+//             gpio_set_level(phase_pins[i], robot_go.right[2*i]); // Direction
+            
+//             ledc_set_duty(LEDC_MODE, i, (int)(speed * (8192 / 100) * (robot_go.right[2*i + 1] / 100))); // Speed
+//             ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
+//         }
+//     } else if (direction == LEFT) {
+//         for (int i = 0; i < num_motors; i++) {
+
+//             gpio_set_level(phase_pins[i], robot_go.left[2*i]); // Direction
+            
+//             ledc_set_duty(LEDC_MODE, i, (int)(speed * (8192 / 100) * (robot_go.left[2*i + 1] / 100))); // Speed
+//             ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
+//         }
+//     } else if (direction == STOP) {
+//         for (int i = 0; i < num_motors; i++) {
+
+//             gpio_set_level(phase_pins[i], robot_go.stop[2*i]); // Direction
+            
+//             ledc_set_duty(LEDC_MODE, i, (int)(speed * (8192 / 100) * (robot_go.stop[2*i + 1] / 100))); // Speed
+//             ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
+//         }
+//     }
+// }

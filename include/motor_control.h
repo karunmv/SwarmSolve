@@ -37,6 +37,17 @@ typedef struct{
 
 // Function Prototypes
 void read_encoder_values(uint32_t *gpio_pins);
-void motor_setup(uint32_t *enable_pins, uint8_t num_enable_pins, uint32_t *phase_pins, uint8_t num_phase_pins);
-void robot_state(uint32_t *phase_pins, uint8_t num_motors, uint32_t speed, uint8_t direction);
+
+
+void motor_setup(uint32_t *enable_pins, uint32_t *phase_pins);
+
+/**
+ * @brief Moves each motor individually at the speed provided (-100 -> 100) negative values are backwards
+ * @param phase_pins Array of lengh NUM_MOTORS that defines the GPIO pins used for the phase (direction) of the motor
+ * @param speeeds Array of length NUM_MOTORS that defines the speeds for each individual motor [LEFT MOTOR, RIGHT MOTOR]
+ */
+void move_motors(uint32_t *phase_pins, int8_t *speeds);
+
+
+// void robot_state(uint32_t *phase_pins, uint8_t num_motors, uint32_t speed, uint8_t direction);
 #endif
