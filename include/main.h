@@ -9,4 +9,8 @@
 #include "driver/gpio.h"
 
 
+// Important Defines
+#define NUM_MOTORS 2
+
+
 #endif

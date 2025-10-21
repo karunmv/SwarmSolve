@@ -15,20 +15,13 @@ void app_main(void) {
     // esp_broadcast_setup();
 
     /* Motor Testing */
-    motor_setup(motor_enable_pins, 2, motor_phase_pins, 2);
-    while (1) {
-        
-        for (int i = 0; i < 100; i++) {
-            robot_state(motor_phase_pins, 2, i, FORWARD);
-            vTaskDelay(pdMS_TO_TICKS(10));
-        }
-    }
+    motor_setup(motor_enable_pins, NUM_MOTORS, motor_phase_pins, 2);
+
 
     /* IR Sensor Testing */
     int state = 1;
     while(1) {
 
-        // int ir[1] = {5};
         read_ir_sensor_array(&(ir_pins[0]), &(ir_values[0]), IR_PIN_COUNT);
 
         printf("IR_ARRAY Values: [ ");
@@ -37,7 +30,6 @@ void app_main(void) {
         }
         printf("]\n");
 
-        // send_message();
 
 
         vTaskDelay(pdMS_TO_TICKS(1000));
