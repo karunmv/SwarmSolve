@@ -1,3 +1,25 @@
+### Main
+Entrypoint.
+
+### esp_now_comms
+Functions for inter-robot communications.
+
+### feature_detection
+Detects the current features of the maze.
+
+Provides an interface to maneuver these features.
+
+### motor_control
+Drives the motors.
+
+### QTRX-MD-NRC
+Provides an interface for reading IR sensor values.
+
+### utils
+Utilitiy functions.
+
+
+
 # _Sample project_
 
 (See the README.md file in the upper level 'examples' directory for more information about examples.)

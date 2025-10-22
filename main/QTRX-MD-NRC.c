@@ -4,13 +4,12 @@
 #include <rom/ets_sys.h>
 #include "esp_timer.h"
 
-uint32_t start_time = 0;
-uint32_t time_elapsed;
-
 
 void read_ir_sensor_array(uint32_t *gpio_pins, uint32_t *IR_sensor_readings, uint32_t count) {
+    uint32_t start_time = 0;
+    uint32_t time_elapsed;
 
-    // Initialize IR sensor array
+    // Initialize IR sensor gpio array
     gpio_config_t IR_array_config[count];
     
     // Configure IR array for output

@@ -16,7 +16,8 @@
 
 
 /**
- * @brief Gets a reading from an IR sensor array
+ * @brief Gets a reading from an IR sensor array, higher values = Less reflectance (more black).
+ * @details Sets line high, then sets line as an input and measures how long it takes to drop to zero
  * @param gpio_pins Pointer to tnteger array of GPIO pins used by the sensor array
  * @param IR_sensor_readings Pointer to integer array to be used to store IR sensor readings in
  * @param count Number of sensors in array

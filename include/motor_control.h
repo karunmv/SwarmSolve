@@ -35,10 +35,18 @@ typedef struct{
     int stop[4];
 } directions;
 
-// Function Prototypes
+/* Function Prototypes */
+
+/**
+ * @brief Placeholder for function that will read the motor encodor values
+ */
 void read_encoder_values(uint32_t *gpio_pins);
 
-
+/**
+ * @brief Initializes motor driver GPIO pins and pwm clocks
+ * @param enable_pins Array of size NUM_MOTORS that holds the GPIO pins that are connected to the enable pins of the motor control board
+ * @param enable_pins Array of size NUM_MOTORS that holds the GPIO pins that are connected to the phase pins of the motor control board
+ */
 void motor_setup(uint32_t *enable_pins, uint32_t *phase_pins);
 
 /**

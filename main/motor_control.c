@@ -18,7 +18,7 @@ void read_encoder_values(uint32_t *gpio_pins){
 
 void motor_setup(uint32_t *enable_pins, uint32_t *phase_pins) {
 
-    /* Enable Pins */
+    /* Enable Pins (PWM) */
     for (int i = 0; i < NUM_MOTORS; i++) {
 
         // Prepare and then apply the LEDC PWM timer configuration
