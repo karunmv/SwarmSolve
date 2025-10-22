@@ -3,6 +3,7 @@
 #include "QTRX-MD-NRC.h"
 #include "motor_control.h"
 #include "feature_detection.h"
+#include "navigation_control.h"
 #include "utils.h"
 
 
@@ -16,6 +17,7 @@ void app_main(void) {
     /* Variable declarations */
     uint32_t ir_values[IR_PIN_COUNT];
     uint8_t feature_state;
+    uint8_t movement_state;
 
 
     /* Communication Initialization */
@@ -33,6 +35,11 @@ void app_main(void) {
         read_ir_sensor_array(&(ir_pins[0]), &(ir_values[0]), IR_PIN_COUNT);
 
         update_feature_state(&feature_state, ir_values);
+
+        update_movement_state(feature_state, &movement_state);
+
+        
+        // print_IR_values(ir_values);
 
         vTaskDelay(pdMS_TO_TICKS(10));
     }
