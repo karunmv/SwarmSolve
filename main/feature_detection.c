@@ -20,8 +20,22 @@ void update_feature_state(uint8_t *feature_state, uint32_t *ir_values) {
         }
     }
 
-    if (line_width == 0) *feature_state = DEAD_END;
-    else if (line_width == 2) *feature_state = STRAIGHT_LINE;
+    *feature_state = 0;
+
+    if (line_width == 0) {
+        *feature_state |= DEAD_END;
+        return; // Won't be any other states
+    } else if (line_width == 2 || (line_start > 0 && line_end < (IR_PIN_COUNT - 1))) {
+        *feature_state |= STRAIGHT_LINE;
+        return;
+    } 
+
+    if (line_end == (IR_PIN_COUNT - 1))     *feature_state |= RIGHT_TURN;
+    if (line_start == 0)                    *feature_state |= LEFT_TURN;
+
+    
+    
+
     else *feature_state = END_OF_MAZE;
 }
 

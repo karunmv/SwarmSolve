@@ -19,6 +19,7 @@
 #define DEAD_END        (1 << 3)
 #define LOST_LINE       (1 << 4)
 #define END_OF_MAZE     (1 << 5)
+#define CHECK_STRAIGHT  (1 << 6)
 
 // Robot state defines
 #define GOING_STRAIGHT  (1 << 0)
