@@ -28,6 +28,13 @@ void app_main(void) {
     /* Motor Pin Initialization */
     motor_setup(motor_enable_pins, motor_phase_pins);
 
+    printf("Calibrating...\n");
+    vTaskDelay(pdMS_TO_TICKS(3000));
+    read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+    uint32_t threshold = calibrate_ir(ir_values);
+
+    printf("Calibrated Successfully!\n");
+
 
     /* Main Loop */
     while(1) {
@@ -41,7 +48,7 @@ void app_main(void) {
         update_movement_state(feature_state, &movement_state);
 
         if (movement_state == GOING_STRAIGHT) {
-            follow_line(ir_values, motor_enable_pins, motor_phase_pins);
+            follow_line(ir_values, motor_enable_pins, motor_phase_pins, threshold);
         } else if (movement_state == STOPPED) {
             move_motors(motor_phase_pins, speeds);
         } else if (movement_state == TURNING_RIGHT) {

@@ -113,62 +113,83 @@ void turn_right(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pi
 
 }
 
-void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *motor_phase_pins) {
+uint32_t calibrate_ir(uint32_t *ir_values){
+    uint32_t max = 0;
+    uint32_t min = 0xffff;
+    uint32_t threshold = 0;
+
+    for(int k=0; k<10; k++){
+        for(int i=0; i<8; i++){
+            if(ir_values[i] > max) max = ir_values[i];
+            if(ir_values[i] < min) min = ir_values[i];
+        }
+    }
+
+    threshold = max - ((max - min) * 0.7);
+
+    return threshold;
+
+}
+
+void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *motor_phase_pins, uint32_t threshold) {
     
     int8_t speeds[NUM_MOTORS] = {50, 50};
 
-    // int8_t error = 0;
+    int8_t error = 0;
 
-    // for(int i=0; i<4; i++){
-    //     if(ir_values[i]>PRIMARY_IR_THRESHOLD){
-    //         if(i==3) speeds[1]=50;
-    //         else{
-    //             error = (4-i)*((ir_values[i]-PRIMARY_IR_THRESHOLD)/200);
-    //             speeds[1] += error;
-    //         }
-    //         move_motors(motor_phase_pins, speeds);
+    for(int i=0; i<4; i++){
+        if(ir_values[i]>threshold){
+            if(i==3) speeds[1]=50;
+            else{
+                error = (((ir_values[i]-threshold)/100));
+                speeds[1] += error;
+                printf("Error: %d\n",error);
+            }
+            move_motors(motor_phase_pins, speeds);
 
-    //     } else if(ir_values[7-i]>PRIMARY_IR_THRESHOLD){
-    //         if(i==4) speeds[0]=50;
-    //         else{
-    //             error = (4-i)*((ir_values[7-i]-PRIMARY_IR_THRESHOLD)/200);
-    //             speeds[0] += error;
-    //         }
-    //         move_motors(motor_phase_pins, speeds);
-    //     } else{
-    //         speeds[0]=50;
-    //         speeds[1]=50;
-    //     }
-    // }
-
-    if (ir_values[7] > PRIMARY_IR_THRESHOLD) {
-        speeds[0] = 50;
-        speeds[1] = 35;
-        move_motors(motor_phase_pins, speeds);    
-    } else if (ir_values[0] > PRIMARY_IR_THRESHOLD) {
-        speeds[0] = 35;
-        speeds[1] = 50;
-        move_motors(motor_phase_pins, speeds);    
-    } else if (ir_values[6] > PRIMARY_IR_THRESHOLD) {
-        speeds[0] = 50;
-        speeds[1] = 40;
-        move_motors(motor_phase_pins, speeds);    
-    } else if (ir_values[1] > PRIMARY_IR_THRESHOLD) {
-        speeds[0] = 40;
-        speeds[1] = 50;
-        move_motors(motor_phase_pins, speeds);    
-    } else if (ir_values[5] > PRIMARY_IR_THRESHOLD) {
-        speeds[0] = 50;
-        speeds[1] = 45;
-        move_motors(motor_phase_pins, speeds);    
-    } else if (ir_values[2] > PRIMARY_IR_THRESHOLD) {
-        speeds[0] = 45;
-        speeds[1] = 50;
-        move_motors(motor_phase_pins, speeds);    
-    } else {
-        speeds[0] = 50;
-        speeds[1] = 50;
-        move_motors(motor_phase_pins, speeds);
+        } else if(ir_values[7-i]>threshold){
+            if(i==4) speeds[0]=50;
+            else{
+                error = (((ir_values[7-i]-threshold)/100));
+                speeds[0] += error;
+                printf("Error: %d\n",error);
+            }
+            move_motors(motor_phase_pins, speeds);
+        } else{
+            speeds[0]=50;
+            speeds[1]=50;
+            // move_motors(motor_phase_pins, speeds);
+        }
     }
+
+    // if (ir_values[7] > PRIMARY_IR_THRESHOLD) {
+    //     speeds[0] = 50;
+    //     speeds[1] = 35;
+    //     move_motors(motor_phase_pins, speeds);    
+    // } else if (ir_values[0] > PRIMARY_IR_THRESHOLD) {
+    //     speeds[0] = 35;
+    //     speeds[1] = 50;
+    //     move_motors(motor_phase_pins, speeds);    
+    // } else if (ir_values[6] > PRIMARY_IR_THRESHOLD) {
+    //     speeds[0] = 50;
+    //     speeds[1] = 40;
+    //     move_motors(motor_phase_pins, speeds);    
+    // } else if (ir_values[1] > PRIMARY_IR_THRESHOLD) {
+    //     speeds[0] = 40;
+    //     speeds[1] = 50;
+    //     move_motors(motor_phase_pins, speeds);    
+    // } else if (ir_values[5] > PRIMARY_IR_THRESHOLD) {
+    //     speeds[0] = 50;
+    //     speeds[1] = 45;
+    //     move_motors(motor_phase_pins, speeds);    
+    // } else if (ir_values[2] > PRIMARY_IR_THRESHOLD) {
+    //     speeds[0] = 45;
+    //     speeds[1] = 50;
+    //     move_motors(motor_phase_pins, speeds);    
+    // } else {
+    //     speeds[0] = 50;
+    //     speeds[1] = 50;
+    //     move_motors(motor_phase_pins, speeds);
+    // }
 
 }

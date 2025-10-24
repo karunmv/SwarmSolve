@@ -31,7 +31,9 @@ void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phas
  * @param motor_enable_pins Pointer to array that holds the pin numbers of the motor enable pins of the motor driver
  * @param motor_phase_pins Pointer to array that holds the pin numbers of the motor phase pins
  */
-void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *motor_phase_pins);
+void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *motor_phase_pins, uint32_t threshold);
+
+uint32_t calibrate_ir(uint32_t *ir_values);
 
 
 void turn_right(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state);
