@@ -29,37 +29,23 @@ void app_main(void) {
     motor_setup(motor_enable_pins, motor_phase_pins);
 
 
-    /* IR Sensor Testing */
+    /* Main Loop */
     while(1) {
 
         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
 
         update_feature_state(&feature_state, ir_values);
 
+        check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state);
+
         update_movement_state(feature_state, &movement_state);
-
-        // follow_line(ir_values, motor_enable_pins, motor_phase_pins);
-        if (movement_state == CHECKING_STRAIGHT) {
-            check_straight(ir_pins, ir_values, motor_enable_pins, motor_phase_pins, &feature_state);
-        }
-
-        if (feature_state & STRAIGHT_CHECKED) {
-
-            if (feature_state & RIGHT_TURN) {
-                speeds[0] = 50;
-                speeds[1] = -50;
-                move_motors(motor_phase_pins, speeds);
-                vTaskDelay(pdMS_TO_TICKS(500));
-                speeds[0] = 0;
-                speeds[1] = 0;
-                move_motors(motor_phase_pins, speeds);
-            }
-        }
 
         if (movement_state == GOING_STRAIGHT) {
             follow_line(ir_values, motor_enable_pins, motor_phase_pins);
-        } else {
+        } else if (movement_state == STOPPED) {
             move_motors(motor_phase_pins, speeds);
+        } else if (movement_state == TURNING_RIGHT) {
+            turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
         }
 
         print_feature_state(feature_state);
