@@ -29,6 +29,8 @@ void esp_broadcast_setup(void);
 
 void send_message(void);
 
+void send_state(uint8_t feature_state, uint8_t movement_state);
+
 void wifi_sta_init(void);
 
 #endif

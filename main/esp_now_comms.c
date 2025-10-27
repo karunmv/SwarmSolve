@@ -20,6 +20,13 @@ void send_message(void) {
         ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
 }
 
+void send_state(uint8_t feature_state, uint8_t movement_state) {
+    uint8_t states[2] = {feature_state, movement_state};
+
+    esp_err_t err = esp_now_send(broadcast_mac, states, sizeof(uint8_t *) * 2);
+    ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
+}
+
 void esp_broadcast_setup(void) {
     // Print mac address of current board
     esp_read_mac(esp_mac, ESP_MAC_WIFI_STA);

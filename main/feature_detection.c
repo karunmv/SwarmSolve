@@ -45,7 +45,7 @@ void update_feature_state(uint8_t *feature_state, uint32_t *ir_values) {
     if (line_width == 0) {
         *feature_state = DEAD_END;
         return;
-    } else if (line_width == 2 || (line_start > 0 && line_end < (IR_PIN_COUNT - 1))) {
+    } else if (line_width <= 3 || (line_start > 0 && line_end < (IR_PIN_COUNT - 1))) {
         *feature_state = STRAIGHT_LINE;
         return;
     } 
