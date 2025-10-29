@@ -125,7 +125,9 @@ uint32_t calibrate_ir(uint32_t *ir_values){
         }
     }
 
-    threshold = max - ((max - min) * 0.7);
+    threshold = max - ((max - min) * 0.1);
+
+    //printf("Max: %ld Min: %ld Threshold: %ld", max,min,threshold);
 
     return threshold;
 
@@ -137,28 +139,25 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *mot
 
     int8_t error = 0;
 
-    for(int i=0; i<4; i++){
-        if(ir_values[i]>threshold){
-            if(i==3) speeds[1]=50;
-            else{
-                error = (((ir_values[i]-threshold)/100));
+    if ((ir_values[3]>threshold) && (ir_values[4]>threshold)){
+        speeds[0] = 50;
+        speeds[1] = 50;
+        move_motors(motor_phase_pins, speeds);
+    }
+    else{
+        for(int i=0; i<4; i++){
+            if(ir_values[i]>threshold){
+                error = (3-i)*(((ir_values[i]-threshold)/20));
                 speeds[1] += error;
                 printf("Error: %d\n",error);
-            }
-            move_motors(motor_phase_pins, speeds);
+                move_motors(motor_phase_pins, speeds);
 
-        } else if(ir_values[7-i]>threshold){
-            if(i==4) speeds[0]=50;
-            else{
-                error = (((ir_values[7-i]-threshold)/100));
+            } else if(ir_values[7-i]>threshold){
+                error = (3-i)*(((ir_values[7-i]-threshold)/20));
                 speeds[0] += error;
                 printf("Error: %d\n",error);
+                move_motors(motor_phase_pins, speeds);
             }
-            move_motors(motor_phase_pins, speeds);
-        } else{
-            speeds[0]=50;
-            speeds[1]=50;
-            // move_motors(motor_phase_pins, speeds);
         }
     }
 
