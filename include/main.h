@@ -9,6 +9,10 @@
 #include "driver/gpio.h"
 
 
+#define PRIMARY_IR_THRESHOLD    1300
+#define BASE_FORWARD_SPEED 40
+#define BASE_TURN_SPEED 20
+
 // Important Defines
 #define NUM_MOTORS 2
 

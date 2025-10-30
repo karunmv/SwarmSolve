@@ -3,7 +3,6 @@
 
 
 /* Defines */
-#define PRIMARY_IR_THRESHOLD    1500
 #define NO_END                  0x00
 #define NO_START                0xFF
 

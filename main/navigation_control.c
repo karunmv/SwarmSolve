@@ -5,14 +5,16 @@
 
 void update_movement_state(uint8_t feature_state, uint8_t *robot_state) {
 
-    if (feature_state == DEAD_END) {
+    if (feature_state == END_OF_MAZE) {
+        *robot_state = STOPPED;
+    } else if (feature_state == DEAD_END) {
         *robot_state = TURNING_RIGHT;
     } else if (feature_state == STRAIGHT_LINE) {
         *robot_state = GOING_STRAIGHT;
     } else if (feature_state & RIGHT_TURN) {
         *robot_state = TURNING_RIGHT;
     } else {
-        *robot_state = STOPPED;
+        *robot_state = GOING_STRAIGHT;
     }
 
 }
