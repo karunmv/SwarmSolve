@@ -31,6 +31,8 @@ void send_message(void);
 
 void send_state(uint8_t feature_state, uint8_t movement_state);
 
+void send_ir_values(uint32_t *ir_values);
+
 void wifi_sta_init(void);
 
 #endif

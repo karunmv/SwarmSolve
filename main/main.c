@@ -52,6 +52,7 @@ void app_main(void) {
 
         // if (counter == 10) {
         //     send_state(feature_state, movement_state);
+        //     send_ir_values(ir_values);
         //     counter = 0;
         // }
         // counter++;
