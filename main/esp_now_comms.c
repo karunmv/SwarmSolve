@@ -27,6 +27,23 @@ void send_state(uint8_t feature_state, uint8_t movement_state) {
     ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
 }
 
+void send_ir_values(uint32_t *ir_values) {
+
+    uint8_t all_values[8]={0};
+
+    for(int i=0; i<8; i++){
+        uint32_t value = ir_values[i];
+
+        uint8_t cast_values[4] = {(uint8_t)(value & 0xff), (uint8_t)((value >> 8) & 0xff), (uint8_t)((value >> 16) & 0xff), (uint8_t)((value >> 24) & 0xff)};
+
+        all_values[i] = *cast_values;
+        // esp_err_t err = esp_now_send(broadcast_mac, cast_values, sizeof(uint8_t*)*4);
+        // ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
+    }
+    esp_err_t err = esp_now_send(broadcast_mac, all_values, sizeof(uint32_t *) * 8 * 8);
+    ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
+}
+
 void esp_broadcast_setup(void) {
     // Print mac address of current board
     esp_read_mac(esp_mac, ESP_MAC_WIFI_STA);
