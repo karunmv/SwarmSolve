@@ -13,13 +13,16 @@ void app_main(void) {
     uint32_t ir_pins[IR_PIN_COUNT] = {IR_PIN_1, IR_PIN_2, IR_PIN_3, IR_PIN_4, IR_PIN_5, IR_PIN_6, IR_PIN_7, IR_PIN_8};
     uint32_t motor_enable_pins[NUM_MOTORS] = {M1_PWM, M2_PWM};
     uint32_t motor_phase_pins[NUM_MOTORS] = {M1_DIR, M2_DIR};
+    uint32_t motor_encoder_A_pins[NUM_MOTORS] = {ENC_PH_A_M1, ENC_PH_A_M2};
+    uint32_t motor_encoder_B_pins[NUM_MOTORS] = {ENC_PH_B_M1, ENC_PH_B_M2};
     
     /* Variable declarations */
     uint32_t ir_values[IR_PIN_COUNT];
     uint8_t feature_state;
     uint8_t movement_state;
     int8_t speeds[NUM_MOTORS] = {0, 0};
-
+    pcnt_unit_handle_t pcnt_unit;
+    int pulse_count = 0;
 
     /* Communication Initialization */
     wifi_sta_init();
@@ -27,6 +30,9 @@ void app_main(void) {
 
     /* Motor Pin Initialization */
     motor_setup(motor_enable_pins, motor_phase_pins);
+
+    /* Encoder Initialization */
+    pcnt_unit = init_encoder(motor_encoder_A_pins, motor_encoder_B_pins);
 
     // printf("Calibrating...\n");
     // vTaskDelay(pdMS_TO_TICKS(3000));
@@ -44,7 +50,7 @@ void app_main(void) {
 
         update_feature_state(&feature_state, ir_values);
 
-        check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state);
+        check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state, &pcnt_unit);
 
         update_movement_state(feature_state, &movement_state);
 
@@ -66,10 +72,8 @@ void app_main(void) {
 
         // print_feature_state(feature_state);
         // print_movement_state(movement_state);
-        print_IR_values(ir_values);
+        // print_IR_values(ir_values);
 
-
-
-        // vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

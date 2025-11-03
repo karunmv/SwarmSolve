@@ -74,16 +74,29 @@ void update_feature_state(uint8_t *feature_state, uint32_t *ir_values) {
     if (line_start == 0)                    *feature_state |= LEFT_TURN;
 }
 
-void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t *feature_state) {
-    
+void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t *feature_state, pcnt_unit_handle_t *pcnt_unit) {
+
     /* Check if turn exists, and if so double check if the line continues straight */
     if ((*feature_state & RIGHT_TURN) || (*feature_state & LEFT_TURN)) {
 
-        /* Move forward a tad */
+        /* Variables */
         int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};
+        int pulse_count;
 
+
+        /* Move forward a tad */
+        // Start Moving
         move_motors(motor_phase_pins, speeds);
-        ets_delay_us(100000);
+
+        // Wait for certain pules count
+        ESP_ERROR_CHECK(pcnt_unit_clear_count(*pcnt_unit));
+        pcnt_unit_get_count(*pcnt_unit, &pulse_count);
+
+        while (pulse_count < CHECK_STRAIGHT_PULSES) {
+            pcnt_unit_get_count(*pcnt_unit, &pulse_count);
+        }
+        
+        // Stop moving
         speeds[0] = 0;
         speeds[1] = 0;
         move_motors(motor_phase_pins, speeds);
@@ -109,7 +122,8 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *mot
     int8_t error = 0;
     uint8_t kp = 5;
 
-    if ((ir_values[3]>threshold) && (ir_values[4]>threshold)){
+
+    if (((ir_values[3]>threshold) && (ir_values[4]>threshold)) || (find_line_width(ir_values) > 3)){
         speeds[0] = BASE_FORWARD_SPEED;
         speeds[1] = BASE_FORWARD_SPEED;
         move_motors(motor_phase_pins, speeds);

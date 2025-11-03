@@ -3,6 +3,7 @@
 
 #include "driver/ledc.h"
 
+
 // GPIO Defines
 #define M1_PWM 0
 #define M1_DIR 1
@@ -27,6 +28,10 @@
 #define RIGHT 0x0D
 #define STOP 0X0E
 
+// Pulse Count Defines
+#define PCNT_HIGH_LIMIT INT16_MAX
+#define PCNT_LOW_LIMIT  INT16_MIN
+
 typedef struct{
     int forward[4];
     int reverse[4];
@@ -40,7 +45,7 @@ typedef struct{
 /**
  * @brief Placeholder for function that will read the motor encodor values
  */
-void read_encoder_values(uint32_t *gpio_pins);
+pcnt_unit_handle_t init_encoder(uint32_t *encoder_pins_A, uint32_t *encoder_pins_B);
 
 /**
  * @brief Initializes motor driver GPIO pins and pwm clocks

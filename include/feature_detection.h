@@ -22,7 +22,7 @@ void update_feature_state(uint8_t *feature_state, uint32_t *ir_values);
  * @param motor_phase_pins Pointer to array that holds the pin numbers of the motor phase pins
  * @param feature_state Pointer to the variable that holds the current feature state
  */
-void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t *feature_state);
+void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t *feature_state, pcnt_unit_handle_t *pcnt_unit);
 
 /**
  * @brief Follows a straight line

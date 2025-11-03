@@ -7,11 +7,15 @@
 #include "esp_log.h"
 #include "string.h"
 #include "driver/gpio.h"
+#include "driver/pulse_cnt.h"
 
 
 #define PRIMARY_IR_THRESHOLD    1300
+
+// Motor Movement
 #define BASE_FORWARD_SPEED 40
 #define BASE_TURN_SPEED 20
+#define CHECK_STRAIGHT_PULSES 620
 
 // Important Defines
 #define NUM_MOTORS 2
