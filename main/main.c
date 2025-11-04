@@ -57,16 +57,18 @@ void app_main(void) {
         // threshold = calibrate_ir(ir_values);
 
         // if (counter == 10) {
-        //     send_state(feature_state, movement_state);
-        //     send_ir_values(ir_values);
+            // send_state(feature_state, movement_state);
+            // send_ir_values(ir_values);
         //     counter = 0;
         // }
         // counter++;
+
 
         if (movement_state == GOING_STRAIGHT) {
             follow_line(ir_values, motor_enable_pins, motor_phase_pins, PRIMARY_IR_THRESHOLD);
         } else if (movement_state == STOPPED) {
             move_motors(motor_phase_pins, speeds);
+            while(1);
         } else if (movement_state == TURNING_RIGHT) {
             turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
         }
