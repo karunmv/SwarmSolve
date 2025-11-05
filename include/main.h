@@ -12,6 +12,7 @@
 #define PRIMARY_IR_THRESHOLD    1300
 #define BASE_FORWARD_SPEED 40
 #define BASE_TURN_SPEED 20
+#define NUM_MAP_FEATURES 10
 
 // Important Defines
 #define NUM_MOTORS 2
@@ -33,5 +34,16 @@
 #define REVERSING           (1 << 4)
 #define STOPPED             (1 << 5)
 #define CHECKING_STRAIGHT   (1 << 6)
+
+// Prune defines
+#define RU (((1 << 2) << 8) | (1 << 3))
+#define LU (((1 << 1) << 8) | (1 << 3))
+#define SU (((1 << 0) << 8) | (1 << 3))
+#define SS (((1 << 0) << 8) | (1 << 0))
+#define RR (((1 << 2) << 8) | (1 << 2))
+#define LL (((1 << 1) << 8) | (1 << 1))
+#define RE (((1 << 2) << 8) | (1 << 5))
+#define LE (((1 << 1) << 8) | (1 << 5))
+#define SE (((1 << 0) << 8) | (1 << 5))
 
 #endif

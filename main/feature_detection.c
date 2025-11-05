@@ -107,9 +107,11 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *mot
     int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};
 
     int8_t error = 0;
-    uint8_t old_i = 3;
+    static uint8_t old_i = 3;
+    static uint8_t error_sum = 0;
     uint8_t kp = 5;
     uint8_t kd = 2;
+    uint8_t ki = 2;
 
     if ((ir_values[3]>threshold) && (ir_values[4]>threshold)){
         speeds[0] = BASE_FORWARD_SPEED;
@@ -117,17 +119,13 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *mot
         move_motors(motor_phase_pins, speeds);
     }
     else{
-        for(int i=0; i<4; i++){
+        for(int i=0; i<8; i++){
             if(ir_values[i]>threshold){
-                error = (4-i)*((kp)) + ((i - old_i)*kd);
+                error = ((3.5 - i) * kp) + (error_sum * ki) + ((i - old_i) * kd);
                 old_i = i;
+                error_sum += (3.5 - i);
                 speeds[0] -= error;
-                move_motors(motor_phase_pins, speeds);
-
-            } else if(ir_values[7-i]>threshold){
-                error = (4-i)*((kp)) + ((i - old_i)*kd);
-                old_i = i;
-                speeds[1] -= error;
+                speeds[1] += error;
                 move_motors(motor_phase_pins, speeds);
             }
         }
