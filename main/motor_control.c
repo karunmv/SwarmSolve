@@ -1,19 +1,35 @@
 #include "main.h"
 #include "motor_control.h"
 
-void read_encoder_values(uint32_t *gpio_pins){
-    gpio_config_t encoder_config[4];
+pcnt_unit_handle_t init_encoder(uint32_t *encoder_pins_A, uint32_t *encoder_pins_B) {
+    pcnt_unit_config_t pcnt_config = {
+        .high_limit = PCNT_HIGH_LIMIT,
+        .low_limit  = PCNT_LOW_LIMIT,
+    };
+    pcnt_unit_handle_t pcnt_unit = NULL;
+    ESP_ERROR_CHECK(pcnt_new_unit(&pcnt_config, &pcnt_unit));
 
-    for(int i=0; i<4; i++){
-        
-        encoder_config[i].pin_bit_mask = (1UL << gpio_pins[i]);
-        encoder_config[i].mode = GPIO_MODE_INPUT;
-        encoder_config[i].pull_up_en = GPIO_PULLUP_DISABLE;
-        encoder_config[i].pull_down_en = GPIO_PULLDOWN_DISABLE;
-        encoder_config[i].intr_type = GPIO_INTR_DISABLE;
+    pcnt_glitch_filter_config_t filter_config = {
+        .max_glitch_ns = 1000,
+    };
+    ESP_ERROR_CHECK(pcnt_unit_set_glitch_filter(pcnt_unit, &filter_config));
 
-        gpio_config(&(encoder_config[i]));
-    }
+    pcnt_chan_config_t chan_a_config = {
+        .edge_gpio_num = encoder_pins_A[0],
+        .level_gpio_num = encoder_pins_B[0],
+    };
+    pcnt_channel_handle_t pcnt_chan_a = NULL;
+    ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit, &chan_a_config, &pcnt_chan_a));
+
+    ESP_ERROR_CHECK(pcnt_channel_set_edge_action(pcnt_chan_a, PCNT_CHANNEL_EDGE_ACTION_DECREASE, PCNT_CHANNEL_EDGE_ACTION_HOLD));
+    ESP_ERROR_CHECK(pcnt_channel_set_level_action(pcnt_chan_a, PCNT_CHANNEL_LEVEL_ACTION_KEEP, PCNT_CHANNEL_LEVEL_ACTION_INVERSE));
+
+    
+    ESP_ERROR_CHECK(pcnt_unit_enable(pcnt_unit));
+    ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit));
+    ESP_ERROR_CHECK(pcnt_unit_start(pcnt_unit));
+
+    return pcnt_unit;
 }
 
 void motor_setup(uint32_t *enable_pins, uint32_t *phase_pins) {

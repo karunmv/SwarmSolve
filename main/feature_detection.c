@@ -74,16 +74,29 @@ void update_feature_state(uint8_t *feature_state, uint32_t *ir_values) {
     if (line_start == 0)                    *feature_state |= LEFT_TURN;
 }
 
-void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t *feature_state) {
-    
+void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t *feature_state, pcnt_unit_handle_t *pcnt_unit) {
+
     /* Check if turn exists, and if so double check if the line continues straight */
     if ((*feature_state & RIGHT_TURN) || (*feature_state & LEFT_TURN)) {
 
-        /* Move forward a tad */
+        /* Variables */
         int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};
+        int pulse_count;
 
+
+        /* Move forward a tad */
+        // Start Moving
         move_motors(motor_phase_pins, speeds);
-        ets_delay_us(100000);
+
+        // Wait for certain pules count
+        ESP_ERROR_CHECK(pcnt_unit_clear_count(*pcnt_unit));
+        pcnt_unit_get_count(*pcnt_unit, &pulse_count);
+
+        while (pulse_count < CHECK_STRAIGHT_PULSES) {
+            pcnt_unit_get_count(*pcnt_unit, &pulse_count);
+        }
+        
+        // Stop moving
         speeds[0] = 0;
         speeds[1] = 0;
         move_motors(motor_phase_pins, speeds);
@@ -95,7 +108,7 @@ void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phas
 
         /* Check if line continues or if it is a box */
         if ((line_width >= 3) && (line_width < (IR_PIN_COUNT - 1))) *feature_state |= STRAIGHT_LINE;
-        else if (line_width == (IR_PIN_COUNT - 1)) *feature_state = END_OF_MAZE;
+        else if (line_width == IR_PIN_COUNT) *feature_state = END_OF_MAZE;
 
         *feature_state |= STRAIGHT_CHECKED;
 
@@ -109,9 +122,9 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *mot
     int8_t error = 0;
     static uint8_t old_i = 3;
     static uint8_t error_sum = 0;
-    uint8_t kp = 5;
-    uint8_t kd = 2;
-    uint8_t ki = 2;
+    uint8_t kp = 4;
+    uint8_t kd = 0.9;
+    uint8_t ki = 0.5;
 
     if ((ir_values[3]>threshold) && (ir_values[4]>threshold)){
         speeds[0] = BASE_FORWARD_SPEED;
@@ -121,7 +134,7 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *mot
     else{
         for(int i=0; i<8; i++){
             if(ir_values[i]>threshold){
-                error = ((3.5 - i) * kp) + (error_sum * ki) + ((i - old_i) * kd);
+                error = ((3.5 - i) * kp) + (error_sum * ki) + ((old_i - i) * kd);
                 old_i = i;
                 error_sum += (3.5 - i);
                 speeds[0] -= error;

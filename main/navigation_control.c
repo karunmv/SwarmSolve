@@ -5,7 +5,7 @@
 
 void update_movement_state(uint8_t feature_state, uint8_t *robot_state) {
 
-    if (feature_state == END_OF_MAZE) {
+    if (feature_state & END_OF_MAZE) {
         *robot_state = STOPPED;
     } else if (feature_state == DEAD_END) {
         *robot_state = TURNING_RIGHT;
