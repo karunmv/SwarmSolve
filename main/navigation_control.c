@@ -34,7 +34,7 @@ void occupancy_grid(uint8_t feature_state, uint8_t *robot_state, uint8_t *node_l
 }
 
 uint8_t* prune_map(uint8_t *node_list){
-    uint8_t temp_map[NUM_MAP_FEATURES] = (uint8_t *)calloc(NUM_MAP_FEATURES, sizeof(uint8_t));
+    uint8_t temp_map[NUM_MAP_FEATURES] = {0}; // All elements initialized to 0
     static int actual_features = 0;
     static int temp_index = 0;
  
