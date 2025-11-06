@@ -13,8 +13,8 @@
 #define PRIMARY_IR_THRESHOLD    1300
 
 // Motor Movement
-#define BASE_FORWARD_SPEED 40
-#define BASE_TURN_SPEED 20
+#define BASE_FORWARD_SPEED 55
+#define BASE_TURN_SPEED 30
 #define CHECK_STRAIGHT_PULSES 620
 
 // Important Defines

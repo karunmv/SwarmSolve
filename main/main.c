@@ -41,7 +41,7 @@ void app_main(void) {
 
     // printf("Calibrated Successfully!\n");
 
-    int counter = 0;
+    // int counter = 0;
 
     /* Main Loop */
     while(1) {
@@ -72,6 +72,10 @@ void app_main(void) {
             while(1);
         } else if (movement_state == TURNING_RIGHT) {
             turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
+        } else if (movement_state == TURNING_LEFT) {
+            turn_left(ir_pins, ir_values, motor_phase_pins, feature_state);
+        } else if (movement_state == U_TURN) {
+            u_turn(ir_pins, ir_values, motor_phase_pins, feature_state);
         }
 
         // print_feature_state(feature_state);

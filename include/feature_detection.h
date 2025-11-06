@@ -5,7 +5,7 @@
 /* Defines */
 #define NO_END                  0x00
 #define NO_START                0xFF
-#define CYCLES_TILL_CENTERED    500
+#define CYCLES_TILL_CENTERED    5
 
 /* Function prototypes*/
 
@@ -38,5 +38,9 @@ uint32_t calibrate_ir(uint32_t *ir_values);
 void center_on_line_in_place(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins);
 
 void turn_right(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state);
+
+void turn_left(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state);
+
+void u_turn(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state);
 
 #endif

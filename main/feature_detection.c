@@ -176,8 +176,8 @@ void center_on_line_in_place(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *m
         error = calculate_line_error(ir_values);
 
         correction = kp * error;
-        if (error < 0) correction -= 5;
-        else if (error > 0) correction += 5;        
+        if (error < 0) correction -= 10;
+        else if (error > 0) correction += 10;        
 
         speeds[0] = -correction;
         speeds[1] = correction;
@@ -186,6 +186,7 @@ void center_on_line_in_place(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *m
         // Wait until the robot has 0 error for a certain number of cycles before returning
         if (error == 0) centered_count++;
         else centered_count = 0;
+
         if (centered_count >= CYCLES_TILL_CENTERED) break;
     }
 
@@ -197,8 +198,6 @@ void turn_right(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pi
     int8_t speeds[NUM_MOTORS] = {BASE_TURN_SPEED, -BASE_TURN_SPEED};
 
     move_motors(motor_phase_pins, speeds); // Start turning right
-
-    // Add double check that it is on the line?
 
     /* Wait for robot to leave initial line */
     while(1) {
@@ -214,6 +213,61 @@ void turn_right(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pi
         line_width = find_line_width(ir_values);
 
         if (line_width > 0) break;
+    }
+
+    center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
+}
+
+void turn_left(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state) {
+
+    uint8_t line_width;
+    int8_t speeds[NUM_MOTORS] = {-BASE_TURN_SPEED, BASE_TURN_SPEED};
+
+    move_motors(motor_phase_pins, speeds); // Start turning right
+
+    /* Wait for robot to leave initial line */
+    while(1) {
+        read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+        line_width = find_line_width(ir_values);
+
+        if (line_width == 0) break;
+    }
+
+    /* Wait for robot to return to line */
+    while(1) {
+        read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+        line_width = find_line_width(ir_values);
+
+        if (line_width > 0) break;
+    }
+
+    center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
+}
+
+void u_turn(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state) {
+
+    uint8_t line_width;
+    int8_t speeds[NUM_MOTORS] = {BASE_TURN_SPEED, -BASE_TURN_SPEED};
+
+    move_motors(motor_phase_pins, speeds); // Start turning right
+
+    /* Run twice if there is a right turn present at the intersection to skip over the extra line */
+    for (int i = 0; i <= (feature_state & RIGHT_TURN); i++) {
+        /* Wait for robot to leave initial line */
+        while(1) {
+            read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+            line_width = find_line_width(ir_values);
+
+            if (line_width == 0) break;
+        }
+
+        /* Wait for robot to return to line */
+        while(1) {
+            read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+            line_width = find_line_width(ir_values);
+
+            if (line_width > 0) break;
+        }
     }
 
     center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
