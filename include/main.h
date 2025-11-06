@@ -15,6 +15,7 @@
 // Motor Movement
 #define BASE_FORWARD_SPEED 55
 #define BASE_TURN_SPEED 30
+#define NUM_MAP_FEATURES 10
 #define CHECK_STRAIGHT_PULSES 620
 
 // Important Defines
@@ -37,5 +38,16 @@
 #define REVERSING           (1 << 4)
 #define STOPPED             (1 << 5)
 #define CHECKING_STRAIGHT   (1 << 6)
+
+// Prune defines
+#define RU (((1 << 2) << 8) | (1 << 3))
+#define LU (((1 << 1) << 8) | (1 << 3))
+#define SU (((1 << 0) << 8) | (1 << 3))
+#define SS (((1 << 0) << 8) | (1 << 0))
+#define RR (((1 << 2) << 8) | (1 << 2))
+#define LL (((1 << 1) << 8) | (1 << 1))
+#define RE (((1 << 2) << 8) | (1 << 5))
+#define LE (((1 << 1) << 8) | (1 << 5))
+#define SE (((1 << 0) << 8) | (1 << 5))
 
 #endif

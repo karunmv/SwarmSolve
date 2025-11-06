@@ -21,6 +21,7 @@ void app_main(void) {
     uint8_t feature_state;
     uint8_t movement_state;
     int8_t speeds[NUM_MOTORS] = {0, 0};
+    uint8_t map[NUM_MAP_FEATURES] = {0};
     pcnt_unit_handle_t pcnt_unit;
     int pulse_count = 0;
 
