@@ -28,19 +28,42 @@ void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phas
 /**
  * @brief Follows a straight line
  * @param ir_values Pointer to array of IR sensor values
- * @param motor_enable_pins Pointer to array that holds the pin numbers of the motor enable pins of the motor driver
  * @param motor_phase_pins Pointer to array that holds the pin numbers of the motor phase pins
  */
 void follow_line(uint32_t *ir_values, uint32_t *motor_phase_pins, uint32_t threshold);
 
 uint32_t calibrate_ir(uint32_t *ir_values);
 
+/** 
+ * @brief Centers the robot on the line while not moving forward
+ * @param ir_pins Pointer to array that holds the pins for the IR sensor array
+ * @param ir_values Pointer to array of IR sensor values
+ * @param motor_phase_pins Pointer to array that holds the pin numbers of the motor phase pins
+ */
 void center_on_line_in_place(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins);
 
+/** 
+ * @brief Turns the robot right at an intersection until it reaches the next line
+ * @param ir_pins Pointer to array that holds the pins for the IR sensor array
+ * @param ir_values Pointer to array of IR sensor values
+ * @param motor_phase_pins Pointer to array that holds the pin numbers of the motor phase pins
+ */
 void turn_right(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state);
 
+/** 
+ * @brief Turns the robot left at an intersection until it reaches the next line
+ * @param ir_pins Pointer to array that holds the pins for the IR sensor array
+ * @param ir_values Pointer to array of IR sensor values
+ * @param motor_phase_pins Pointer to array that holds the pin numbers of the motor phase pins
+ */
 void turn_left(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state);
 
+/** 
+ * @brief Turns the robot around at an intesection or dead end, may skip a line if a right turn exists at that intersection
+ * @param ir_pins Pointer to array that holds the pins for the IR sensor array
+ * @param ir_values Pointer to array of IR sensor values
+ * @param motor_phase_pins Pointer to array that holds the pin numbers of the motor phase pins
+ */
 void u_turn(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state);
 
 #endif
