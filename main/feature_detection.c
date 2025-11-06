@@ -5,6 +5,27 @@
 
 #include <rom/ets_sys.h>
 
+static int calculate_line_error(uint32_t *ir_values) {
+    int error = 0;
+
+    // TODO Fix hardcoded values
+    for (int i=0; i<4; i++) {
+        if (ir_values[i] > PRIMARY_IR_THRESHOLD) {
+            error = (3 - i);
+            break;
+        }
+    }
+    for (int i = 7; i > 3; i--) {
+        if (ir_values[i] > PRIMARY_IR_THRESHOLD) {
+            if (error < (i - 4)) {
+                error = (4 - i);
+            }
+            break;
+        }
+    }
+
+    return error;
+}
 
 static void find_line(uint32_t *ir_values, uint8_t *line_start, uint8_t *line_end, uint8_t *line_width) {
 
@@ -115,43 +136,67 @@ void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phas
     }
 }
 
-void follow_line(uint32_t *ir_values, uint32_t *motor_enable_pins, uint32_t *motor_phase_pins, uint32_t threshold) {
+void follow_line(uint32_t *ir_values, uint32_t *motor_phase_pins, uint32_t threshold) {
     
     int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};
 
-    int8_t error = 0;
-    static uint8_t old_i = 3;
-    static uint8_t error_sum = 0;
-    uint8_t kp = 4;
-    uint8_t kd = 0.9;
-    uint8_t ki = 0.5;
+    // int8_t error = 0;
+    int error;
+    static int last_error, error_sum;
+    float correction;
+    float kp = 5;
+    float kd = 0;
+    float ki = 0.2;
 
-    if ((ir_values[3]>threshold) && (ir_values[4]>threshold)){
-        speeds[0] = BASE_FORWARD_SPEED;
-        speeds[1] = BASE_FORWARD_SPEED;
+    error = calculate_line_error(ir_values);
+    error_sum += error;
+    
+    correction = kp * error + kd * (last_error - error) + ki * error_sum;
+
+    speeds[0] = BASE_FORWARD_SPEED - correction;
+    speeds[1] = BASE_FORWARD_SPEED + correction;
+    move_motors(motor_phase_pins, speeds);
+
+    last_error = error;
+}
+
+void center_on_line_in_place(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins) {
+    
+    uint16_t centered_count = 0;
+    uint8_t line_width;
+    int8_t speeds[NUM_MOTORS] = {0, 0};
+    int error = 0;
+    float correction = 0;
+    float kp = 5;
+
+
+    while(1) {
+        read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+
+        error = calculate_line_error(ir_values);
+
+        correction = kp * error;
+        if (error < 0) correction -= 5;
+        else if (error > 0) correction += 5;        
+
+        speeds[0] = -correction;
+        speeds[1] = correction;
         move_motors(motor_phase_pins, speeds);
+
+        // Wait until the robot has 0 error for a certain number of cycles before returning
+        if (error == 0) centered_count++;
+        else centered_count = 0;
+        if (centered_count >= CYCLES_TILL_CENTERED) break;
     }
-    else{
-        for(int i=0; i<8; i++){
-            if(ir_values[i]>threshold){
-                error = ((3.5 - i) * kp) + (error_sum * ki) + ((old_i - i) * kd);
-                old_i = i;
-                error_sum += (3.5 - i);
-                speeds[0] -= error;
-                speeds[1] += error;
-                move_motors(motor_phase_pins, speeds);
-            }
-        }
-    }
+
 }
 
 void turn_right(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state) {
 
+    uint8_t line_width;
     int8_t speeds[NUM_MOTORS] = {BASE_TURN_SPEED, -BASE_TURN_SPEED};
 
     move_motors(motor_phase_pins, speeds); // Start turning right
-
-    uint8_t line_width;
 
     // Add double check that it is on the line?
 
@@ -171,20 +216,6 @@ void turn_right(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pi
         if (line_width > 0) break;
     }
 
-    speeds[0] = 20;
-    speeds[1] = -20;
-    move_motors(motor_phase_pins, speeds);
-
-    /* Center robot on line */
-    while(1) {
-        read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
-        line_width = find_line_width(ir_values);
-
-        if (ir_values[3] > PRIMARY_IR_THRESHOLD && ir_values[4] > PRIMARY_IR_THRESHOLD) break;
-    }
-
-    speeds[0] = 0;
-    speeds[1] = 0;
-    move_motors(motor_phase_pins, speeds);
-
+    center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
 }
+

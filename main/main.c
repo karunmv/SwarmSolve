@@ -63,9 +63,10 @@ void app_main(void) {
         // }
         // counter++;
 
+        // center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
 
         if (movement_state == GOING_STRAIGHT) {
-            follow_line(ir_values, motor_enable_pins, motor_phase_pins, PRIMARY_IR_THRESHOLD);
+            follow_line(ir_values, motor_phase_pins, PRIMARY_IR_THRESHOLD);
         } else if (movement_state == STOPPED) {
             move_motors(motor_phase_pins, speeds);
             while(1);
