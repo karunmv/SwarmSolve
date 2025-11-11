@@ -18,12 +18,18 @@ void app_main(void) {
     
     /* Variable declarations */
     uint32_t ir_values[IR_PIN_COUNT];
-    uint8_t feature_state;
-    uint8_t movement_state;
+    uint8_t feature_state = 0;
+    uint8_t movement_state = 0;
     int8_t speeds[NUM_MOTORS] = {0, 0};
     uint8_t map[NUM_MAP_FEATURES] = {0};
+    // uint8_t following_path = 0;
+    // uint8_t path[NUM_MAP_FEATURES] = {0};
     pcnt_unit_handle_t pcnt_unit;
     int pulse_count = 0;
+
+    /* PATH TESTING */
+    uint8_t following_path = 1;
+    uint8_t path[NUM_MAP_FEATURES] = {GOING_STRAIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_LEFT, U_TURN, GOING_STRAIGHT, STOPPED};
 
     /* Communication Initialization */
     wifi_sta_init();
@@ -53,7 +59,7 @@ void app_main(void) {
 
         check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state, &pcnt_unit);
 
-        update_movement_state(feature_state, &movement_state);
+        update_movement_state(feature_state, &movement_state, path, following_path);
 
         // threshold = calibrate_ir(ir_values);
 
@@ -70,6 +76,7 @@ void app_main(void) {
             follow_line(ir_values, motor_phase_pins, PRIMARY_IR_THRESHOLD);
         } else if (movement_state == STOPPED) {
             move_motors(motor_phase_pins, speeds);
+            send_path(path, feature_state);
             while(1);
         } else if (movement_state == TURNING_RIGHT) {
             turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
@@ -78,6 +85,8 @@ void app_main(void) {
         } else if (movement_state == U_TURN) {
             u_turn(ir_pins, ir_values, motor_phase_pins, feature_state);
         }
+
+        send_path(path, feature_state);
 
         // print_feature_state(feature_state);
         // print_movement_state(movement_state);

@@ -128,7 +128,7 @@ void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phas
         line_width = find_line_width(ir_values);
 
         /* Check if line continues or if it is a box */
-        if ((line_width >= 3) && (line_width < (IR_PIN_COUNT - 1))) *feature_state |= STRAIGHT_LINE;
+        if ((line_width > 0) && (line_width < (IR_PIN_COUNT - 1))) *feature_state |= STRAIGHT_LINE;
         else if (line_width == IR_PIN_COUNT) *feature_state = END_OF_MAZE;
 
         *feature_state |= STRAIGHT_CHECKED;
@@ -162,22 +162,20 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_phase_pins, uint32_t thres
 
 void center_on_line_in_place(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins) {
     
+    uint16_t watchdog_count = 0;
     uint16_t centered_count = 0;
     uint8_t line_width;
     int8_t speeds[NUM_MOTORS] = {0, 0};
     int error = 0;
     float correction = 0;
-    float kp = 5;
-
+    float kp = 10;
 
     while(1) {
         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
 
         error = calculate_line_error(ir_values);
 
-        correction = kp * error;
-        if (error < 0) correction -= 10;
-        else if (error > 0) correction += 10;        
+        correction = kp * error;   
 
         speeds[0] = -correction;
         speeds[1] = correction;
@@ -186,10 +184,11 @@ void center_on_line_in_place(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *m
         // Wait until the robot has 0 error for a certain number of cycles before returning
         if (error == 0) centered_count++;
         else centered_count = 0;
+        watchdog_count++;
 
         if (centered_count >= CYCLES_TILL_CENTERED) break;
+        if (watchdog_count >= MAX_CYCLES_TILL_CENTERED) break;
     }
-
 }
 
 void turn_right(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state) {

@@ -6,6 +6,7 @@
 #define NO_END                  0x00
 #define NO_START                0xFF
 #define CYCLES_TILL_CENTERED    5
+#define MAX_CYCLES_TILL_CENTERED 250
 
 /* Function prototypes*/
 

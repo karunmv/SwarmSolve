@@ -10,6 +10,8 @@
 #include "nvs_flash.h"
 #include "esp_now.h"
 
+/* Defines */
+#define PATH_PACKET     1
 
 typedef struct {
     uint16_t idk;
@@ -30,6 +32,8 @@ void esp_broadcast_setup(void);
 void send_message(void);
 
 void send_state(uint8_t feature_state, uint8_t movement_state);
+
+void send_path(uint8_t *path, uint8_t feature_state);
 
 void send_ir_values(uint32_t *ir_values);
 
