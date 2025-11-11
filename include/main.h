@@ -12,10 +12,13 @@
 
 #define PRIMARY_IR_THRESHOLD    1300
 
+// Exploration Strategy, ie always left, always right, always straight etc...
+
+
 // Motor Movement
 #define BASE_FORWARD_SPEED 55
 #define BASE_TURN_SPEED 30
-#define NUM_MAP_FEATURES 10
+#define NUM_MAP_FEATURES 20
 #define CHECK_STRAIGHT_PULSES 620
 
 // Important Defines
