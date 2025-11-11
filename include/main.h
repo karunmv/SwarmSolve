@@ -40,14 +40,16 @@
 #define CHECKING_STRAIGHT   (1 << 6)
 
 // Prune defines
-#define RU (((1 << 2) << 8) | (1 << 3))
-#define LU (((1 << 1) << 8) | (1 << 3))
-#define SU (((1 << 0) << 8) | (1 << 3))
-#define SS (((1 << 0) << 8) | (1 << 0))
-#define RR (((1 << 2) << 8) | (1 << 2))
-#define LL (((1 << 1) << 8) | (1 << 1))
-#define RE (((1 << 2) << 8) | (1 << 5))
-#define LE (((1 << 1) << 8) | (1 << 5))
-#define SE (((1 << 0) << 8) | (1 << 5))
-
+#define RUS ((1 << 1) << 8) | (1 << 0)
+#define RUL ((1 << 1) << 8) | (1 << 1)
+#define RUR ((1 << 1) << 8) | (1 << 2)
+#define RUU ((1 << 1) << 8) | (1 << 3)
+#define LUS ((1 << 2) << 8) | (1 << 0)
+#define LUL ((1 << 2) << 8) | (1 << 1)
+#define LUR ((1 << 2) << 8) | (1 << 2)
+#define LUU ((1 << 2) << 8) | (1 << 3)
+#define SUS ((1 << 0) << 8) | (1 << 0)
+#define SUL ((1 << 0) << 8) | (1 << 1)
+#define SUR ((1 << 0) << 8) | (1 << 2)
+#define SUU ((1 << 0) << 8) | (1 << 3)
 #endif
