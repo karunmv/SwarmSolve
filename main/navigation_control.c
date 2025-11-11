@@ -57,7 +57,7 @@ void update_path(uint8_t feature_state, uint8_t *movement_state, uint8_t *path) 
     }
 }
 
-uint8_t* prune_map(uint8_t *node_list){
+void prune_map(uint8_t *node_list){
     uint8_t temp_map[NUM_MAP_FEATURES] = {0}; // All elements initialized to 0
     static int actual_features = 0;
     static int temp_index = 0;
@@ -112,8 +112,8 @@ uint8_t* prune_map(uint8_t *node_list){
         prune_map(temp_map);
         u_flag = 0;
     }
-    
-    return temp_map;
+
+    memcpy(temp_map, node_list, sizeof(temp_map));
 }
 
 void add_u_turns(uint8_t *pruned_list){
@@ -156,34 +156,26 @@ void backtrack(uint8_t* pruned_list){
     memcpy(pruned_list, temp_map, sizeof(temp_map));
 }
 
-uint8_t* generate_shortest_path(uint8_t* node_list_R1, uint8_t* node_list_R2){
-    uint8_t* pruned_R1[NUM_MAP_FEATURES] = {0};
-    uint8_t* pruned_R2[NUM_MAP_FEATURES] = {0};
-    uint8_t* final_map[NUM_MAP_FEATURES] = {0};
+void generate_shortest_path(uint8_t* node_list_R1, uint8_t* node_list_R2, uint8_t* final_map){
     static int final_index = 0;
     
-    *pruned_R1 = prune_map(node_list_R1);
-    *pruned_R2 = prune_map(node_list_R2);
-    backtrack(pruned_R2);
-    add_u_turns(pruned_R2);
-    uint8_t* temp_map = prune_map(pruned_R2);
-    memcpy(pruned_R2, temp_map, sizeof(temp_map));
+    prune_map(node_list_R1);
+    prune_map(node_list_R2);
+    backtrack(node_list_R2);
+    add_u_turns(node_list_R2);
+    prune_map(node_list_R2);
     
     for(int i=0; i<NUM_MAP_FEATURES; i++){
-        if (pruned_R2[i] == 0) break; 
-        final_map[final_index] = pruned_R2[i];
+        if (node_list_R2[i] == 0) break; 
+        final_map[final_index] = node_list_R2[i];
         final_index++;
     }
 
     for(int j=0; j<NUM_MAP_FEATURES; j++){
-        if (pruned_R1[j] == 0) break; 
-        final_map[final_index] = pruned_R1[j];
+        if (node_list_R1[j] == 0) break; 
+        final_map[final_index] = node_list_R1[j];
         final_index++;
     }
 
-    memset(0, temp_map, sizeof(temp_map));
-    *temp_map = prune_map(final_map);
-    memcpy(final_map, temp_map, sizeof(temp_map));
-    
-    return final_map;
+    prune_map(final_map);
 }

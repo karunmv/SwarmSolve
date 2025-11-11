@@ -22,9 +22,10 @@ void app_main(void) {
     uint8_t feature_state = 0;
     uint8_t movement_state = 0;
     int8_t speeds[NUM_MOTORS] = {0, 0};
-    uint8_t map[NUM_MAP_FEATURES] = {0};
     uint8_t following_path = 0;
-    uint8_t path[NUM_MAP_FEATURES] = {0};
+    uint8_t path_R1[NUM_MAP_FEATURES] = {0};
+    uint8_t path_R2[NUM_MAP_FEATURES] = {0};
+    uint8_t final_path[NUM_MAP_FEATURES] = {0};
     pcnt_unit_handle_t pcnt_unit;
     int pulse_count = 0;
     uint8_t data[NUM_MAP_FEATURES];
@@ -65,13 +66,13 @@ void app_main(void) {
 
             // Strip packet type from first byte of data
             uint8_t packet_type = data[0];
-            memcpy(path, &(data[1]), NUM_MAP_FEATURES);
+            memcpy(path_R1, &(data[1]), NUM_MAP_FEATURES-1);
 
             if (packet_type == PATH_PACKET) {
 
                 printf("PATH LIST: ");
                 for (int i = 0; i < NUM_MAP_FEATURES; i++) {
-                    print_movement_state(path[i]);
+                    print_movement_state(path_R1[i]);
                 }
                 printf("\n");
             }
@@ -81,7 +82,7 @@ void app_main(void) {
 
         check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state, &pcnt_unit);
 
-        update_movement_state(feature_state, &movement_state, path, following_path);
+        update_movement_state(feature_state, &movement_state, path_R1, following_path);
 
         // threshold = calibrate_ir(ir_values);
 
@@ -98,7 +99,8 @@ void app_main(void) {
             follow_line(ir_values, motor_phase_pins, PRIMARY_IR_THRESHOLD);
         } else if (movement_state == STOPPED) {
             move_motors(motor_phase_pins, speeds);
-            send_path(path, feature_state);
+            prune_map(path_R1);
+            send_path(path_R1, feature_state);
             while(1);
         } else if (movement_state == TURNING_RIGHT) {
             turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
@@ -108,7 +110,8 @@ void app_main(void) {
             u_turn(ir_pins, ir_values, motor_phase_pins, feature_state);
         }
 
-        send_path(path, feature_state);
+        send_path(path_R1, feature_state);
+
 
         // print_feature_state(feature_state);
         // print_movement_state(movement_state);
