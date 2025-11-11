@@ -61,6 +61,7 @@ uint8_t* prune_map(uint8_t *node_list){
     uint8_t temp_map[NUM_MAP_FEATURES] = {0}; // All elements initialized to 0
     static int actual_features = 0;
     static int temp_index = 0;
+    int u_flag = 0;
 
     for(int i=0; i<NUM_MAP_FEATURES; i++){
         if (node_list[i] == 0) break;
@@ -68,7 +69,11 @@ uint8_t* prune_map(uint8_t *node_list){
     }
 
     for(int j=0; j<actual_features; j++){
-        if(node_list[j] == U_TURN){
+        if((node_list[j] == U_TURN) && (node_list[j-1] == U_TURN) && (j != 0)) {
+            temp_index--;
+            continue;
+        }
+        if((node_list[j] == U_TURN) && (j != actual_features - 1) && (j != 0)){
             uint16_t compare_nodes = 0;
             compare_nodes = (node_list[j-1] << 8) | node_list[j+1];
             switch (compare_nodes){
@@ -82,6 +87,7 @@ uint8_t* prune_map(uint8_t *node_list){
                 case SUS:
                     temp_map[temp_index-1] = U_TURN;
                     temp_index++;
+                    u_flag = 1;
                     break;
                 case RUR:
                 case LUL:
@@ -101,6 +107,83 @@ uint8_t* prune_map(uint8_t *node_list){
             temp_index++;
         }
     }
-    return temp_map;
 
+    if(u_flag){
+        prune_map(temp_map);
+        u_flag = 0;
+    }
+    
+    return temp_map;
+}
+
+void add_u_turns(uint8_t *pruned_list){
+    uint8_t temp_map[NUM_MAP_FEATURES] = {0}; // All elements initialized to 0
+
+    temp_map[0] = U_TURN;
+
+    for(int i=0; i<NUM_MAP_FEATURES; i++){
+        temp_map[i+1] = pruned_list[i];
+        if (pruned_list[i] == 0){
+            temp_map[i] = U_TURN;
+            break;
+        }
+    }
+    memcpy(pruned_list, temp_map, sizeof(temp_map));
+}
+
+void backtrack(uint8_t* pruned_list){
+    uint8_t temp_map[NUM_MAP_FEATURES] = {0}; // All elements initialized to 0
+    static int actual_features = 0;
+    static int bt_index = 0;
+
+    for(int i=0; i<NUM_MAP_FEATURES; i++){
+        if (pruned_list[i] == 0) break;
+        actual_features++;
+    }
+
+    for(int j=0; j<actual_features; j++){
+        if(pruned_list[j] == TURNING_LEFT){
+            temp_map[bt_index] = TURNING_RIGHT;
+            bt_index++;
+        } else if(pruned_list[j] == TURNING_RIGHT){
+            temp_map[bt_index] = TURNING_LEFT;
+            bt_index++;
+        } else{
+            temp_map[bt_index] = pruned_list[j];
+            bt_index++;
+        }
+    }
+    memcpy(pruned_list, temp_map, sizeof(temp_map));
+}
+
+uint8_t* generate_shortest_path(uint8_t* node_list_R1, uint8_t* node_list_R2){
+    uint8_t* pruned_R1[NUM_MAP_FEATURES] = {0};
+    uint8_t* pruned_R2[NUM_MAP_FEATURES] = {0};
+    uint8_t* final_map[NUM_MAP_FEATURES] = {0};
+    static int final_index = 0;
+    
+    *pruned_R1 = prune_map(node_list_R1);
+    *pruned_R2 = prune_map(node_list_R2);
+    backtrack(pruned_R2);
+    add_u_turns(pruned_R2);
+    uint8_t* temp_map = prune_map(pruned_R2);
+    memcpy(pruned_R2, temp_map, sizeof(temp_map));
+    
+    for(int i=0; i<NUM_MAP_FEATURES; i++){
+        if (pruned_R2[i] == 0) break; 
+        final_map[final_index] = pruned_R2[i];
+        final_index++;
+    }
+
+    for(int j=0; j<NUM_MAP_FEATURES; j++){
+        if (pruned_R1[j] == 0) break; 
+        final_map[final_index] = pruned_R1[j];
+        final_index++;
+    }
+
+    memset(0, temp_map, sizeof(temp_map));
+    *temp_map = prune_map(final_map);
+    memcpy(final_map, temp_map, sizeof(temp_map));
+    
+    return final_map;
 }
