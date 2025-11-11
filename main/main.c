@@ -6,6 +6,7 @@
 #include "navigation_control.h"
 #include "utils.h"
 
+QueueHandle_t path_transfer_queue = NULL;
 
 void app_main(void) {
 
@@ -22,14 +23,15 @@ void app_main(void) {
     uint8_t movement_state = 0;
     int8_t speeds[NUM_MOTORS] = {0, 0};
     uint8_t map[NUM_MAP_FEATURES] = {0};
-    // uint8_t following_path = 0;
-    // uint8_t path[NUM_MAP_FEATURES] = {0};
+    uint8_t following_path = 0;
+    uint8_t path[NUM_MAP_FEATURES] = {0};
     pcnt_unit_handle_t pcnt_unit;
     int pulse_count = 0;
+    uint8_t data[NUM_MAP_FEATURES];
 
     /* PATH TESTING */
-    uint8_t following_path = 1;
-    uint8_t path[NUM_MAP_FEATURES] = {GOING_STRAIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_LEFT, U_TURN, GOING_STRAIGHT, STOPPED};
+    // uint8_t following_path = 1;
+    // uint8_t path[NUM_MAP_FEATURES] = {GOING_STRAIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_LEFT, U_TURN, GOING_STRAIGHT, STOPPED};
 
     /* Communication Initialization */
     wifi_sta_init();
@@ -40,6 +42,9 @@ void app_main(void) {
 
     /* Encoder Initialization */
     pcnt_unit = init_encoder(motor_encoder_A_pins, motor_encoder_B_pins);
+
+    /* Create Path Sending Queue */
+    path_transfer_queue = xQueueCreate(5, sizeof(uint8_t) * (NUM_MAP_FEATURES + 1));
 
     // printf("Calibrating...\n");
     // vTaskDelay(pdMS_TO_TICKS(3000));
@@ -54,6 +59,23 @@ void app_main(void) {
     while(1) {
 
         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+
+        /* Receive data from other robot */
+        if (xQueueReceive(path_transfer_queue, data, 5)) {
+
+            // Strip packet type from first byte of data
+            uint8_t packet_type = data[0];
+            memcpy(path, &(data[1]), NUM_MAP_FEATURES);
+
+            if (packet_type == PATH_PACKET) {
+
+                printf("PATH LIST: ");
+                for (int i = 0; i < NUM_MAP_FEATURES; i++) {
+                    print_movement_state(path[i]);
+                }
+                printf("\n");
+            }
+        }
 
         update_feature_state(&feature_state, ir_values);
 

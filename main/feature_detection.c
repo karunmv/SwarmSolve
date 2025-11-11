@@ -167,15 +167,20 @@ void center_on_line_in_place(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *m
     uint8_t line_width;
     int8_t speeds[NUM_MOTORS] = {0, 0};
     int error = 0;
+    int last_error = 0;
     float correction = 0;
-    float kp = 10;
+    float kp = 9;
+    float kd = 1.1;
+
 
     while(1) {
         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
 
         error = calculate_line_error(ir_values);
 
-        correction = kp * error;   
+        correction = kp * error + kd * (last_error - error);
+
+        last_error = error;
 
         speeds[0] = -correction;
         speeds[1] = correction;
