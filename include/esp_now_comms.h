@@ -11,7 +11,8 @@
 #include "esp_now.h"
 
 /* Defines */
-#define PATH_PACKET     1
+#define PATH_PACKET         1
+#define ESPNOW_MAX_DELAY    512
 
 typedef struct {
     uint16_t idk;

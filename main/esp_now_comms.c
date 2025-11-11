@@ -7,17 +7,20 @@ uint8_t broadcast_mac[6] = {0xff,0xff,0xff,0xff,0xff,0xff};
 uint8_t esp_mac[6];
 
 void esp_now_recv_callback(const esp_now_recv_info_t *esp_now_info, const uint8_t *data, int data_len) {
-    uint8_t packet_type = data[0];
-    data = &(data[1]);
+    
+    xQueueSend(path_transfer_queue, data, ESPNOW_MAX_DELAY);
+    
+    // uint8_t packet_type = data[0];
+    // data = &(data[1]);
 
-    if (packet_type == PATH_PACKET) {
+    // if (packet_type == PATH_PACKET) {
 
-        printf("PATH LIST: ");
-        for (int i = 0; i < data_len; i++) {
-            print_movement_state(data[i]);
-        }
-        printf("\n");
-    }
+    //     printf("PATH LIST: ");
+    //     for (int i = 0; i < data_len; i++) {
+    //         print_movement_state(data[i]);
+    //     }
+    //     printf("\n");
+    // }
 }
 
 void esp_now_send_callback(const esp_now_send_info_t *tx_info, esp_now_send_status_t status) {
@@ -40,13 +43,13 @@ void send_state(uint8_t feature_state, uint8_t movement_state) {
 
 void send_path(uint8_t *path, uint8_t feature_state) {
 
-    uint8_t path_tx[NUM_MAP_FEATURES + 1];
+    uint8_t path_tx[NUM_MAP_FEATURES + 1] = {0};
     path_tx[0] = PATH_PACKET;
     memcpy(&(path_tx[1]), path, NUM_MAP_FEATURES);
 
     /* Only send if at a node */
     if ((feature_state & STRAIGHT_CHECKED) || (feature_state & END_OF_MAZE) || (feature_state & DEAD_END)) {
-        esp_err_t err = esp_now_send(broadcast_mac, path, sizeof(uint8_t) * NUM_MAP_FEATURES);
+        esp_err_t err = esp_now_send(broadcast_mac, path_tx, sizeof(uint8_t) * (NUM_MAP_FEATURES + 1));
         ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
     }
 }

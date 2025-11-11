@@ -8,9 +8,10 @@
 #include "string.h"
 #include "driver/gpio.h"
 #include "driver/pulse_cnt.h"
+#include "freertos/FreeRTOS.h"
 
 
-#define PRIMARY_IR_THRESHOLD    1300
+#define PRIMARY_IR_THRESHOLD    1250
 
 // Exploration Strategy, ie always left, always right, always straight etc...
 
@@ -55,4 +56,8 @@
 #define SUL ((1 << 0) << 8) | (1 << 1)
 #define SUR ((1 << 0) << 8) | (1 << 2)
 #define SUU ((1 << 0) << 8) | (1 << 3)
+
+/* Global Variables */
+extern QueueHandle_t path_transfer_queue;
+
 #endif
