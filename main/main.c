@@ -26,17 +26,18 @@ void app_main(void) {
     uint8_t path_R1[NUM_MAP_FEATURES] = {0};
     uint8_t path_R2[NUM_MAP_FEATURES] = {0};
     uint8_t final_path[NUM_MAP_FEATURES] = {0};
+    //uint8_t test_path[NUM_MAP_FEATURES] = {TURNING_RIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, U_TURN, GOING_STRAIGHT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, STOPPED,};
     pcnt_unit_handle_t pcnt_unit;
     int pulse_count = 0;
     uint8_t data[NUM_MAP_FEATURES + 1];
 
     /* PATH TESTING */
     // uint8_t following_path = 1;
-    // uint8_t path[NUM_MAP_FEATURES] = {GOING_STRAIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_LEFT, U_TURN, GOING_STRAIGHT, STOPPED};
-
+    uint8_t path[NUM_MAP_FEATURES] = {GOING_STRAIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_LEFT, U_TURN, GOING_STRAIGHT, STOPPED,};
+    // uint8_t path[NUM_MAP_FEATURES] = {TURNING_LEFT, TURNING_LEFT, U_TURN, GOING_STRAIGHT, STOPPED,};
     /* Communication Initialization */
-    wifi_sta_init();
-    esp_broadcast_setup();
+    // wifi_sta_init();
+    // esp_broadcast_setup();
 
     /* Motor Pin Initialization */
     motor_setup(motor_enable_pins, motor_phase_pins);
@@ -46,6 +47,13 @@ void app_main(void) {
 
     /* Create Path Sending Queue */
     path_transfer_queue = xQueueCreate(5, sizeof(uint8_t) * (NUM_MAP_FEATURES + 1));
+
+    prune_map(path);
+    printf("PATH LIST: ");
+    for (int i = 0; i < NUM_MAP_FEATURES; i++) {
+        print_movement_state(path[i]);
+    }
+
 
     // printf("Calibrating...\n");
     // vTaskDelay(pdMS_TO_TICKS(3000));
@@ -57,66 +65,66 @@ void app_main(void) {
     // int counter = 0;
 
     /* Main Loop */
-    while(1) {
+    // while(1) {
 
-        read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+    //     read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
 
-        /* Receive data from other robot */
-        if (xQueueReceive(path_transfer_queue, data, 5)) {
+    //     /* Receive data from other robot */
+    //     if (xQueueReceive(path_transfer_queue, data, 5)) {
 
-            // Strip packet type from first byte of data
-            uint8_t packet_type = data[0];
-            memcpy(path_R1, &(data[1]), NUM_MAP_FEATURES);
+    //         // Strip packet type from first byte of data
+    //         uint8_t packet_type = data[0];
+    //         memcpy(path_R1, &(data[1]), NUM_MAP_FEATURES);
 
-            if (packet_type == PATH_PACKET) {
+    //         if (packet_type == PATH_PACKET) {
 
-                printf("PATH LIST: ");
-                for (int i = 0; i < NUM_MAP_FEATURES; i++) {
-                    print_movement_state(path_R1[i]);
-                }
-                printf("\n");
-            }
-        }
+    //             printf("PATH LIST: ");
+    //             for (int i = 0; i < NUM_MAP_FEATURES; i++) {
+    //                 print_movement_state(path_R1[i]);
+    //             }
+    //             printf("\n");
+    //         }
+    //     }
 
-        update_feature_state(&feature_state, ir_values);
+    //     update_feature_state(&feature_state, ir_values);
 
-        check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state, &pcnt_unit);
+    //     check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state, &pcnt_unit);
 
-        update_movement_state(feature_state, &movement_state, path_R1, following_path);
+    //     update_movement_state(feature_state, &movement_state, path_R1, following_path);
 
-        // threshold = calibrate_ir(ir_values);
+    //     // threshold = calibrate_ir(ir_values);
 
-        // if (counter == 10) {
-            // send_state(feature_state, movement_state);
-            // send_ir_values(ir_values);
-        //     counter = 0;
-        // }
-        // counter++;
+    //     // if (counter == 10) {
+    //         // send_state(feature_state, movement_state);
+    //         // send_ir_values(ir_values);
+    //     //     counter = 0;
+    //     // }
+    //     // counter++;
 
-        // center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
+    //     // center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
 
-        if (movement_state == GOING_STRAIGHT) {
-            follow_line(ir_values, motor_phase_pins, PRIMARY_IR_THRESHOLD);
-        } else if (movement_state == STOPPED) {
-            move_motors(motor_phase_pins, speeds);
-            prune_map(path_R1);
-            send_path(path_R1, feature_state);
-            while(1);
-        } else if (movement_state == TURNING_RIGHT) {
-            turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
-        } else if (movement_state == TURNING_LEFT) {
-            turn_left(ir_pins, ir_values, motor_phase_pins, feature_state);
-        } else if (movement_state == U_TURN) {
-            u_turn(ir_pins, ir_values, motor_phase_pins, feature_state);
-        }
+    //     if (movement_state == GOING_STRAIGHT) {
+    //         follow_line(ir_values, motor_phase_pins, PRIMARY_IR_THRESHOLD);
+    //     } else if (movement_state == STOPPED) {
+    //         move_motors(motor_phase_pins, speeds);
+    //         prune_map(path_R1);
+    //         send_path(path_R1, feature_state);
+    //         while(1);
+    //     } else if (movement_state == TURNING_RIGHT) {
+    //         turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
+    //     } else if (movement_state == TURNING_LEFT) {
+    //         turn_left(ir_pins, ir_values, motor_phase_pins, feature_state);
+    //     } else if (movement_state == U_TURN) {
+    //         u_turn(ir_pins, ir_values, motor_phase_pins, feature_state);
+    //     }
 
-        send_path(path_R1, feature_state);
+    //     send_path(path_R1, feature_state);
 
 
-        // print_feature_state(feature_state);
-        // print_movement_state(movement_state);
-        // print_IR_values(ir_values);
+    //     // print_feature_state(feature_state);
+    //     // print_movement_state(movement_state);
+    //     // print_IR_values(ir_values);
 
-        vTaskDelay(pdMS_TO_TICKS(10));
-    }
+    //     vTaskDelay(pdMS_TO_TICKS(10));
+    // }
 }

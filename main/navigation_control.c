@@ -69,11 +69,14 @@ void prune_map(uint8_t *node_list){
     }
 
     for(int j=0; j<actual_features; j++){
-        if((node_list[j] == U_TURN) && (node_list[j-1] == U_TURN) && (j != 0)) {
-            temp_index--;
-            continue;
-        }
-        if((node_list[j] == U_TURN) && (j != actual_features - 1) && (j != 0)){
+        if(node_list[j] == U_TURN) u_flag += 1;
+
+        // if((node_list[j] == U_TURN) && (node_list[j-1] == U_TURN) && (j != 0)) {
+        //     temp_index--;
+        //     continue;
+        // }
+
+        if((node_list[j] == U_TURN) && (j != actual_features - 1) && (j != 0) && (u_flag == 1)){
             uint16_t compare_nodes = 0;
             compare_nodes = (node_list[j-1] << 8) | node_list[j+1];
             switch (compare_nodes){
@@ -87,7 +90,6 @@ void prune_map(uint8_t *node_list){
                 case SUS:
                     temp_map[temp_index-1] = U_TURN;
                     temp_index++;
-                    u_flag = 1;
                     break;
                 case RUR:
                 case LUL:
@@ -100,7 +102,7 @@ void prune_map(uint8_t *node_list){
                     temp_index++;
                     break;
             }
-        } else if(node_list[j-1] == U_TURN){
+        } else if((node_list[j-1] == U_TURN) && (j != 0)){
             continue;
         } else {
             temp_map[temp_index] = node_list[j];
@@ -108,12 +110,10 @@ void prune_map(uint8_t *node_list){
         }
     }
 
-    if(u_flag){
-        prune_map(temp_map);
-        u_flag = 0;
-    }
-
-    memcpy(temp_map, node_list, sizeof(temp_map));
+    if(u_flag >= 2){
+        memcpy(node_list, temp_map, sizeof(temp_map));
+        prune_map(node_list);
+    } else memcpy(node_list, temp_map, sizeof(temp_map));
 }
 
 void add_u_turns(uint8_t *pruned_list){
@@ -163,7 +163,7 @@ void generate_shortest_path(uint8_t* node_list_R1, uint8_t* node_list_R2, uint8_
     prune_map(node_list_R2);
     backtrack(node_list_R2);
     add_u_turns(node_list_R2);
-    prune_map(node_list_R2);
+    //prune_map(node_list_R2);
     
     for(int i=0; i<NUM_MAP_FEATURES; i++){
         if (node_list_R2[i] == 0) break; 
@@ -177,5 +177,5 @@ void generate_shortest_path(uint8_t* node_list_R1, uint8_t* node_list_R2, uint8_
         final_index++;
     }
 
-    prune_map(final_map);
+    //prune_map(final_map);
 }

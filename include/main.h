@@ -17,8 +17,8 @@
 
 
 // Motor Movement
-#define BASE_FORWARD_SPEED 55
-#define BASE_TURN_SPEED 30
+#define BASE_FORWARD_SPEED 40
+#define BASE_TURN_SPEED 25
 #define NUM_MAP_FEATURES 20
 #define CHECK_STRAIGHT_PULSES 620
 
@@ -44,14 +44,14 @@
 #define CHECKING_STRAIGHT   (1 << 6)
 
 // Prune defines
-#define RUS ((1 << 1) << 8) | (1 << 0)
-#define RUL ((1 << 1) << 8) | (1 << 1)
-#define RUR ((1 << 1) << 8) | (1 << 2)
-#define RUU ((1 << 1) << 8) | (1 << 3)
-#define LUS ((1 << 2) << 8) | (1 << 0)
-#define LUL ((1 << 2) << 8) | (1 << 1)
-#define LUR ((1 << 2) << 8) | (1 << 2)
-#define LUU ((1 << 2) << 8) | (1 << 3)
+#define RUS ((1 << 2) << 8) | (1 << 0)
+#define RUL ((1 << 2) << 8) | (1 << 1)
+#define RUR ((1 << 2) << 8) | (1 << 2)
+#define RUU ((1 << 2) << 8) | (1 << 3)
+#define LUS ((1 << 1) << 8) | (1 << 0)
+#define LUL ((1 << 1) << 8) | (1 << 1)
+#define LUR ((1 << 1) << 8) | (1 << 2)
+#define LUU ((1 << 1) << 8) | (1 << 3)
 #define SUS ((1 << 0) << 8) | (1 << 0)
 #define SUL ((1 << 0) << 8) | (1 << 1)
 #define SUR ((1 << 0) << 8) | (1 << 2)

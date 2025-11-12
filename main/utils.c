@@ -26,7 +26,7 @@ void print_feature_state(uint8_t feature_state) {
 }
 
 void print_movement_state(uint8_t movement_state) {
-    printf("Movement\n");
+    // printf("Movement\n");
     if (movement_state & GOING_STRAIGHT) printf("GOING_STRAIGHT ");
     if (movement_state & TURNING_LEFT) printf("TURNING_LEFT ");
     if (movement_state & TURNING_RIGHT) printf("TURNING_RIGHT ");
@@ -34,5 +34,5 @@ void print_movement_state(uint8_t movement_state) {
     if (movement_state & REVERSING) printf("REVERSING ");
     if (movement_state & STOPPED) printf("STOPPED ");
     if (movement_state & CHECKING_STRAIGHT) printf("CHECKING_STRAIGHT ");
-    printf("\n");
+    // printf("\n");
 }

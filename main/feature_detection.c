@@ -151,7 +151,7 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_phase_pins, uint32_t thres
     error = calculate_line_error(ir_values);
     error_sum += error;
     
-    correction = kp * error + kd * (last_error - error) + ki * error_sum;
+    correction = kp * error + kd * (error - last_error) + ki * error_sum;
 
     speeds[0] = BASE_FORWARD_SPEED - correction;
     speeds[1] = BASE_FORWARD_SPEED + correction;
