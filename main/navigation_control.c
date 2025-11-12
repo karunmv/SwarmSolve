@@ -57,125 +57,149 @@ void update_path(uint8_t feature_state, uint8_t *movement_state, uint8_t *path) 
     }
 }
 
-void prune_map(uint8_t *node_list){
-    uint8_t temp_map[NUM_MAP_FEATURES] = {0}; // All elements initialized to 0
+void prune_map(uint8_t *node_list) {
     static int actual_features = 0;
-    static int temp_index = 0;
-    int u_flag = 0;
 
-    for(int i=0; i<NUM_MAP_FEATURES; i++){
+    /* Find number of actuals turns in the path */
+    for (int i=0; i<NUM_MAP_FEATURES; i++) {
         if (node_list[i] == 0) break;
         actual_features++;
     }
 
-    for(int j=0; j<actual_features; j++){
-        if(node_list[j] == U_TURN) u_flag += 1;
+    /* Loop through all turns in path */
+    for (int i = 0; i < actual_features; i++) {
 
-        // if((node_list[j] == U_TURN) && (node_list[j-1] == U_TURN) && (j != 0)) {
-        //     temp_index--;
-        //     continue;
-        // }
+        /* Find First U-Turn */
+        if (node_list[i] == U_TURN) {
 
-        if((node_list[j] == U_TURN) && (j != actual_features - 1) && (j != 0) && (u_flag == 1)){
-            uint16_t compare_nodes = 0;
-            compare_nodes = (node_list[j-1] << 8) | node_list[j+1];
-            switch (compare_nodes){
-                case RUS:
-                case SUR:
-                    temp_map[temp_index-1] = TURNING_LEFT;
-                    temp_index++;
-                    break;
-                case RUL:
-                case LUR:
-                case SUS:
-                    temp_map[temp_index-1] = U_TURN;
-                    temp_index++;
-                    break;
-                case RUR:
-                case LUL:
-                    temp_map[temp_index-1] = GOING_STRAIGHT;
-                    temp_index++;
-                    break;  
-                case LUS:
-                case SUL:
-                    temp_map[temp_index-1] = TURNING_RIGHT;
-                    temp_index++;
-                    break;
+            // Deal with case where first turn is a U-Turn
+            if (i == 0) {
+                if (node_list[i + 1] == U_TURN) {
+                } else {
+                    continue;
+                }
+
+            // Deal with other cases
+            } else {
+
+                uint16_t compare_nodes = 0;
+                compare_nodes = (node_list[i-1] << 8) | node_list[i+1];
+
+                switch (compare_nodes){
+                    case RUS:
+                    case SUR:
+                        node_list[i-1] = TURNING_LEFT;
+                        break;
+                    case RUL:
+                    case LUR:
+                    case SUS:
+                        node_list[i-1] = U_TURN;
+                        break;
+                    case RUR:
+                    case LUL:
+                        node_list[i-1] = GOING_STRAIGHT;
+                        break;  
+                    case LUS:
+                    case SUL:
+                        node_list[i-1] = TURNING_RIGHT;
+                        break;
+                }
             }
-        } else if((node_list[j-1] == U_TURN) && (j != 0)){
-            continue;
-        } else {
-            temp_map[temp_index] = node_list[j];
-            temp_index++;
+
+            /* Move remaining turns over to fill gap made by pruning, then recurse on the new list */
+            if ((actual_features - i - 2) > 0) {
+
+                // Move rest of path over to fill space made by turns removed
+                memmove(&(node_list[i]), &(node_list[i+2]), sizeof(uint8_t) * (actual_features - i - 2));
+                
+                // Clear remaining turns that weren't overwritten when moved
+                memset( &(node_list[actual_features - 2]) , 0, sizeof(uint8_t) * (NUM_MAP_FEATURES - actual_features - 2));
+                
+                prune_map(node_list);
+                break;
+            } else {
+                break;
+            }
         }
     }
-
-    if(u_flag >= 2){
-        memcpy(node_list, temp_map, sizeof(temp_map));
-        prune_map(node_list);
-    } else memcpy(node_list, temp_map, sizeof(temp_map));
 }
 
-void add_u_turns(uint8_t *pruned_list){
-    uint8_t temp_map[NUM_MAP_FEATURES] = {0}; // All elements initialized to 0
+void add_u_turns(uint8_t *node_list) {
 
-    temp_map[0] = U_TURN;
+    int actual_features = 0;
 
-    for(int i=0; i<NUM_MAP_FEATURES; i++){
-        temp_map[i+1] = pruned_list[i];
-        if (pruned_list[i] == 0){
-            temp_map[i] = U_TURN;
-            break;
-        }
-    }
-    memcpy(pruned_list, temp_map, sizeof(temp_map));
-}
-
-void backtrack(uint8_t* pruned_list){
-    uint8_t temp_map[NUM_MAP_FEATURES] = {0}; // All elements initialized to 0
-    static int actual_features = 0;
-    static int bt_index = 0;
-
-    for(int i=0; i<NUM_MAP_FEATURES; i++){
-        if (pruned_list[i] == 0) break;
+    /* Find number of actuals turns in the path */
+    for (int i=0; i<NUM_MAP_FEATURES; i++) {
+        if (node_list[i] == 0) break;
         actual_features++;
     }
 
-    for(int j=0; j<actual_features; j++){
-        if(pruned_list[j] == TURNING_LEFT){
-            temp_map[bt_index] = TURNING_RIGHT;
-            bt_index++;
-        } else if(pruned_list[j] == TURNING_RIGHT){
-            temp_map[bt_index] = TURNING_LEFT;
-            bt_index++;
-        } else{
-            temp_map[bt_index] = pruned_list[j];
-            bt_index++;
-        }
-    }
-    memcpy(pruned_list, temp_map, sizeof(temp_map));
+    // Make room for first U-Turn
+    memmove(node_list + 1, node_list, sizeof(uint8_t) * actual_features);
+    
+    // Set first and last as U turn
+    node_list[0] = U_TURN;
+    node_list[actual_features + 1] = U_TURN;
+
 }
 
-void generate_shortest_path(uint8_t* node_list_R1, uint8_t* node_list_R2, uint8_t* final_map){
-    static int final_index = 0;
-    
-    prune_map(node_list_R1);
-    prune_map(node_list_R2);
-    backtrack(node_list_R2);
-    add_u_turns(node_list_R2);
-    //prune_map(node_list_R2);
-    
-    for(int i=0; i<NUM_MAP_FEATURES; i++){
-        if (node_list_R2[i] == 0) break; 
-        final_map[final_index] = node_list_R2[i];
-        final_index++;
+
+void backtrack(uint8_t* node_list) {
+
+    for (int i = 0; i < NUM_MAP_FEATURES; i++) {
+        if (node_list[i] == TURNING_LEFT) node_list[i] = TURNING_RIGHT;
+        else if (node_list[i] == TURNING_RIGHT) node_list[i] = TURNING_LEFT;
     }
 
-    for(int j=0; j<NUM_MAP_FEATURES; j++){
-        if (node_list_R1[j] == 0) break; 
-        final_map[final_index] = node_list_R1[j];
-        final_index++;
+    int actual_features = 0;
+
+    /* Find number of actuals turns in the path */
+    for (int i=0; i<NUM_MAP_FEATURES; i++) {
+        if (node_list[i] == 0) break;
+        actual_features++;
     }
 
-    //prune_map(final_map);
+    int start = 0;
+    int end = actual_features - 1;
+    uint8_t temp;
+
+    while (start < end) {
+        temp = node_list[start];
+        node_list[start] = node_list[end];
+        node_list[end] = temp;
+
+        start++;
+        end--;
+    }
+
+}
+
+void generate_shortest_path(uint8_t* local_path, uint8_t* solved_path, uint8_t* final_map){
+    
+    add_u_turns(local_path);
+    backtrack(local_path);
+
+    int local_path_features = 0;
+    int solved_path_features = 0;
+
+    /* Find number of actuals turns in the path */
+    // Local path
+    for (int i=0; i<NUM_MAP_FEATURES; i++) {
+        if (local_path[i] == 0) break;
+        local_path_features++;
+    }
+
+    // solved path
+    for (int i=0; i<NUM_MAP_FEATURES; i++) {
+        if (solved_path[i] == 0) break;
+        solved_path_features++;
+    }
+
+    // Combine local and solved path
+    printf("%d local path features \n", local_path_features);
+    memcpy(final_map, local_path, sizeof(uint8_t) * local_path_features);
+    memcpy(final_map + local_path_features, solved_path, sizeof(uint8_t) * solved_path_features);
+
+    // Prune final map
+    prune_map(final_map);
 }
