@@ -28,7 +28,7 @@ void app_main(void) {
     uint8_t final_path[NUM_MAP_FEATURES] = {0};
     pcnt_unit_handle_t pcnt_unit;
     int pulse_count = 0;
-    uint8_t data[NUM_MAP_FEATURES];
+    uint8_t data[NUM_MAP_FEATURES + 1];
 
     /* PATH TESTING */
     // uint8_t following_path = 1;
@@ -66,7 +66,7 @@ void app_main(void) {
 
             // Strip packet type from first byte of data
             uint8_t packet_type = data[0];
-            memcpy(path_R1, &(data[1]), NUM_MAP_FEATURES-1);
+            memcpy(path_R1, &(data[1]), NUM_MAP_FEATURES);
 
             if (packet_type == PATH_PACKET) {
 
