@@ -12,6 +12,7 @@
 
 /* Defines */
 #define PATH_PACKET         1
+#define STARTED_PACKET      2
 #define ESPNOW_MAX_DELAY    512
 
 typedef struct {
@@ -35,6 +36,8 @@ void send_message(void);
 void send_state(uint8_t feature_state, uint8_t movement_state);
 
 void send_path(uint8_t *path, uint8_t feature_state);
+
+void send_started(void);
 
 void send_ir_values(uint32_t *ir_values);
 

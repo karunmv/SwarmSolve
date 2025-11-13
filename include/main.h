@@ -24,6 +24,7 @@
 
 // Important Defines
 #define NUM_MOTORS 2
+#define DEFAULT_QUEUE_SIZE 5
 
 // Feature state defines
 #define STRAIGHT_LINE       (1 << 0)
@@ -59,5 +60,6 @@
 
 /* Global Variables */
 extern QueueHandle_t path_transfer_queue;
+extern QueueHandle_t button_press_queue;
 
 #endif

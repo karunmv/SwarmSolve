@@ -8,19 +8,12 @@ uint8_t esp_mac[6];
 
 void esp_now_recv_callback(const esp_now_recv_info_t *esp_now_info, const uint8_t *data, int data_len) {
     
-    xQueueSend(path_transfer_queue, data, ESPNOW_MAX_DELAY);
-    
-    // uint8_t packet_type = data[0];
-    // data = &(data[1]);
-
-    // if (packet_type == PATH_PACKET) {
-
-    //     printf("PATH LIST: ");
-    //     for (int i = 0; i < data_len; i++) {
-    //         print_movement_state(data[i]);
-    //     }
-    //     printf("\n");
-    // }
+    if (data[0] == PATH_PACKET) {
+        xQueueSend(path_transfer_queue, data, ESPNOW_MAX_DELAY);
+    } else if (data[0] == STARTED_PACKET) {
+        uint8_t from_button = 0;
+        xQueueSend(button_press_queue, &from_button, ESPNOW_MAX_DELAY);
+    }
 }
 
 void esp_now_send_callback(const esp_now_send_info_t *tx_info, esp_now_send_status_t status) {
@@ -52,6 +45,14 @@ void send_path(uint8_t *path, uint8_t feature_state) {
         esp_err_t err = esp_now_send(broadcast_mac, path_tx, sizeof(uint8_t) * (NUM_MAP_FEATURES + 1));
         ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
     }
+}
+
+void send_started(void) {
+    uint8_t tx_packet = STARTED_PACKET;
+
+    esp_err_t err = esp_now_send(broadcast_mac, &tx_packet, sizeof(uint8_t));
+    ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
+
 }
 
 void send_ir_values(uint32_t *ir_values) {
