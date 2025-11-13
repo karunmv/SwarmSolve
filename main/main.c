@@ -23,40 +23,34 @@ void app_main(void) {
     uint8_t movement_state = 0;
     int8_t speeds[NUM_MOTORS] = {0, 0};
     uint8_t following_path = 0;
-    // uint8_t local_path[NUM_MAP_FEATURES] = {0};
-    // uint8_t solved_path[NUM_MAP_FEATURES] = {0};
+    uint8_t local_path[NUM_MAP_FEATURES] = {0};
+    uint8_t solved_path[NUM_MAP_FEATURES] = {0};
     uint8_t final_path[NUM_MAP_FEATURES] = {0};
     pcnt_unit_handle_t pcnt_unit;
     int pulse_count = 0;
     uint8_t data[NUM_MAP_FEATURES + 1];
 
     /* PATH TESTING */
-    // uint8_t following_path = 1;
-    uint8_t local_path[NUM_MAP_FEATURES] = {TURNING_RIGHT, TURNING_LEFT, U_TURN};
-    uint8_t solved_path[NUM_MAP_FEATURES] = {TURNING_RIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, U_TURN, GOING_STRAIGHT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, STOPPED};
-    
-    // add_u_turns(local_path);
-    // backtrack(local_path);
+    // uint8_t local_path[NUM_MAP_FEATURES] = {TURNING_RIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, U_TURN};
+    // uint8_t solved_path[NUM_MAP_FEATURES] = {TURNING_RIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, U_TURN, GOING_STRAIGHT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, STOPPED};
 
-    generate_shortest_path(local_path, solved_path, final_path);
+    // generate_shortest_path(local_path, solved_path, final_path);
 
-    // prune_map(final_path);
+    // printf("PATH LIST: ");
+    // for (int i = 0; i < NUM_MAP_FEATURES; i++) {
+    //     printf("%d-", i);
+    //     print_movement_state(final_path[i]);
+    // }
+    // printf("\n");
 
-    printf("PATH LIST: ");
-    for (int i = 0; i < NUM_MAP_FEATURES; i++) {
-        printf("%d-", i);
-        print_movement_state(final_path[i]);
-    }
-    printf("\n");
-
-    while(1) {
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
+    // while(1) {
+    //     vTaskDelay(pdMS_TO_TICKS(1000));
+    // }
 
 
     /* Communication Initialization */
-    // wifi_sta_init();
-    // esp_broadcast_setup();
+    wifi_sta_init();
+    esp_broadcast_setup();
 
     /* Motor Pin Initialization */
     motor_setup(motor_enable_pins, motor_phase_pins);
@@ -87,15 +81,13 @@ void app_main(void) {
 
             // Strip packet type from first byte of data
             uint8_t packet_type = data[0];
-            memcpy(local_path, &(data[1]), NUM_MAP_FEATURES);
 
             if (packet_type == PATH_PACKET) {
+                memcpy(solved_path, &(data[1]), NUM_MAP_FEATURES);
 
-                printf("PATH LIST: ");
-                for (int i = 0; i < NUM_MAP_FEATURES; i++) {
-                    print_movement_state(local_path[i]);
-                }
-                printf("\n");
+                generate_shortest_path(local_path, solved_path, final_path);
+                following_path = 1;
+
             }
         }
 
@@ -131,7 +123,7 @@ void app_main(void) {
             u_turn(ir_pins, ir_values, motor_phase_pins, feature_state);
         }
 
-        send_path(local_path, feature_state);
+        // send_path(local_path, feature_state);
 
 
         // print_feature_state(feature_state);

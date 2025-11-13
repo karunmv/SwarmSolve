@@ -22,21 +22,38 @@ void update_movement_state(uint8_t feature_state, uint8_t *movement_state, uint8
 
     /* Robot is currently exploring the maze and recording it's path */
     } else {
+
         if (feature_state & END_OF_MAZE) {
             *movement_state = STOPPED;
         } else if (feature_state == DEAD_END) {
             *movement_state = U_TURN;
         } else if (feature_state == STRAIGHT_LINE) {
             *movement_state = GOING_STRAIGHT;
-        } else if (feature_state & RIGHT_TURN) {
-            *movement_state = TURNING_RIGHT;
-        } else if (feature_state & STRAIGHT_LINE) {
-            *movement_state = GOING_STRAIGHT;
         } else if (feature_state & LEFT_TURN) {
             *movement_state = TURNING_LEFT;
+        } else if (feature_state & STRAIGHT_LINE) {
+            *movement_state = GOING_STRAIGHT;
+        } else if (feature_state & RIGHT_TURN) {
+            *movement_state = TURNING_RIGHT;
         } else {
             *movement_state = GOING_STRAIGHT;
         }
+
+        // if (feature_state & END_OF_MAZE) {
+        //     *movement_state = STOPPED;
+        // } else if (feature_state == DEAD_END) {
+        //     *movement_state = U_TURN;
+        // } else if (feature_state == STRAIGHT_LINE) {
+        //     *movement_state = GOING_STRAIGHT;
+        // } else if (feature_state & RIGHT_TURN) {
+        //     *movement_state = TURNING_RIGHT;
+        // } else if (feature_state & STRAIGHT_LINE) {
+        //     *movement_state = GOING_STRAIGHT;
+        // } else if (feature_state & LEFT_TURN) {
+        //     *movement_state = TURNING_LEFT;
+        // } else {
+        //     *movement_state = GOING_STRAIGHT;
+        // }
 
         update_path(feature_state, movement_state, path);
     }
@@ -174,7 +191,7 @@ void backtrack(uint8_t* node_list) {
 
 }
 
-void generate_shortest_path(uint8_t* local_path, uint8_t* solved_path, uint8_t* final_map){
+void generate_shortest_path(uint8_t* local_path, uint8_t* solved_path, uint8_t* final_path) {
     
     add_u_turns(local_path);
     backtrack(local_path);
@@ -196,10 +213,9 @@ void generate_shortest_path(uint8_t* local_path, uint8_t* solved_path, uint8_t* 
     }
 
     // Combine local and solved path
-    printf("%d local path features \n", local_path_features);
-    memcpy(final_map, local_path, sizeof(uint8_t) * local_path_features);
-    memcpy(final_map + local_path_features, solved_path, sizeof(uint8_t) * solved_path_features);
+    // memcpy(final_path, local_path, sizeof(uint8_t) * local_path_features);
+    memcpy(local_path + local_path_features, solved_path, sizeof(uint8_t) * solved_path_features);
 
     // Prune final map
-    prune_map(final_map);
+    prune_map(local_path);
 }

@@ -144,8 +144,8 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_phase_pins, uint32_t thres
     int error;
     static int last_error, error_sum;
     float correction;
-    float kp = 5;
-    float kd = 0;
+    float kp = 4;
+    float kd = 2;
     float ki = 0.2;
 
     error = calculate_line_error(ir_values);

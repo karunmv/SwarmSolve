@@ -11,6 +11,6 @@ void add_u_turns(uint8_t *pruned_list);
 
 void backtrack(uint8_t* pruned_list);
 
-void generate_shortest_path(uint8_t* node_list_R1, uint8_t* node_list_R2, uint8_t* final_map);
+void generate_shortest_path(uint8_t* local_path, uint8_t* solved_path, uint8_t* final_path);
 
 #endif
