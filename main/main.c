@@ -35,6 +35,9 @@ void app_main(void) {
     uint8_t started = 0;
     uint8_t from_button;
 
+    /* Debugging */
+    uint8_t last_state = 0;
+
     /* PATH TESTING */
     // uint8_t local_path[NUM_MAP_FEATURES] = {TURNING_RIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, U_TURN};
     // uint8_t solved_path[NUM_MAP_FEATURES] = {TURNING_RIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, U_TURN, GOING_STRAIGHT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, STOPPED};
@@ -95,7 +98,7 @@ void app_main(void) {
         }
 
         /* Receive data from other robot */
-        if (xQueueReceive(path_transfer_queue, data, 5)) {
+        if ((following_path == 0) && xQueueReceive(path_transfer_queue, data, 5)) {
 
             // Strip packet type from first byte of data
             uint8_t packet_type = data[0];
@@ -110,13 +113,24 @@ void app_main(void) {
         }
 
         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+        // print_IR_values(ir_values);
+        // send_ir_values(ir_values);
 
         if (started) {
             update_feature_state(&feature_state, ir_values);
 
+            if (feature_state != last_state) {
+                send_ir_values(ir_values);
+            }
+
             check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state, &pcnt_unit);
 
             update_movement_state(feature_state, &movement_state, local_path, following_path);
+
+            if (feature_state != last_state) {
+                send_state(feature_state, movement_state);
+                last_state = feature_state;
+            }
 
             // threshold = calibrate_ir(ir_values);
 
@@ -134,8 +148,10 @@ void app_main(void) {
             } else if (movement_state == STOPPED) {
                 move_motors(motor_phase_pins, speeds);
                 prune_map(local_path);
-                send_path(local_path, feature_state);
-                while(1);
+                while(1) {
+                    send_path(local_path, feature_state);
+                    vTaskDelay(pdMS_TO_TICKS(500));
+                }
             } else if (movement_state == TURNING_RIGHT) {
                 turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
             } else if (movement_state == TURNING_LEFT) {
@@ -143,6 +159,7 @@ void app_main(void) {
             } else if (movement_state == U_TURN) {
                 u_turn(ir_pins, ir_values, motor_phase_pins, feature_state);
             }
+            
 
             // send_path(local_path, feature_state);
 
@@ -152,6 +169,6 @@ void app_main(void) {
             // print_IR_values(ir_values);
         }
 
-        vTaskDelay(pdMS_TO_TICKS(10));
+        // vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

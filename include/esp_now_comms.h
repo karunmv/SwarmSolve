@@ -13,6 +13,8 @@
 /* Defines */
 #define PATH_PACKET         1
 #define STARTED_PACKET      2
+#define IR_PACKET           3
+#define STATE_PACKET        4
 #define ESPNOW_MAX_DELAY    512
 
 typedef struct {

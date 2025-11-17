@@ -75,6 +75,28 @@ uint32_t calibrate_ir(uint32_t *ir_values){
 
 }
 
+static void move_fixed_forward(uint32_t *motor_phase_pins, pcnt_unit_handle_t *pcnt_unit, uint32_t num_pulses) {
+    /* Variables */
+    int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};
+    int pulse_count;
+
+    /* Move forward a tad */
+    // Start Moving
+    move_motors(motor_phase_pins, speeds);
+
+    // Wait for certain pules count
+    ESP_ERROR_CHECK(pcnt_unit_clear_count(*pcnt_unit));
+    pcnt_unit_get_count(*pcnt_unit, &pulse_count);
+
+    while (pulse_count < num_pulses) {
+        pcnt_unit_get_count(*pcnt_unit, &pulse_count);
+    }
+
+    speeds[0] = 0;
+    speeds[1] = 0;
+    move_motors(motor_phase_pins, speeds);
+}
+
 void update_feature_state(uint8_t *feature_state, uint32_t *ir_values) {
 
     uint8_t line_start, line_end, line_width;
@@ -86,11 +108,12 @@ void update_feature_state(uint8_t *feature_state, uint32_t *ir_values) {
     if (line_width == 0) {
         *feature_state = DEAD_END;
         return;
-    } else if (line_width <= 3 || (line_start > 0 && line_end < (IR_PIN_COUNT - 1))) {
+    } else if (line_width <= 2 || (line_start > 0 && line_end < (IR_PIN_COUNT - 1))) {
         *feature_state = STRAIGHT_LINE;
         return;
-    } 
+    }
 
+    // Check for left/right
     if (line_end == (IR_PIN_COUNT - 1))     *feature_state |= RIGHT_TURN;
     if (line_start == 0)                    *feature_state |= LEFT_TURN;
 }
@@ -103,33 +126,33 @@ void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phas
         /* Variables */
         int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};
         int pulse_count;
+        uint8_t line_start, line_end, line_width;
 
 
-        /* Move forward a tad */
-        // Start Moving
-        move_motors(motor_phase_pins, speeds);
-
-        // Wait for certain pules count
-        ESP_ERROR_CHECK(pcnt_unit_clear_count(*pcnt_unit));
-        pcnt_unit_get_count(*pcnt_unit, &pulse_count);
-
-        while (pulse_count < CHECK_STRAIGHT_PULSES) {
-            pcnt_unit_get_count(*pcnt_unit, &pulse_count);
-        }
-        
-        // Stop moving
         speeds[0] = 0;
         speeds[1] = 0;
         move_motors(motor_phase_pins, speeds);
+        ets_delay_us(1000);
+
+        read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+        find_line(ir_values, &line_start, &line_end, &line_width);
+
+        // Check for left/right
+        if (line_end == (IR_PIN_COUNT - 1))     *feature_state |= RIGHT_TURN;
+        if (line_start == 0)                    *feature_state |= LEFT_TURN;
+
+
+        move_fixed_forward(motor_phase_pins, pcnt_unit, 600);
         
         /* Read IR Values */
         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
-        uint8_t line_width;
         line_width = find_line_width(ir_values);
 
         /* Check if line continues or if it is a box */
-        if ((line_width > 0) && (line_width < (IR_PIN_COUNT - 1))) *feature_state |= STRAIGHT_LINE;
-        else if (line_width == IR_PIN_COUNT) *feature_state = END_OF_MAZE;
+        if ((line_width > 0) && (line_width < (IR_PIN_COUNT - 1))) {
+            *feature_state |= STRAIGHT_LINE;
+            center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
+        } else if (line_width == IR_PIN_COUNT) *feature_state = END_OF_MAZE;
 
         *feature_state |= STRAIGHT_CHECKED;
 
@@ -144,7 +167,7 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_phase_pins, uint32_t thres
     int error;
     static int last_error, error_sum;
     float correction;
-    float kp = 2.0;
+    float kp = 3.0;
     float kd = 1.0;
     float ki = 0.1;
 
@@ -250,30 +273,36 @@ void turn_left(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pin
 
 void u_turn(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state) {
 
-    uint8_t line_width;
-    int8_t speeds[NUM_MOTORS] = {BASE_TURN_SPEED, -BASE_TURN_SPEED};
+    turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
 
-    move_motors(motor_phase_pins, speeds); // Start turning right
-
-    /* Run twice if there is a right turn present at the intersection to skip over the extra line */
-    for (int i = 0; i <= (feature_state & RIGHT_TURN); i++) {
-        /* Wait for robot to leave initial line */
-        while(1) {
-            read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
-            line_width = find_line_width(ir_values);
-
-            if (line_width == 0) break;
-        }
-
-        /* Wait for robot to return to line */
-        while(1) {
-            read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
-            line_width = find_line_width(ir_values);
-
-            if (line_width > 0) break;
-        }
+    if (feature_state & RIGHT_TURN) {
+        turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
     }
 
-    center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
+    // uint8_t line_width;
+    // int8_t speeds[NUM_MOTORS] = {BASE_TURN_SPEED, -BASE_TURN_SPEED};
+
+    // move_motors(motor_phase_pins, speeds); // Start turning right
+
+    // /* Run twice if there is a right turn present at the intersection to skip over the extra line */
+    // for (int i = 0; i <= (feature_state & RIGHT_TURN); i++) {
+    //     /* Wait for robot to leave initial line */
+    //     while(1) {
+    //         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+    //         line_width = find_line_width(ir_values);
+
+    //         if (line_width == 0) break;
+    //     }
+
+    //     /* Wait for robot to return to line */
+    //     while(1) {
+    //         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
+    //         line_width = find_line_width(ir_values);
+
+    //         if (line_width > 0) break;
+    //     }
+    // }
+
+    // center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
 }
 

@@ -1,5 +1,6 @@
 #include "main.h"
 #include "esp_now_comms.h"
+#include "QTRX-MD-NRC.h"
 
 const char* TAG_RX = "ESP-NOW RX";
 static const char* TAG_TX = "ESP-NOW TX";
@@ -28,9 +29,9 @@ void send_message(void) {
 }
 
 void send_state(uint8_t feature_state, uint8_t movement_state) {
-    uint8_t states[2] = {feature_state, movement_state};
+    uint8_t states[3] = {STATE_PACKET, feature_state, movement_state};
 
-    esp_err_t err = esp_now_send(broadcast_mac, states, sizeof(uint8_t) * 2);
+    esp_err_t err = esp_now_send(broadcast_mac, states, sizeof(uint8_t) * 3);
     ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
 }
 
@@ -57,18 +58,23 @@ void send_started(void) {
 
 void send_ir_values(uint32_t *ir_values) {
 
-    uint8_t all_values[8]={0};
+    uint8_t ir_tx[(IR_PIN_COUNT * 4) + 1];
+    uint8_t *ir_bytes;
 
-    for(int i=0; i<8; i++){
-        uint32_t value = ir_values[i];
+    ir_tx[0] = IR_PACKET;
+    ir_bytes = &(ir_tx[1]);
 
-        uint8_t cast_values[4] = {(uint8_t)(value & 0xff), (uint8_t)((value >> 8) & 0xff), (uint8_t)((value >> 16) & 0xff), (uint8_t)((value >> 24) & 0xff)};
-
-        all_values[i] = *cast_values;
-        // esp_err_t err = esp_now_send(broadcast_mac, cast_values, sizeof(uint8_t*)*4);
-        // ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
+    for (int i = 0; i < IR_PIN_COUNT; i++) {
+        
+        ir_bytes[i * 4] = (uint8_t)((ir_values[i] >> (0 * 8)) & 0xFF);
+        ir_bytes[(i * 4) + 1] = (uint8_t)((ir_values[i] >> (1 * 8)) & 0xFF);
+        ir_bytes[(i * 4) + 2] = (uint8_t)((ir_values[i] >> (2 * 8)) & 0xFF);
+        ir_bytes[(i * 4) + 3] = (uint8_t)((ir_values[i] >> (3 * 8)) & 0xFF);
     }
-    esp_err_t err = esp_now_send(broadcast_mac, all_values, sizeof(uint32_t *) * 8 * 8);
+
+    
+
+    esp_err_t err = esp_now_send(broadcast_mac, ir_tx, sizeof(ir_tx));
     ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
 }
 

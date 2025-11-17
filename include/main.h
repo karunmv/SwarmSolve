@@ -11,14 +11,14 @@
 #include "freertos/FreeRTOS.h"
 
 
-#define PRIMARY_IR_THRESHOLD    1250
+#define PRIMARY_IR_THRESHOLD    1200
 
 // Exploration Strategy, ie always left, always right, always straight etc...
 
 
 // Motor Movement
-#define BASE_FORWARD_SPEED 40
-#define BASE_TURN_SPEED 25
+#define BASE_FORWARD_SPEED 25
+#define BASE_TURN_SPEED 20
 #define NUM_MAP_FEATURES 100
 #define CHECK_STRAIGHT_PULSES 600
 
