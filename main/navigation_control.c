@@ -60,6 +60,7 @@ void update_movement_state(uint8_t feature_state, uint8_t *movement_state, uint8
 
 }
 
+// TODO, Bounds checking on path, and movement_state doesn't have to be a pointer
 void update_path(uint8_t feature_state, uint8_t *movement_state, uint8_t *path) {
     static uint8_t turn_index = 0;
 
@@ -160,8 +161,7 @@ void add_u_turns(uint8_t *node_list) {
 
 }
 
-
-void backtrack(uint8_t* node_list) {
+void backtrack(uint8_t *node_list) {
 
     for (int i = 0; i < NUM_MAP_FEATURES; i++) {
         if (node_list[i] == TURNING_LEFT) node_list[i] = TURNING_RIGHT;
@@ -191,7 +191,7 @@ void backtrack(uint8_t* node_list) {
 
 }
 
-void generate_shortest_path(uint8_t* local_path, uint8_t* solved_path, uint8_t* final_path) {
+void generate_shortest_path(uint8_t *local_path, uint8_t *solved_path, uint8_t *final_path) {
     
     add_u_turns(local_path);
     backtrack(local_path);

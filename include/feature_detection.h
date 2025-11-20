@@ -10,6 +10,8 @@
 
 /* Function prototypes*/
 
+uint32_t calibrate_ir(uint32_t *ir_values);
+
 /**
  * @brief Updates the feature state variable which holds information about what features are observed at a particular point in the maze
  * @param feature_state Pointer to the feature state variable which holds the current observed feature of the maze
@@ -32,8 +34,6 @@ void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phas
  * @param motor_phase_pins Pointer to array that holds the pin numbers of the motor phase pins
  */
 void follow_line(uint32_t *ir_values, uint32_t *motor_phase_pins, uint32_t threshold);
-
-uint32_t calibrate_ir(uint32_t *ir_values);
 
 /** 
  * @brief Centers the robot on the line while not moving forward

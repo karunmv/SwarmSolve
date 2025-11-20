@@ -20,6 +20,15 @@ Utilitiy functions.
 
 
 
+# TODO
+
+Peer-to-peer acknowledge communication
+generalize exploration algorithm
+move robot out of the way at end of maze
+Remove final path from generate_shortest_path
+Make movement path in update_path not a pointer
+
+
 # _Sample project_
 
 (See the README.md file in the upper level 'examples' directory for more information about examples.)

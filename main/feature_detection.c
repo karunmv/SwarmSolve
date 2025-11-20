@@ -5,20 +5,26 @@
 
 #include <rom/ets_sys.h>
 
+/**
+ * @brief Calculates the error from the center of the line of the IR sensor
+ * @param ir_values Array of ir values
+ */
 static int calculate_line_error(uint32_t *ir_values) {
     int error = 0;
 
-    // TODO Fix hardcoded values
-    for (int i=0; i<4; i++) {
+    // Check for positive error from one half of IR array
+    for (int i=0; i < (IR_PIN_COUNT / 2); i++) {
         if (ir_values[i] > PRIMARY_IR_THRESHOLD) {
-            error = (3 - i);
+            error = (((IR_PIN_COUNT / 2) - 1) - i);
             break;
         }
     }
-    for (int i = 7; i > 3; i--) {
+
+    // Check for negative error from the other half of the IR arrya
+    for (int i = (IR_PIN_COUNT - 1); i > ((IR_PIN_COUNT / 2) - 1); i--) {
         if (ir_values[i] > PRIMARY_IR_THRESHOLD) {
-            if (error < (i - 4)) {
-                error = (4 - i);
+            if (error < (i - (IR_PIN_COUNT / 2))) {
+                error = ((IR_PIN_COUNT / 2) - i);
             }
             break;
         }
@@ -27,6 +33,13 @@ static int calculate_line_error(uint32_t *ir_values) {
     return error;
 }
 
+/**
+ * @brief Finds the start, end, and width of the line based on the IR sensor values
+ * @param ir_values Array of ir values
+ * @param line_start Pointer to line start variable, gets modified in place
+ * @param line_end Pointer to line end variable, gets modified in place
+ * @param line_width Pointer to line width variable, gets modified in place
+ */
 static void find_line(uint32_t *ir_values, uint8_t *line_start, uint8_t *line_end, uint8_t *line_width) {
 
     *line_start  = NO_START;
@@ -43,6 +56,10 @@ static void find_line(uint32_t *ir_values, uint8_t *line_start, uint8_t *line_en
     }
 }
 
+/**
+ * @brief Returns width of the line
+ * @param ir_values Array of ir values
+ */
 static uint8_t find_line_width(uint32_t *ir_values) {
 
     uint8_t line_width  = 0;
@@ -55,26 +72,12 @@ static uint8_t find_line_width(uint32_t *ir_values) {
     return line_width;
 }
 
-uint32_t calibrate_ir(uint32_t *ir_values){
-    uint32_t max = 0;
-    uint32_t min = 0xffff;
-    uint32_t threshold = 0;
+// TODO: convert num_pulses to distance
 
-    for(int k=0; k<10; k++){
-        for(int i=0; i<8; i++){
-            if(ir_values[i] > max) max = ir_values[i];
-            if(ir_values[i] < min) min = ir_values[i];
-        }
-    }
-
-    threshold = max - ((max - min) * 0.1);
-
-    //printf("Max: %ld Min: %ld Threshold: %ld", max,min,threshold);
-
-    return threshold;
-
-}
-
+/**
+ * @brief Moves robot a fixed distance foreward
+ * @param 
+ */
 static void move_fixed_forward(uint32_t *motor_phase_pins, pcnt_unit_handle_t *pcnt_unit, uint32_t num_pulses) {
     /* Variables */
     int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};
@@ -95,6 +98,25 @@ static void move_fixed_forward(uint32_t *motor_phase_pins, pcnt_unit_handle_t *p
     speeds[0] = 0;
     speeds[1] = 0;
     move_motors(motor_phase_pins, speeds);
+}
+
+uint32_t calibrate_ir(uint32_t *ir_values){
+    uint32_t max = 0;
+    uint32_t min = 0xffff;
+    uint32_t threshold = 0;
+
+    for(int k=0; k<10; k++){
+        for(int i=0; i<8; i++){
+            if(ir_values[i] > max) max = ir_values[i];
+            if(ir_values[i] < min) min = ir_values[i];
+        }
+    }
+
+    threshold = max - ((max - min) * 0.1);
+
+    //printf("Max: %ld Min: %ld Threshold: %ld", max,min,threshold);
+
+    return threshold;
 }
 
 void update_feature_state(uint8_t *feature_state, uint32_t *ir_values) {

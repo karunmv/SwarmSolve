@@ -86,11 +86,15 @@ void app_main(void) {
     /* Main Loop */
     while(1) {
 
+        /* Check if button press has been received on this robot, or from the other robot */
         if (xQueueReceive(button_press_queue, &from_button, 5) && !started) {
 
+            // If from local button start immediatly
             if (from_button) {
                 send_started();
                 started = 1;
+
+            // If from other robot start after 3 seconds
             } else {
                 vTaskDelay(pdMS_TO_TICKS(3000));
                 started = 1;
@@ -168,7 +172,5 @@ void app_main(void) {
             // print_movement_state(movement_state);
             // print_IR_values(ir_values);
         }
-
-        // vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

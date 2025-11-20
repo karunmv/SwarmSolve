@@ -61,6 +61,4 @@ void motor_setup(uint32_t *enable_pins, uint32_t *phase_pins);
  */
 void move_motors(uint32_t *phase_pins, int8_t *speeds);
 
-
-// void robot_state(uint32_t *phase_pins, uint8_t num_motors, uint32_t speed, uint8_t direction);
 #endif

@@ -11,7 +11,16 @@
  */
 void print_IR_values(uint32_t *ir_values);
 
+/**
+ * @brief Prints the feature state in plain text
+ * @param feature_state Feature state byte
+ */
 void print_feature_state(uint8_t feature_state);
+
+/**
+ * @brief Prints the movement state in plain text
+ * @param feature_state Movement state byte
+ */
 void print_movement_state(uint8_t movement_state);
 
 #endif
