@@ -3,17 +3,22 @@
 #include "feature_detection.h"
 
 
-void update_movement_state(uint8_t feature_state, uint8_t *movement_state, uint8_t *path, uint8_t following_path) {
+void update_movement_state(uint8_t feature_state, uint8_t *movement_state, uint8_t *path, uint8_t *following_path) {
 
     uint8_t at_node = (feature_state & STRAIGHT_CHECKED) || (feature_state & U_TURN) || (feature_state & END_OF_MAZE);
 
     /* Robot is currently following a list of turns */
-    if (following_path) {
+    if (*following_path) {
 
         if (at_node) {
             static int turn_index = 0;
 
             *movement_state = path[turn_index];
+
+            // If the required movement state doesn't match with the observed features, start exploring
+            if (!(feature_state & *movement_state)) {
+                *following_path = 0;
+            }
 
             turn_index++;
         } else {
@@ -67,6 +72,7 @@ void update_movement_state(uint8_t feature_state, uint8_t *movement_state, uint8
 void update_path(uint8_t feature_state, uint8_t movement_state, uint8_t *path) {
     static uint8_t turn_index = 0;
 
+    // If path array becomes too large, prune it to be smaller, this will never exceed the number of map features
     if (turn_index >= NUM_MAP_FEATURES) {
         prune_map(path);
 

@@ -23,11 +23,13 @@ Utilitiy functions.
 # TODO
 
 
-Convert num pulses to distance
 Double check nodes when following path to make sure they match
 
-Have exploration strategy be decided at runtime by which button gets pressed
-generalize exploration algorithm
-Basic collision avoidance
 
+Convert num pulses to distance
+
+
+Have exploration strategy be decided at runtime by which button gets pressed
+Basic collision avoidance
+generalize exploration algorithm
 

@@ -16,13 +16,13 @@
 // Exploration Strategy, ie always left, always right, always straight etc...
 #define ALWAYS_RIGHT            0
 #define ALWAYS_LEFT             1
-#define EXPLORATION_STRATEGY    ALWAYS_LEFT
+#define EXPLORATION_STRATEGY    ALWAYS_RIGHT
 
 // Peer mac
 #define BLACK_BOT_MAC       {0x58, 0x8C, 0x81, 0x41, 0x3A, 0x8C}
 #define LAVENDER_BOT_MAC    {0x58, 0x8C, 0x81, 0x40, 0xBD, 0x4C}
 #define BROADCAST_MAC       {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
-#define PEER_MAC            LAVENDER_BOT_MAC
+#define PEER_MAC            BLACK_BOT_MAC
 
 // Motor Movement
 #define BASE_FORWARD_SPEED 25
@@ -45,8 +45,8 @@
 
 // Robot state defines
 #define GOING_STRAIGHT      (1 << 0)
-#define TURNING_LEFT        (1 << 1)
-#define TURNING_RIGHT       (1 << 2)
+#define TURNING_RIGHT       (1 << 1)
+#define TURNING_LEFT        (1 << 2)
 #define U_TURN              (1 << 3)
 #define REVERSING           (1 << 4)
 #define STOPPED             (1 << 5)

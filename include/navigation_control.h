@@ -8,7 +8,7 @@
  * @param path Pointer to the array of turns the robot has made at each intersection
  * @param following_path Flag that states if the robot is following the path, or still exploring the maze
  */
-void update_movement_state(uint8_t feature_state, uint8_t *movement_state, uint8_t *path, uint8_t following_path);
+void update_movement_state(uint8_t feature_state, uint8_t *movement_state, uint8_t *path, uint8_t *following_path);
 
 /**
  * @brief Appends a new movement_state to the path array

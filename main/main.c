@@ -30,6 +30,7 @@ void app_main(void) {
     uint8_t movement_state = 0;
     int8_t speeds[NUM_MOTORS] = {0, 0};
     uint8_t following_path = 0;
+    uint8_t second_to_finish = 0;
     uint8_t local_path[NUM_MAP_FEATURES] = {0};
     uint8_t solved_path[NUM_MAP_FEATURES] = {0};
     uint8_t final_path[NUM_MAP_FEATURES] = {0};
@@ -62,7 +63,6 @@ void app_main(void) {
 
     /* Communication Initialization */
     wifi_sta_init();
-    // esp_broadcast_setup();
     esp_setup(peer_mac, local_mac);
 
     /* Motor Pin Initialization */
@@ -119,6 +119,7 @@ void app_main(void) {
 
                 generate_shortest_path(local_path, solved_path);
                 following_path = 1;
+                second_to_finish = 1;
 
             }
         }
@@ -136,7 +137,7 @@ void app_main(void) {
 
             check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state, &pcnt_unit);
 
-            update_movement_state(feature_state, &movement_state, local_path, following_path);
+            update_movement_state(feature_state, &movement_state, local_path, &following_path);
 
             if (feature_state != last_state) {
                 send_state(feature_state, movement_state, peer_mac);
@@ -157,12 +158,16 @@ void app_main(void) {
             if (movement_state == GOING_STRAIGHT) {
                 follow_line(ir_values, motor_phase_pins, PRIMARY_IR_THRESHOLD);
             } else if (movement_state == STOPPED) {
+
+                // Stop moving adn send the pruned path to the other robot
                 move_motors(motor_phase_pins, speeds);
                 prune_map(local_path);
                 send_path(local_path, feature_state, peer_mac);
 
-                if (!following_path) move_fixed_forward(motor_phase_pins, &pcnt_unit, 800);
+                // If first to finish move out of the way
+                if (!second_to_finish) move_fixed_forward(motor_phase_pins, &pcnt_unit, 800);
                 
+                // Sit still
                 while(1) {
                     vTaskDelay(pdMS_TO_TICKS(500));
                 }
