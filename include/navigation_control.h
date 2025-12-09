@@ -16,7 +16,7 @@ void update_movement_state(uint8_t feature_state, uint8_t *movement_state, uint8
  * @param movement_state The movement state of the robot to be appended to path
  * @param path Array of current path
  */
-void update_path(uint8_t feature_state, uint8_t *movement_state, uint8_t *path);
+void update_path(uint8_t feature_state, uint8_t movement_state, uint8_t *path);
 
 /**
  * @brief Prunes the map of all extranious paths
@@ -41,6 +41,6 @@ void backtrack(uint8_t *path);
  * @param local_path Array containing the path the local robot has explored already
  * @param solved_path Array containing the path the other robot found from the start to the goal
  */
-void generate_shortest_path(uint8_t *local_path, uint8_t *solved_path, uint8_t *final_path);
+void generate_shortest_path(uint8_t *local_path, uint8_t *solved_path);
 
 #endif

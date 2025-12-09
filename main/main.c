@@ -12,6 +12,10 @@ QueueHandle_t button_press_queue    = NULL;
 
 void app_main(void) {
 
+    /* ESPNOW Infor */
+    uint8_t peer_mac[6] = PEER_MAC;
+    uint8_t local_mac[6];
+
     /* PIN ARRAYS */
     uint32_t ir_pins[IR_PIN_COUNT] = {IR_PIN_1, IR_PIN_2, IR_PIN_3, IR_PIN_4, IR_PIN_5, IR_PIN_6, IR_PIN_7, IR_PIN_8};
     uint32_t motor_enable_pins[NUM_MOTORS] = {M1_PWM, M2_PWM};
@@ -58,7 +62,8 @@ void app_main(void) {
 
     /* Communication Initialization */
     wifi_sta_init();
-    esp_broadcast_setup();
+    // esp_broadcast_setup();
+    esp_setup(peer_mac, local_mac);
 
     /* Motor Pin Initialization */
     motor_setup(motor_enable_pins, motor_phase_pins);
@@ -85,13 +90,15 @@ void app_main(void) {
 
     /* Main Loop */
     while(1) {
+        
+
 
         /* Check if button press has been received on this robot, or from the other robot */
         if (xQueueReceive(button_press_queue, &from_button, 5) && !started) {
 
             // If from local button start immediatly
             if (from_button) {
-                send_started();
+                send_started(peer_mac);
                 started = 1;
 
             // If from other robot start after 3 seconds
@@ -110,7 +117,7 @@ void app_main(void) {
             if (packet_type == PATH_PACKET) {
                 memcpy(solved_path, &(data[1]), NUM_MAP_FEATURES);
 
-                generate_shortest_path(local_path, solved_path, final_path);
+                generate_shortest_path(local_path, solved_path);
                 following_path = 1;
 
             }
@@ -124,7 +131,7 @@ void app_main(void) {
             update_feature_state(&feature_state, ir_values);
 
             if (feature_state != last_state) {
-                send_ir_values(ir_values);
+                send_ir_values(ir_values, peer_mac);
             }
 
             check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state, &pcnt_unit);
@@ -132,7 +139,7 @@ void app_main(void) {
             update_movement_state(feature_state, &movement_state, local_path, following_path);
 
             if (feature_state != last_state) {
-                send_state(feature_state, movement_state);
+                send_state(feature_state, movement_state, peer_mac);
                 last_state = feature_state;
             }
 
@@ -152,8 +159,11 @@ void app_main(void) {
             } else if (movement_state == STOPPED) {
                 move_motors(motor_phase_pins, speeds);
                 prune_map(local_path);
+                send_path(local_path, feature_state, peer_mac);
+
+                if (!following_path) move_fixed_forward(motor_phase_pins, &pcnt_unit, 800);
+                
                 while(1) {
-                    send_path(local_path, feature_state);
                     vTaskDelay(pdMS_TO_TICKS(500));
                 }
             } else if (movement_state == TURNING_RIGHT) {

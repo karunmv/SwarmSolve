@@ -33,16 +33,22 @@ void esp_now_send_callback(const esp_now_send_info_t *tx_info, esp_now_send_stat
 
 void esp_broadcast_setup(void);
 
-void send_message(void);
+void esp_setup(uint8_t *peer_mac, uint8_t *local_mac);
 
-void send_state(uint8_t feature_state, uint8_t movement_state);
+// void send_state(uint8_t feature_state, uint8_t movement_state);
+void send_state(uint8_t feature_state, uint8_t movement_state, uint8_t *peer_mac);
 
-void send_path(uint8_t *path, uint8_t feature_state);
+// void send_path(uint8_t *path, uint8_t feature_state);
+void send_path(uint8_t *path, uint8_t feature_state, uint8_t *peer_mac);
 
-void send_started(void);
+// void send_started(void);
+void send_started(uint8_t *peer_mac);
 
-void send_ir_values(uint32_t *ir_values);
+// void send_ir_values(uint32_t *ir_values);
+void send_ir_values(uint32_t *ir_values, uint8_t *peer_mac);
 
 void wifi_sta_init(void);
+
+void send_message(void);
 
 #endif

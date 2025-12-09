@@ -67,4 +67,6 @@ void turn_left(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pin
  */
 void u_turn(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state);
 
+void move_fixed_forward(uint32_t *motor_phase_pins, pcnt_unit_handle_t *pcnt_unit, uint32_t num_pulses);
+
 #endif

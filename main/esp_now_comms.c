@@ -18,24 +18,18 @@ void esp_now_recv_callback(const esp_now_recv_info_t *esp_now_info, const uint8_
 }
 
 void esp_now_send_callback(const esp_now_send_info_t *tx_info, esp_now_send_status_t status) {
-    ESP_LOGI(TAG_RX,"tx cb");
+    // ESP_LOGI(TAG_RX,"tx cb");
 }
 
-void send_message(void) {
-        char *message = "Hi Aedan, from Karun :)";
-        esp_err_t err = esp_now_send(broadcast_mac, (uint8_t *)message, strlen(message));
-        
-        ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
-}
-
-void send_state(uint8_t feature_state, uint8_t movement_state) {
+void send_state(uint8_t feature_state, uint8_t movement_state, uint8_t *peer_mac) {
     uint8_t states[3] = {STATE_PACKET, feature_state, movement_state};
 
-    esp_err_t err = esp_now_send(broadcast_mac, states, sizeof(uint8_t) * 3);
+    // esp_err_t err = esp_now_send(broadcast_mac, states, sizeof(uint8_t) * 3);
+    esp_err_t err = esp_now_send(peer_mac, states, sizeof(uint8_t) * 3);
     ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
 }
 
-void send_path(uint8_t *path, uint8_t feature_state) {
+void send_path(uint8_t *path, uint8_t feature_state, uint8_t *peer_mac) {
 
     uint8_t path_tx[NUM_MAP_FEATURES + 1] = {0};
     path_tx[0] = PATH_PACKET;
@@ -43,20 +37,22 @@ void send_path(uint8_t *path, uint8_t feature_state) {
 
     /* Only send if at a node */
     if ((feature_state & STRAIGHT_CHECKED) || (feature_state & END_OF_MAZE) || (feature_state & DEAD_END)) {
-        esp_err_t err = esp_now_send(broadcast_mac, path_tx, sizeof(uint8_t) * (NUM_MAP_FEATURES + 1));
+        // esp_err_t err = esp_now_send(broadcast_mac, path_tx, sizeof(uint8_t) * (NUM_MAP_FEATURES + 1));
+        esp_err_t err = esp_now_send(peer_mac, path_tx, sizeof(uint8_t) * (NUM_MAP_FEATURES + 1));
         ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
     }
 }
 
-void send_started(void) {
+void send_started(uint8_t *peer_mac) {
     uint8_t tx_packet = STARTED_PACKET;
 
-    esp_err_t err = esp_now_send(broadcast_mac, &tx_packet, sizeof(uint8_t));
+    // esp_err_t err = esp_now_send(broadcast_mac, &tx_packet, sizeof(uint8_t));
+    esp_err_t err = esp_now_send(peer_mac, &tx_packet, sizeof(uint8_t));
     ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
 
 }
 
-void send_ir_values(uint32_t *ir_values) {
+void send_ir_values(uint32_t *ir_values, uint8_t *peer_mac) {
 
     uint8_t ir_tx[(IR_PIN_COUNT * 4) + 1];
     uint8_t *ir_bytes;
@@ -74,7 +70,8 @@ void send_ir_values(uint32_t *ir_values) {
 
     
 
-    esp_err_t err = esp_now_send(broadcast_mac, ir_tx, sizeof(ir_tx));
+    // esp_err_t err = esp_now_send(broadcast_mac, ir_tx, sizeof(ir_tx));
+    esp_err_t err = esp_now_send(peer_mac, ir_tx, sizeof(ir_tx));
     ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
 }
 
@@ -92,6 +89,24 @@ void esp_broadcast_setup(void) {
     peer_info.channel = 1; 
     peer_info.encrypt = false;
     memcpy(peer_info.peer_addr, broadcast_mac, 6);
+    esp_now_add_peer(&peer_info);
+}
+
+void esp_setup(uint8_t *peer_mac, uint8_t *local_mac) {
+    // Print mac address of current board
+    esp_read_mac(local_mac, ESP_MAC_WIFI_STA);
+    ESP_LOGI(TAG_RX, "Mac address: " MACSTR "", local_mac[0], local_mac[1], local_mac[2], local_mac[3], local_mac[4], local_mac[5]);
+
+    // Init espnow and set callback functions
+    esp_now_init();
+    esp_now_register_send_cb(esp_now_send_callback);
+    esp_now_register_recv_cb(esp_now_recv_callback);
+
+    // Add esp_now peer as broadcast address
+    esp_now_peer_info_t peer_info = {0};
+    peer_info.channel = 1; 
+    peer_info.encrypt = false;
+    memcpy(peer_info.peer_addr, peer_mac, 6);
     esp_now_add_peer(&peer_info);
 }
 
@@ -113,4 +128,12 @@ void wifi_sta_init(void) {
     esp_wifi_set_ps(WIFI_PS_NONE);
     esp_wifi_start();
     esp_wifi_set_channel(1, WIFI_SECOND_CHAN_NONE);
+}
+
+
+void send_message(void) {
+        char *message = "Hi Aedan, from Karun :)";
+        esp_err_t err = esp_now_send(broadcast_mac, (uint8_t *)message, strlen(message));
+        
+        ESP_LOGI(TAG_TX,"esp now status : %s", esp_err_to_name(err));
 }

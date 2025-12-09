@@ -23,54 +23,72 @@ void update_movement_state(uint8_t feature_state, uint8_t *movement_state, uint8
     /* Robot is currently exploring the maze and recording it's path */
     } else {
 
-        if (feature_state & END_OF_MAZE) {
-            *movement_state = STOPPED;
-        } else if (feature_state == DEAD_END) {
-            *movement_state = U_TURN;
-        } else if (feature_state == STRAIGHT_LINE) {
-            *movement_state = GOING_STRAIGHT;
-        } else if (feature_state & LEFT_TURN) {
-            *movement_state = TURNING_LEFT;
-        } else if (feature_state & STRAIGHT_LINE) {
-            *movement_state = GOING_STRAIGHT;
-        } else if (feature_state & RIGHT_TURN) {
-            *movement_state = TURNING_RIGHT;
-        } else {
-            *movement_state = GOING_STRAIGHT;
+        if (EXPLORATION_STRATEGY == ALWAYS_LEFT) {
+            if (feature_state & END_OF_MAZE) {
+                *movement_state = STOPPED;
+            } else if (feature_state == DEAD_END) {
+                *movement_state = U_TURN;
+            } else if (feature_state == STRAIGHT_LINE) {
+                *movement_state = GOING_STRAIGHT;
+            } else if (feature_state & LEFT_TURN) {
+                *movement_state = TURNING_LEFT;
+            } else if (feature_state & STRAIGHT_LINE) {
+                *movement_state = GOING_STRAIGHT;
+            } else if (feature_state & RIGHT_TURN) {
+                *movement_state = TURNING_RIGHT;
+            } else {
+                *movement_state = GOING_STRAIGHT;
+            }
+
+        } else if (EXPLORATION_STRATEGY == ALWAYS_RIGHT) {
+            if (feature_state & END_OF_MAZE) {
+                *movement_state = STOPPED;
+            } else if (feature_state == DEAD_END) {
+                *movement_state = U_TURN;
+            } else if (feature_state == STRAIGHT_LINE) {
+                *movement_state = GOING_STRAIGHT;
+            } else if (feature_state & RIGHT_TURN) {
+                *movement_state = TURNING_RIGHT;
+            } else if (feature_state & STRAIGHT_LINE) {
+                *movement_state = GOING_STRAIGHT;
+            } else if (feature_state & LEFT_TURN) {
+                *movement_state = TURNING_LEFT;
+            } else {
+                *movement_state = GOING_STRAIGHT;
+            }
         }
 
-        // if (feature_state & END_OF_MAZE) {
-        //     *movement_state = STOPPED;
-        // } else if (feature_state == DEAD_END) {
-        //     *movement_state = U_TURN;
-        // } else if (feature_state == STRAIGHT_LINE) {
-        //     *movement_state = GOING_STRAIGHT;
-        // } else if (feature_state & RIGHT_TURN) {
-        //     *movement_state = TURNING_RIGHT;
-        // } else if (feature_state & STRAIGHT_LINE) {
-        //     *movement_state = GOING_STRAIGHT;
-        // } else if (feature_state & LEFT_TURN) {
-        //     *movement_state = TURNING_LEFT;
-        // } else {
-        //     *movement_state = GOING_STRAIGHT;
-        // }
 
-        update_path(feature_state, movement_state, path);
+        update_path(feature_state, *movement_state, path);
     }
 
 }
 
-// TODO, Bounds checking on path, and movement_state doesn't have to be a pointer
-void update_path(uint8_t feature_state, uint8_t *movement_state, uint8_t *path) {
+void update_path(uint8_t feature_state, uint8_t movement_state, uint8_t *path) {
     static uint8_t turn_index = 0;
 
+    if (turn_index >= NUM_MAP_FEATURES) {
+        prune_map(path);
+
+        int actual_features = 0;
+
+        /* Find number of actuals turns in the path */
+        for (int i=0; i<NUM_MAP_FEATURES; i++) {
+            if (path[i] == 0) break;
+            actual_features++;
+        }
+
+        // Update turn index
+        turn_index = actual_features;
+    }
+
     if((feature_state & STRAIGHT_CHECKED)){
-        path[turn_index] = *movement_state;
+        path[turn_index] = movement_state;
         turn_index++;
-    } else if (*movement_state == U_TURN){
+    } else if (movement_state == U_TURN){
         path[turn_index] = U_TURN;
         turn_index++;
-    } else if (*movement_state == STOPPED){
+    } else if (movement_state == STOPPED){
         path[turn_index] = STOPPED;
     }
 }
@@ -191,7 +209,7 @@ void backtrack(uint8_t *node_list) {
 
 }
 
-void generate_shortest_path(uint8_t *local_path, uint8_t *solved_path, uint8_t *final_path) {
+void generate_shortest_path(uint8_t *local_path, uint8_t *solved_path) {
     
     add_u_turns(local_path);
     backtrack(local_path);
@@ -213,7 +231,6 @@ void generate_shortest_path(uint8_t *local_path, uint8_t *solved_path, uint8_t *
     }
 
     // Combine local and solved path
-    // memcpy(final_path, local_path, sizeof(uint8_t) * local_path_features);
     memcpy(local_path + local_path_features, solved_path, sizeof(uint8_t) * solved_path_features);
 
     // Prune final map
