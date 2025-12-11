@@ -23,10 +23,10 @@ void read_ir_sensor_array(uint32_t *gpio_pins, uint32_t *IR_sensor_readings, uin
         IR_array_config[i].pull_down_en = GPIO_PULLDOWN_DISABLE;
         IR_array_config[i].intr_type = GPIO_INTR_DISABLE;
 
-        gpio_config(&(IR_array_config[i]));
+        ESP_ERROR_CHECK( gpio_config(&(IR_array_config[i])) );
 
         // Set pin high
-        gpio_set_level(gpio_pins[i], 1);
+        ESP_ERROR_CHECK( gpio_set_level(gpio_pins[i], 1) );
     }
 
     // Delay 10 microseconds
@@ -39,7 +39,7 @@ void read_ir_sensor_array(uint32_t *gpio_pins, uint32_t *IR_sensor_readings, uin
     for (uint32_t i = 0; i < count; i++) {
         IR_array_config[i].mode = GPIO_MODE_INPUT;
         
-        gpio_config(&(IR_array_config[i]));
+        ESP_ERROR_CHECK( gpio_config(&(IR_array_config[i])) );
     } 
     
     int values_received = 0;

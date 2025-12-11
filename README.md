@@ -22,11 +22,9 @@ Utilitiy functions.
 
 # TODO
 
+Figure out watchdog thing
 
-Add trim to forward movement
 Convert num pulses to distance
-
-
 Have exploration strategy be decided at runtime by which button gets pressed
 Basic collision avoidance
 generalize exploration algorithm

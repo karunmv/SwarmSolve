@@ -93,6 +93,7 @@ void update_path(uint8_t feature_state, uint8_t movement_state, uint8_t *path) {
         turn_index = actual_features;
     }
 
+    // Only update path when at a node
     if((feature_state & STRAIGHT_CHECKED)){
         path[turn_index] = movement_state;
         turn_index++;
@@ -132,6 +133,7 @@ void prune_map(uint8_t *node_list) {
                 uint16_t compare_nodes = 0;
                 compare_nodes = (node_list[i-1] << 8) | node_list[i+1];
 
+                // Shorten sequence of moves if it can be shortened
                 switch (compare_nodes){
                     case RUS:
                     case SUR:
@@ -192,6 +194,7 @@ void add_u_turns(uint8_t *node_list) {
 
 void backtrack(uint8_t *node_list) {
 
+    // Invert turns so it represents path back to start instead of path from start to location
     for (int i = 0; i < NUM_MAP_FEATURES; i++) {
         if (node_list[i] == TURNING_LEFT) node_list[i] = TURNING_RIGHT;
         else if (node_list[i] == TURNING_RIGHT) node_list[i] = TURNING_LEFT;
@@ -209,6 +212,7 @@ void backtrack(uint8_t *node_list) {
     int end = actual_features - 1;
     uint8_t temp;
 
+    // Reverse own path order
     while (start < end) {
         temp = node_list[start];
         node_list[start] = node_list[end];
@@ -222,6 +226,7 @@ void backtrack(uint8_t *node_list) {
 
 void generate_shortest_path(uint8_t *local_path, uint8_t *solved_path) {
     
+    // Invert the path
     add_u_turns(local_path);
     backtrack(local_path);
 

@@ -83,11 +83,11 @@ void move_fixed_forward(uint32_t *motor_phase_pins, pcnt_unit_handle_t *pcnt_uni
     move_motors(motor_phase_pins, speeds);
 
     // Wait for certain pules count
-    ESP_ERROR_CHECK(pcnt_unit_clear_count(*pcnt_unit));
-    pcnt_unit_get_count(*pcnt_unit, &pulse_count);
+    ESP_ERROR_CHECK( pcnt_unit_clear_count(*pcnt_unit) );
+    ESP_ERROR_CHECK( pcnt_unit_get_count(*pcnt_unit, &pulse_count) );
 
     while (pulse_count < num_pulses) {
-        pcnt_unit_get_count(*pcnt_unit, &pulse_count);
+        ESP_ERROR_CHECK( pcnt_unit_get_count(*pcnt_unit, &pulse_count) );
     }
 
     speeds[0] = 0;
@@ -142,7 +142,6 @@ void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phas
 
         /* Variables */
         int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED + FORWARD_TUNE};
-        int pulse_count;
         uint8_t line_start, line_end, line_width;
 
 
@@ -204,7 +203,6 @@ void center_on_line_in_place(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *m
     
     uint16_t watchdog_count = 0;
     uint16_t centered_count = 0;
-    uint8_t line_width;
     int8_t speeds[NUM_MOTORS] = {0, 0};
     int error = 0;
     int last_error = 0;
@@ -295,31 +293,5 @@ void u_turn(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, 
     if (feature_state & RIGHT_TURN) {
         turn_right(ir_pins, ir_values, motor_phase_pins, feature_state);
     }
-
-    // uint8_t line_width;
-    // int8_t speeds[NUM_MOTORS] = {BASE_TURN_SPEED, -BASE_TURN_SPEED};
-
-    // move_motors(motor_phase_pins, speeds); // Start turning right
-
-    // /* Run twice if there is a right turn present at the intersection to skip over the extra line */
-    // for (int i = 0; i <= (feature_state & RIGHT_TURN); i++) {
-    //     /* Wait for robot to leave initial line */
-    //     while(1) {
-    //         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
-    //         line_width = find_line_width(ir_values);
-
-    //         if (line_width == 0) break;
-    //     }
-
-    //     /* Wait for robot to return to line */
-    //     while(1) {
-    //         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
-    //         line_width = find_line_width(ir_values);
-
-    //         if (line_width > 0) break;
-    //     }
-    // }
-
-    // center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
 }
 

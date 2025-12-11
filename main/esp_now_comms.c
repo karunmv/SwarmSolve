@@ -82,20 +82,20 @@ void send_ir_values(uint32_t *ir_values, uint8_t *peer_mac) {
 
 void esp_setup(uint8_t *peer_mac, uint8_t *local_mac) {
     // Print mac address of current board
-    esp_read_mac(local_mac, ESP_MAC_WIFI_STA);
+    ESP_ERROR_CHECK( esp_read_mac(local_mac, ESP_MAC_WIFI_STA) );
     ESP_LOGI(TAG_RX, "Mac address: " MACSTR "", local_mac[0], local_mac[1], local_mac[2], local_mac[3], local_mac[4], local_mac[5]);
 
     // Init espnow and set callback functions
-    esp_now_init();
-    esp_now_register_send_cb(esp_now_send_callback);
-    esp_now_register_recv_cb(esp_now_recv_callback);
+    ESP_ERROR_CHECK( esp_now_init() );
+    ESP_ERROR_CHECK( esp_now_register_send_cb(esp_now_send_callback) );
+    ESP_ERROR_CHECK( esp_now_register_recv_cb(esp_now_recv_callback) );
 
     // Add esp_now peer mac address
     esp_now_peer_info_t peer_info = {0};
     peer_info.channel = 1; 
     peer_info.encrypt = false;
     memcpy(peer_info.peer_addr, peer_mac, 6);
-    esp_now_add_peer(&peer_info);
+    ESP_ERROR_CHECK( esp_now_add_peer(&peer_info) );
 }
 
 void wifi_sta_init(void) {
@@ -109,17 +109,17 @@ void wifi_sta_init(void) {
     }
 
     // Create event loop
-    esp_netif_init();
-    esp_event_loop_create_default();
+    ESP_ERROR_CHECK( esp_netif_init() );
+    ESP_ERROR_CHECK( esp_event_loop_create_default() );
 
     // Configure wifi
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    esp_wifi_init(&cfg);
-    esp_wifi_set_mode(WIFI_MODE_STA);
-    esp_wifi_set_storage(WIFI_STORAGE_RAM);
-    esp_wifi_set_ps(WIFI_PS_NONE);
-    esp_wifi_start();
-    esp_wifi_set_channel(1, WIFI_SECOND_CHAN_NONE);
+    ESP_ERROR_CHECK( esp_wifi_init(&cfg) );
+    ESP_ERROR_CHECK( esp_wifi_set_mode(WIFI_MODE_STA) );
+    ESP_ERROR_CHECK( esp_wifi_set_storage(WIFI_STORAGE_RAM) );
+    ESP_ERROR_CHECK( esp_wifi_set_ps(WIFI_PS_NONE) );
+    ESP_ERROR_CHECK( esp_wifi_start() );
+    ESP_ERROR_CHECK( esp_wifi_set_channel(1, WIFI_SECOND_CHAN_NONE) );
 }
 
 void send_message(void) {

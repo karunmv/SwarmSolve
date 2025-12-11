@@ -42,24 +42,6 @@ void app_main(void) {
     /* Debugging */
     uint8_t last_state = 0;
 
-    /* PATH TESTING */
-    // uint8_t local_path[NUM_MAP_FEATURES] = {TURNING_RIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, U_TURN};
-    // uint8_t solved_path[NUM_MAP_FEATURES] = {TURNING_RIGHT, TURNING_LEFT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, U_TURN, GOING_STRAIGHT, U_TURN, TURNING_RIGHT, TURNING_RIGHT, TURNING_RIGHT, STOPPED};
-
-    // generate_shortest_path(local_path, solved_path, final_path);
-
-    // printf("PATH LIST: ");
-    // for (int i = 0; i < NUM_MAP_FEATURES; i++) {
-    //     printf("%d-", i);
-    //     print_movement_state(final_path[i]);
-    // }
-    // printf("\n");
-
-    // while(1) {
-    //     vTaskDelay(pdMS_TO_TICKS(1000));
-    // }
-
-
     /* Communication Initialization */
     wifi_sta_init();
     esp_setup(peer_mac, local_mac);
@@ -77,20 +59,8 @@ void app_main(void) {
     path_transfer_queue = xQueueCreate(DEFAULT_QUEUE_SIZE, sizeof(uint8_t) * (NUM_MAP_FEATURES + 1));
     button_press_queue  = xQueueCreate(DEFAULT_QUEUE_SIZE, sizeof(uint8_t));
 
-
-    // printf("Calibrating...\n");
-    // vTaskDelay(pdMS_TO_TICKS(3000));
-    // read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
-    // uint32_t threshold = calibrate_ir(ir_values);
-
-    // printf("Calibrated Successfully!\n");
-
-    // int counter = 0;
-
     /* Main Loop */
     while(1) {
-        
-
 
         /* Check if button press has been received on this robot, or from the other robot */
         if (xQueueReceive(button_press_queue, &from_button, 5) && !started) {
@@ -102,6 +72,11 @@ void app_main(void) {
 
             // If from other robot start after 3 seconds
             } else {
+
+                // Move forward a little to show it's alive
+                move_fixed_forward(motor_phase_pins, &pcnt_unit, 10);
+                
+                // Wait 3 seconds then start
                 vTaskDelay(pdMS_TO_TICKS(3000));
                 started = 1;
             }
@@ -124,8 +99,6 @@ void app_main(void) {
         }
 
         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
-        // print_IR_values(ir_values);
-        // send_ir_values(ir_values);
 
         if (started) {
             update_feature_state(&feature_state, ir_values);
@@ -142,17 +115,6 @@ void app_main(void) {
                 send_state(feature_state, movement_state, peer_mac);
                 last_state = feature_state;
             }
-
-            // threshold = calibrate_ir(ir_values);
-
-            // if (counter == 10) {
-                // send_state(feature_state, movement_state);
-                // send_ir_values(ir_values);
-            //     counter = 0;
-            // }
-            // counter++;
-
-            // center_on_line_in_place(ir_pins, ir_values, motor_phase_pins);
 
             if (movement_state == GOING_STRAIGHT) {
                 follow_line(ir_values, motor_phase_pins, PRIMARY_IR_THRESHOLD);
@@ -177,14 +139,6 @@ void app_main(void) {
             } else if (movement_state == U_TURN) {
                 u_turn(ir_pins, ir_values, motor_phase_pins, feature_state);
             }
-            
-
-            // send_path(local_path, feature_state);
-
-
-            // print_feature_state(feature_state);
-            // print_movement_state(movement_state);
-            // print_IR_values(ir_values);
         }
     }
 }

@@ -20,9 +20,9 @@ void init_user_button(int button_gpio) {
     button_config.intr_type     = GPIO_INTR_LOW_LEVEL;
 
     // Initialize gpio
-    gpio_config(&button_config);
+    ESP_ERROR_CHECK( gpio_config(&button_config) );
 
     // Set interrupt
-    gpio_install_isr_service(ESP_INTR_FLAG_DEFAULT);
-    gpio_isr_handler_add(button_gpio, button_press_callback, NULL);
+    ESP_ERROR_CHECK( gpio_install_isr_service(ESP_INTR_FLAG_DEFAULT) );
+    ESP_ERROR_CHECK( gpio_isr_handler_add(button_gpio, button_press_callback, NULL) );
 }

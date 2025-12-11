@@ -50,7 +50,7 @@ void motor_setup(uint32_t *enable_pins, uint32_t *phase_pins) {
             .freq_hz          = LEDC_FREQUENCY,  // Set output frequency at 4 kHz
             .clk_cfg          = LEDC_AUTO_CLK
         };
-        ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
+        ESP_ERROR_CHECK( ledc_timer_config(&ledc_timer) );
 
         // Prepare and then apply the LEDC PWM channel configuration
         ledc_channel_config_t ledc_channel = {
@@ -62,7 +62,7 @@ void motor_setup(uint32_t *enable_pins, uint32_t *phase_pins) {
             .duty           = 0, // Set duty to 0%
             .hpoint         = 0
         };
-        ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
+        ESP_ERROR_CHECK( ledc_channel_config(&ledc_channel) );
     }
 
     /* Phase Pins */
@@ -74,7 +74,7 @@ void motor_setup(uint32_t *enable_pins, uint32_t *phase_pins) {
         motor_phase_config[i].pull_down_en = GPIO_PULLDOWN_DISABLE;
         motor_phase_config[i].intr_type = GPIO_INTR_DISABLE;
 
-        gpio_config(&(motor_phase_config[i]));
+        ESP_ERROR_CHECK( gpio_config(&(motor_phase_config[i])) );
     }
 
 }
@@ -92,9 +92,9 @@ void move_motors(uint32_t *phase_pins, int8_t *speeds) {
             speeds[i] *= -1;    // Make speed positive
         }
 
-        gpio_set_level(phase_pins[i], direction); // Direction
+        ESP_ERROR_CHECK( gpio_set_level(phase_pins[i], direction) ); // Direction
 
-        ledc_set_duty(LEDC_MODE, i, (int)(speeds[i] * (8192 / 100))); // Speed
-        ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, i));
+        ESP_ERROR_CHECK( ledc_set_duty(LEDC_MODE, i, (int)(speeds[i] * (8192 / 100))) ); // Speed
+        ESP_ERROR_CHECK( ledc_update_duty(LEDC_MODE, i) );
     }
 }
