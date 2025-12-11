@@ -72,10 +72,7 @@ static uint8_t find_line_width(uint32_t *ir_values) {
     return line_width;
 }
 
-/**
- * @brief Moves robot a fixed distance foreward
- * @param 
- */
+
 void move_fixed_forward(uint32_t *motor_phase_pins, pcnt_unit_handle_t *pcnt_unit, uint32_t num_pulses) {
     /* Variables */
     int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};

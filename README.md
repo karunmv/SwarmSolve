@@ -23,9 +23,7 @@ Utilitiy functions.
 # TODO
 
 
-Double check nodes when following path to make sure they match
-
-
+Add trim to forward movement
 Convert num pulses to distance
 
 

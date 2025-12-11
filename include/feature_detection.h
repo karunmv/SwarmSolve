@@ -10,6 +10,10 @@
 
 /* Function prototypes*/
 
+/**
+ * @brief Finds threshold value for the line
+ * @param ir_values Array of IR values that show both the line and a white background
+ */
 uint32_t calibrate_ir(uint32_t *ir_values);
 
 /**
@@ -67,6 +71,12 @@ void turn_left(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pin
  */
 void u_turn(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phase_pins, uint8_t feature_state);
 
+/**
+ * @brief Moves robot a fixed distance forward
+ * @param motor_phase_pins Array of pins that are used to control the direction (phase) of the motors
+ * @param pcnt_unit Pointer to the pulse counter
+ * @param num_pulses Number of pulses the pulse count unit should detect before stopping
+ */
 void move_fixed_forward(uint32_t *motor_phase_pins, pcnt_unit_handle_t *pcnt_unit, uint32_t num_pulses);
 
 #endif

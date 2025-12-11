@@ -10,7 +10,7 @@
 #include "driver/pulse_cnt.h"
 #include "freertos/FreeRTOS.h"
 
-
+// Threshold value for the line
 #define PRIMARY_IR_THRESHOLD    1200
 
 // Exploration Strategy, ie always left, always right, always straight etc...
