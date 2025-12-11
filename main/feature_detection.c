@@ -75,7 +75,7 @@ static uint8_t find_line_width(uint32_t *ir_values) {
 
 void move_fixed_forward(uint32_t *motor_phase_pins, pcnt_unit_handle_t *pcnt_unit, uint32_t num_pulses) {
     /* Variables */
-    int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};
+    int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED + FORWARD_TUNE};
     int pulse_count;
 
     /* Move forward a tad */
@@ -141,7 +141,7 @@ void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phas
     if ((*feature_state & RIGHT_TURN) || (*feature_state & LEFT_TURN)) {
 
         /* Variables */
-        int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};
+        int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED + FORWARD_TUNE};
         int pulse_count;
         uint8_t line_start, line_end, line_width;
 
@@ -178,7 +178,7 @@ void check_straight(uint32_t *ir_pins, uint32_t *ir_values, uint32_t *motor_phas
 
 void follow_line(uint32_t *ir_values, uint32_t *motor_phase_pins, uint32_t threshold) {
     
-    int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED};
+    int8_t speeds[NUM_MOTORS] = {BASE_FORWARD_SPEED, BASE_FORWARD_SPEED + FORWARD_TUNE};
 
     // int8_t error = 0;
     int error;
@@ -194,7 +194,7 @@ void follow_line(uint32_t *ir_values, uint32_t *motor_phase_pins, uint32_t thres
     correction = kp * error + kd * (error - last_error) + ki * error_sum;
 
     speeds[0] = BASE_FORWARD_SPEED - correction;
-    speeds[1] = BASE_FORWARD_SPEED + correction;
+    speeds[1] = BASE_FORWARD_SPEED + correction + FORWARD_TUNE;
     move_motors(motor_phase_pins, speeds);
 
     last_error = error;

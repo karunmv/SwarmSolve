@@ -18,6 +18,11 @@ void update_movement_state(uint8_t feature_state, uint8_t *movement_state, uint8
             // If the required movement state doesn't match with the observed features, start exploring
             if (!(feature_state & *movement_state)) {
                 *following_path = 0;
+
+                // Get updated movement state that isn't following path and return
+                update_movement_state(feature_state, movement_state, path, following_path);
+                return;
+
             }
 
             turn_index++;

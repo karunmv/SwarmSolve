@@ -16,21 +16,22 @@
 // Exploration Strategy, ie always left, always right, always straight etc...
 #define ALWAYS_RIGHT            0
 #define ALWAYS_LEFT             1
-#define EXPLORATION_STRATEGY    ALWAYS_RIGHT
+#define EXPLORATION_STRATEGY    ALWAYS_LEFT
 
 // Peer mac
 #define BLACK_BOT_MAC       {0x58, 0x8C, 0x81, 0x41, 0x3A, 0x8C}
 #define LAVENDER_BOT_MAC    {0x58, 0x8C, 0x81, 0x40, 0xBD, 0x4C}
 #define BROADCAST_MAC       {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
-#define PEER_MAC            BLACK_BOT_MAC
+#define PEER_MAC            LAVENDER_BOT_MAC
 
 // Motor Movement
 #define BASE_FORWARD_SPEED 25
 #define BASE_TURN_SPEED 20
-#define NUM_MAP_FEATURES 100
+#define FORWARD_TUNE 0 // Positive = Left, negative = Right
 #define CHECK_STRAIGHT_PULSES 600
 
 // Important Defines
+#define NUM_MAP_FEATURES 100
 #define NUM_MOTORS 2
 #define DEFAULT_QUEUE_SIZE 5
 

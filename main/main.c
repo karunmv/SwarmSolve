@@ -33,9 +33,8 @@ void app_main(void) {
     uint8_t second_to_finish = 0;
     uint8_t local_path[NUM_MAP_FEATURES] = {0};
     uint8_t solved_path[NUM_MAP_FEATURES] = {0};
-    uint8_t final_path[NUM_MAP_FEATURES] = {0};
     pcnt_unit_handle_t pcnt_unit;
-    int pulse_count = 0;
+    // int pulse_count = 0;
     uint8_t data[NUM_MAP_FEATURES + 1];
     uint8_t started = 0;
     uint8_t from_button;
