@@ -21,24 +21,9 @@
 #define LEDC_DUTY_RES           LEDC_TIMER_13_BIT // Set duty resolution to 13 bits
 #define LEDC_FREQUENCY          (4000) // Frequency in Hertz. Set frequency at 4 kHz
 
-// Directions
-#define FORWARD 0x0A
-#define REVERSE 0x0B
-#define LEFT 0x0C
-#define RIGHT 0x0D
-#define STOP 0X0E
-
 // Pulse Count Defines
 #define PCNT_HIGH_LIMIT INT16_MAX
 #define PCNT_LOW_LIMIT  INT16_MIN
-
-typedef struct{
-    int forward[4];
-    int reverse[4];
-    int right[4];
-    int left[4];
-    int stop[4];
-} directions;
 
 /* Function Prototypes */
 

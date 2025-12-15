@@ -12,7 +12,7 @@ QueueHandle_t button_press_queue    = NULL;
 
 void app_main(void) {
 
-    /* ESPNOW Infor */
+    /* ESPNOW Info */
     uint8_t peer_mac[6] = PEER_MAC;
     uint8_t local_mac[6];
 
@@ -25,19 +25,18 @@ void app_main(void) {
     uint32_t button_pin = BUTTON_PIN;
     
     /* Variable declarations */
-    uint32_t ir_values[IR_PIN_COUNT];
-    uint8_t feature_state = 0;
-    uint8_t movement_state = 0;
-    int8_t speeds[NUM_MOTORS] = {0, 0};
-    uint8_t following_path = 0;
-    uint8_t second_to_finish = 0;
-    uint8_t local_path[NUM_MAP_FEATURES] = {0};
-    uint8_t solved_path[NUM_MAP_FEATURES] = {0};
-    pcnt_unit_handle_t pcnt_unit;
-    // int pulse_count = 0;
-    uint8_t data[NUM_MAP_FEATURES + 1];
-    uint8_t started = 0;
-    uint8_t from_button;
+    uint32_t ir_values[IR_PIN_COUNT];               // Holds IR sensor values
+    uint8_t feature_state = 0;                      // Holds current feature state
+    uint8_t movement_state = 0;                     // Holds current movement state
+    int8_t speeds[NUM_MOTORS] = {0, 0};             // Holds current motor speeds
+    uint8_t following_path = 0;                     // Shows if robot is following a path or exploring
+    uint8_t second_to_finish = 0;                   // Flagged only if second robot finishes maze
+    uint8_t local_path[NUM_MAP_FEATURES] = {0};     // Stores robot path
+    uint8_t solved_path[NUM_MAP_FEATURES] = {0};    // Stores solved path received from other robot
+    pcnt_unit_handle_t pcnt_unit;                   // Pulse counter for encoders
+    uint8_t data[NUM_MAP_FEATURES + 1];             // Data buffer for receiving esp-now packets
+    uint8_t started = 0;                            // Tells robot when to start moving
+    uint8_t from_button;                            // Checks if local button is pressed
 
     /* Debugging */
     uint8_t last_state = 0;
@@ -127,7 +126,7 @@ void app_main(void) {
                 follow_line(ir_values, motor_phase_pins, PRIMARY_IR_THRESHOLD);
             } else if (movement_state == STOPPED) {
 
-                // Stop moving adn send the pruned path to the other robot
+                // Stop moving and send the pruned path to the other robot
                 move_motors(motor_phase_pins, speeds);
                 prune_map(local_path);
                 send_path(local_path, feature_state, peer_mac);
