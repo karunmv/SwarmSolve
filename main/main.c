@@ -100,22 +100,29 @@ void app_main(void) {
 
         read_ir_sensor_array(ir_pins, ir_values, IR_PIN_COUNT);
 
+        // Wait until the button has been pressed
         if (started) {
+            // Update with visisble features
             update_feature_state(&feature_state, ir_values);
 
+            // For debugging/status purposes
             if (feature_state != last_state) {
                 send_ir_values(ir_values, peer_mac);
             }
-
+            
+            // Move forward to see if line continues if at intersection
             check_straight(ir_pins, ir_values, motor_phase_pins, &feature_state, &pcnt_unit);
 
+            // Update how the robot should move
             update_movement_state(feature_state, &movement_state, local_path, &following_path);
 
+            // For debugging/status purposes
             if (feature_state != last_state) {
                 send_state(feature_state, movement_state, peer_mac);
                 last_state = feature_state;
             }
 
+            // Navigate feature depending on what the state is
             if (movement_state == GOING_STRAIGHT) {
                 follow_line(ir_values, motor_phase_pins, PRIMARY_IR_THRESHOLD);
             } else if (movement_state == STOPPED) {

@@ -93,6 +93,12 @@ void update_path(uint8_t feature_state, uint8_t movement_state, uint8_t *path) {
         turn_index = actual_features;
     }
 
+    // If pruning didn't make it smaller print error and don't add anything
+    if (turn_index >= NUM_MAP_FEATURES) {
+        printf("ERROR: Too many features, array out of bounds\n");
+        return;
+    }
+
     // Only update path when at a node
     if((feature_state & STRAIGHT_CHECKED)){
         path[turn_index] = movement_state;
