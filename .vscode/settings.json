@@ -15,6 +15,10 @@
     "--query-driver=D:\\Users\\tipst\\.espressif\\tools\\riscv32-esp-elf\\esp-14.2.0_20241119\\riscv32-esp-elf\\bin\\riscv32-esp-elf-gcc.exe",
     "--compile-commands-dir=d:\\Users\\tipst\\OneDrive\\Desktop\\ECE\\capstone\\ESP32-central-node-code\\central-node\\build"
   ],
-  "idf.portWin": "COM10",
-  "idf.flashType": "UART"
+  "idf.portWin": "COM5",
+  "idf.flashType": "UART",
+  "files.associations": {
+    "main.h": "c"
+  },
+  "idf.currentSetup": "D:\\Users\\tipst\\esp\\v5.5\\esp-idf"
 }

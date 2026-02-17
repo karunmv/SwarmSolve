@@ -10,7 +10,13 @@
 #include "nvs_flash.h"
 #include "esp_now.h"
 
+/* Defines */
+#define PATH_PACKET         1
+#define STARTED_PACKET      2
+#define IR_PACKET           3
+#define STATE_PACKET        4
 
+// Struct testing
 typedef struct {
     uint16_t idk;
 } node_data_t;
@@ -20,15 +26,19 @@ typedef struct {
     uint8_t *node_data;
 } swarm_node_t;
 
-
+// Function to call on receive interrupt
 void esp_now_recv_callback(const esp_now_recv_info_t * esp_now_info, const uint8_t *data, int data_len);
 
+// Function to call on send interrupt
 void esp_now_send_callback(const esp_now_send_info_t * tx_info, esp_now_send_status_t status);
 
+// Setup espnow broadcasting
 void esp_broadcast_setup(void);
 
+// Send test message
 void send_message(void);
 
+// Initialize Wifi
 void wifi_sta_init(void);
 
 #endif

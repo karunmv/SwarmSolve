@@ -1,3 +1,4 @@
+#include "main.h"
 #include "esp_now_comms.h"
 #include "utils.h"
 
@@ -7,13 +8,67 @@ uint8_t broadcast_mac[6] = {0xff,0xff,0xff,0xff,0xff,0xff};
 uint8_t esp_mac[6];
 
 void esp_now_recv_callback(const esp_now_recv_info_t * esp_now_info, const uint8_t *data, int data_len) {
-    static int count = 0;
 
-    printf("Received Data %d\n", count);
-    print_feature_state(data[0]);
-    print_movement_state(data[1]);
+    /* Test Queue */
+    xQueueSend(path_transfer_queue, data, 6);
 
-    count++;
+    // Strip packet type from first byte of data
+    uint8_t packet_type = data[0];
+    data = data + 1;
+
+
+    /* IR Value Printing */
+    if (packet_type == IR_PACKET) {
+        uint32_t ir_value;
+        printf("\n\n");
+        printf("IR_ARRAY Values: [ ");
+        // for (int i = 0; i < data_len; i++) {
+        //     printf("%d ", data[i]);
+        // }
+        for (int i = 0; i < IR_PIN_COUNT; i++) {
+            ir_value = 0;
+            ir_value |= data[i * 4] << (8 * 0);
+            ir_value |= data[(i * 4) + 1] << (8 * 1);
+            ir_value |= data[(i * 4) + 2] << (8 * 2);
+            ir_value |= data[(i * 4) + 3] << (8 * 3);
+
+            printf("%ld ", ir_value);
+            
+        }
+        printf("]\n");
+    }
+
+    /* State Printing */
+    if (packet_type == STATE_PACKET) {
+        static int count = 0;
+
+        printf("Received Data %d\n", count);
+        print_feature_state(data[0]);
+        print_movement_state(data[1]);
+        printf("\n\n");
+        count++;
+    }
+
+    /* Print Path */
+    if (packet_type == PATH_PACKET) {
+        printf("Path: \n");
+
+        static int actual_features = 0;
+
+        /* Find number of actuals turns in the path */
+        for (int i=0; i<NUM_MAP_FEATURES; i++) {
+            if (data[i] == 0) break;
+            actual_features++;
+        }
+
+        for (int i = 0; i < actual_features; i++) {
+            print_movement_state(data[i]);
+        }
+
+        printf("\n\n");
+    }
+
+
 }
 
 void esp_now_send_callback(const esp_now_send_info_t * tx_info, esp_now_send_status_t status) {

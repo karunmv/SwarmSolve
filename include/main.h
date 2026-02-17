@@ -6,6 +6,10 @@
 #include <stdint.h>
 #include "esp_log.h"
 #include "string.h"
+#include "freertos/FreeRTOS.h"
+
+#define NUM_MAP_FEATURES 100
+#define IR_PIN_COUNT 8
 
 // Feature state defines
 #define STRAIGHT_LINE       (1 << 0)
@@ -18,11 +22,15 @@
 
 // Robot state defines
 #define GOING_STRAIGHT      (1 << 0)
-#define TURNING_LEFT        (1 << 1)
-#define TURNING_RIGHT       (1 << 2)
+#define TURNING_RIGHT       (1 << 1)
+#define TURNING_LEFT        (1 << 2)
 #define U_TURN              (1 << 3)
 #define REVERSING           (1 << 4)
 #define STOPPED             (1 << 5)
 #define CHECKING_STRAIGHT   (1 << 6)
+
+/* Global Variables */
+extern QueueHandle_t path_transfer_queue;
+
 
 #endif
