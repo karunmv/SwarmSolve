@@ -755,12 +755,6 @@
 		(uuid "96f457d5-3414-41f4-9813-0792fbb2825e")
 	)
 	(junction
-		(at 173.99 115.57)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "bd466184-8d93-4cec-a957-573b7bf604a6")
-	)
-	(junction
 		(at 168.91 115.57)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -970,16 +964,6 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 115.57) (xy 189.23 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b31cd99e-13ab-4d23-91ba-144ac1bf4375")
-	)
-	(wire
-		(pts
 			(xy 118.11 99.06) (xy 118.11 78.74)
 		)
 		(stroke
@@ -1020,7 +1004,7 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 118.11) (xy 173.99 115.57)
+			(xy 168.91 118.11) (xy 168.91 115.57)
 		)
 		(stroke
 			(width 0)
@@ -1047,16 +1031,6 @@
 			(type default)
 		)
 		(uuid "e6f9f4b8-bbe7-4b86-a73f-a8d56bf3a7d0")
-	)
-	(wire
-		(pts
-			(xy 168.91 115.57) (xy 173.99 115.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ee366685-cdee-44e0-bb3c-7469e62020ef")
 	)
 	(wire
 		(pts
@@ -1228,7 +1202,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 173.99 118.11 0)
+		(at 168.91 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1237,7 +1211,7 @@
 		(fields_autoplaced yes)
 		(uuid "62b7ed8e-26b0-472c-bd13-82cd0324ec5c")
 		(property "Reference" "#PWR08"
-			(at 173.99 124.46 0)
+			(at 168.91 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1246,7 +1220,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 173.99 123.19 0)
+			(at 168.91 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1254,7 +1228,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 173.99 118.11 0)
+			(at 168.91 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1263,7 +1237,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 173.99 118.11 0)
+			(at 168.91 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1272,7 +1246,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 173.99 118.11 0)
+			(at 168.91 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
